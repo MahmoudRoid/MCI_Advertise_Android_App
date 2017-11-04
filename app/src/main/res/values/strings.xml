@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">App</string>
+    <string name="videos">ویدئوها</string>
+    <string name="newIdeas">ایده های نو</string>
+    <string name="day_tutorial">آموزش روز</string>
+    <string name="mainPage">صفحه اصلی</string>
+
+
 </resources>
