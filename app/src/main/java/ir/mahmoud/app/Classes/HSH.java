@@ -206,29 +206,22 @@ public class HSH {
     }
 
     public static void openFragment(Activity activity, Fragment fragment) {
-        String fragmentTag = fragment.getClass().getName();
+        String fragmentTag = fragment.getClass().getSimpleName();
         FragmentManager fragmentManager = ((AppCompatActivity) activity)
                 .getSupportFragmentManager();
 
         boolean fragmentPopped = fragmentManager
                 .popBackStackImmediate(fragmentTag, 0);
 
-        if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null) {
-            FragmentTransaction ftx = fragmentManager.beginTransaction();
+        FragmentTransaction ftx = fragmentManager.beginTransaction();
+        if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null)
             ftx.addToBackStack(fragment.getClass().getSimpleName());
-            ftx.setCustomAnimations(R.anim.slide_in_right,
-                    R.anim.slide_out_left, R.anim.slide_in_left,
-                    R.anim.slide_out_right);
-            ftx.replace(R.id.frame, fragment, fragmentTag);
-            ftx.commit();
-        } else {
-            FragmentTransaction ftx = fragmentManager.beginTransaction();
-            ftx.setCustomAnimations(R.anim.slide_in_right,
-                    R.anim.slide_out_left, R.anim.slide_in_left,
-                    R.anim.slide_out_right);
-            ftx.replace(R.id.frame, fragment, fragmentTag);
-            ftx.commit();
-        }
+
+        ftx.setCustomAnimations(R.anim.slide_in_right,
+                R.anim.slide_out_left, R.anim.slide_in_left,
+                R.anim.slide_out_right);
+        ftx.replace(R.id.frame, fragment, fragmentTag);
+        ftx.commit();
     }
 
     public static void display(final Context ctx, final View v) {
