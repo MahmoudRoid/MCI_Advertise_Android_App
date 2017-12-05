@@ -19,7 +19,6 @@
             android:layout_height="wrap_content"
             app:srcCompat="@mipmap/logo" />
 
-
     </android.support.v7.widget.Toolbar>
 
 
@@ -52,89 +51,30 @@
             android:background="@drawable/bottom_navigation_background"
             android:orientation="horizontal">
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.2">
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                android:id="@+id/txt_videos"
+                style="@style/bottom_navigation"
+                android:clickable="true"
+                android:drawableTop="@mipmap/video"
+                android:text="@string/videos" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    android:id="@+id/txt_videos"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/video"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingTop="5dp"
-                    android:text="@string/videos"
-                    android:textColor="#000000"
-                    android:textSize="10sp" />
-            </FrameLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                android:id="@+id/txt_newIdeas"
+                style="@style/bottom_navigation"
+                android:drawableTop="@mipmap/newideas"
+                android:text="@string/newIdeas" />
 
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.2">
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                android:id="@+id/txt_tutorial"
+                style="@style/bottom_navigation"
+                android:drawableTop="@mipmap/daytutorial"
+                android:text="@string/day_tutorial" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    android:id="@+id/txt_newIdeas"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/newideas"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingTop="5dp"
-                    android:text="@string/newIdeas"
-                    android:textColor="#000000"
-                    android:textSize="10sp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.2">
-
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    android:id="@+id/txt_tutorial"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/daytutorial"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingTop="5dp"
-                    android:text="@string/day_tutorial"
-                    android:textColor="#000000"
-                    android:textSize="10sp" />
-            </FrameLayout>
-
-            <FrameLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_gravity="center"
-                android:layout_weight="0.2">
-
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    android:id="@+id/txt_home"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:clickable="true"
-                    android:drawablePadding="5dp"
-                    android:drawableTop="@mipmap/home"
-                    android:gravity="center"
-                    android:maxLines="1"
-                    android:paddingTop="5dp"
-                    android:text="@string/mainPage"
-                    android:textColor="#000000"
-                    android:textSize="10sp" />
-            </FrameLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                android:id="@+id/txt_home"
+                style="@style/bottom_navigation"
+                android:drawableTop="@mipmap/home"
+                android:text="@string/mainPage" />
 
         </LinearLayout>
 

@@ -183,24 +183,12 @@ public class HSH {
     }
 
     public static void setMainDrawableColor(LinearLayout layout, View view) {
-        for (int i = 0; i < layout.getChildCount(); i++) {
-            if (layout.getChildAt(i) instanceof FrameLayout)
-                for (int j = 0; j < ((FrameLayout) layout.getChildAt(i)).getChildCount(); j++) {
-                    View v = ((FrameLayout) layout.getChildAt(i)).getChildAt(j);
-                    if (v.getId() == view.getId()) {
-                        setTextViewDrawableColor((TextView) v, 25, 120, 130);
-                        break;
-                    } else {
-                        setTextViewDrawableColor((TextView) v, 150, 150, 150);
-                        break;
-                    }
-                }
-            else if (layout.getChildAt(i).getId() == view.getId()) {
-                setTextViewDrawableColor((TextView) view, 25, 120, 130);
-                break;
+        for (int j = 0; j < layout.getChildCount(); j++) {
+            View v = layout.getChildAt(j);
+            if (v.getId() == view.getId()) {
+                setTextViewDrawableColor((TextView) v, 25, 120, 130);
             } else {
-                setTextViewDrawableColor((TextView) layout.getChildAt(i), 150, 150, 150);
-                break;
+                setTextViewDrawableColor((TextView) v, 150, 150, 150);
             }
         }
     }
