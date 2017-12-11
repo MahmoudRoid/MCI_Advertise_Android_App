@@ -1,4 +1,4 @@
-package ir.mahmoud.app.Classes;
+package ir.mahmoud.app.Interfaces;
 
 /**
  * Created by rg on 8/24/2016.
