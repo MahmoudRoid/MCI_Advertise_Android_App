@@ -3,12 +3,25 @@ package ir.mahmoud.app.Activities;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
+import com.yalantis.contextmenu.lib.MenuObject;
+import com.yalantis.contextmenu.lib.MenuParams;
+import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Fragments.DayTutorialFragment;
@@ -19,8 +32,10 @@ import ir.mahmoud.app.R;
 
 import static ir.mahmoud.app.Classes.HSH.openFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener,OnMenuItemClickListener {
 
+    private FragmentManager fragmentManager;
+    private ContextMenuDialogFragment mMenuDialogFragment;
     public static LinearLayout ll_bottomNavigation;
     TextView txt_home;
     TextView txt_tutorial;
@@ -35,7 +50,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        fragmentManager = getSupportFragmentManager();
+        initMenuFragment();
         txt_home = (TextView) findViewById(R.id.txt_home);
         txt_tutorial = (TextView) findViewById(R.id.txt_tutorial);
         txt_newIdeas = (TextView) findViewById(R.id.txt_newIdeas);
@@ -52,6 +68,54 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         openFragment(MainActivity.this, home_fragment);
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
     }
+
+    private void initMenuFragment() {
+        MenuParams menuParams = new MenuParams();
+        menuParams.setActionBarSize((int) getResources().getDimension(R.dimen.tool_bar_height));
+        menuParams.setMenuObjects(getMenuObjects());
+        menuParams.setClosableOutside(true);
+        mMenuDialogFragment = ContextMenuDialogFragment.newInstance(menuParams);
+        mMenuDialogFragment.setItemClickListener(this);
+//        mMenuDialogFragment.setItemLongClickListener(this);
+    }// end initMenuFragment()
+
+    private List<MenuObject> getMenuObjects() {
+        // You can use any [resource, bitmap, drawable, color] as image:
+        // item.setResource(...)
+        // item.setBitmap(...)
+        // item.setDrawable(...)
+        // item.setColor(...)
+        // You can set image ScaleType:
+        // item.setScaleType(ScaleType.FIT_XY)
+        // You can use any [resource, drawable, color] as background:
+        // item.setBgResource(...)
+        // item.setBgDrawable(...)
+        // item.setBgColor(...)
+        // You can use any [color] as text color:
+        // item.setTextColor(...)
+        // You can set any [color] as divider color:
+        // item.setDividerColor(...)
+
+        List<MenuObject> menuObjects = new ArrayList<>();
+
+        MenuObject close = new MenuObject();
+        close.setResource(R.mipmap.ic_launcher);
+
+        MenuObject like = new MenuObject("First Item");
+        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        like.setBitmap(b);
+
+        MenuObject addFr = new MenuObject("Second Item");
+        BitmapDrawable bd = new BitmapDrawable(getResources(),
+                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+        addFr.setDrawable(bd);
+
+        menuObjects.add(close);
+        menuObjects.add(like);
+        menuObjects.add(addFr);
+
+        return menuObjects;
+    }// end getMenuObjects()
 
     @Override
     public void onClick(View v) {
@@ -86,6 +150,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    public void xxx(View v){
+        mMenuDialogFragment.show(fragmentManager, "ContextMenuDialogFragment");
+    }
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -153,5 +220,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });
         alertComment.show();
+    }
+
+    @Override
+    public void onMenuItemClick(View view, int position) {
+        switch (position){
+            case 0:
+                // بستن
+                break;
+            case 1:
+                Toast.makeText(this, "first Item", Toast.LENGTH_SHORT).show();
+                break;
+
+            case 2:
+                Toast.makeText(this, "second Item", Toast.LENGTH_SHORT).show();
+                break;
+        }
     }
 }
