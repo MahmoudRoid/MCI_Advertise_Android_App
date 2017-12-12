@@ -2,17 +2,12 @@ package ir.mahmoud.app.Activities;
 
 import android.app.Dialog;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import java.util.HashMap;
 import java.util.Map;
 
 import ir.mahmoud.app.Classes.HSH;
