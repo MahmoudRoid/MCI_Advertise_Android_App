@@ -21,13 +21,6 @@ import ir.mahmoud.app.R;
 
 
 public class LoginActivity extends AppCompatActivity {
-    public static EditText editTextMobile, editTextCode;
-    public TextView txt_timer;
-    FloatingActionButton fab;
-    private TextInputLayout input_layout_code;
-    private ProgressBar progressBar;
-    private Map<String, String> params = new HashMap<>();
-    private Button bt_go;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void clickLogin(final View view) {
-        String mobile = editTextMobile.getText().toString();
+        String mobile = ""/*editTextMobile.getText().toString()*/;
         if (mobile.equals("") || !mobile.startsWith("09") || mobile.length() != 11)
             HSH.showtoast(LoginActivity.this, "لطفا شماره موبایل معتبر وارد نمایید");
         else {
