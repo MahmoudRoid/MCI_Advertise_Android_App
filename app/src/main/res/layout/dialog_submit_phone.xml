@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="ltr">
+
+
+    <ir.mahmoud.app.Moudle.CustomTextViewBold
+        android:id="@+id/text1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:text="تایید شماره موبایل"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp15" />
+
+
+    <ir.mahmoud.app.Moudle.CustomTextViewMedium
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text1"
+        android:gravity="center"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:textColor="#000"
+        android:textSize="@dimen/sp15" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/text"
+        android:orientation="horizontal">
+
+        <ir.mahmoud.app.Moudle.CustomTextViewBold
+            android:id="@+id/txt_no"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:background="@drawable/txt_background_intro"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="خیر"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp14" />
+
+        <ir.mahmoud.app.Moudle.CustomTextViewBold
+            android:id="@+id/txt_yes"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/text"
+            android:layout_weight="0.5"
+            android:background="@drawable/txt_background_intro"
+            android:gravity="center"
+            android:padding="6dp"
+            android:text="تایید و ادامه"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/sp14" />
+    </LinearLayout>
+    <![CDATA[
+
+    />
+
+]]>
+</RelativeLayout>

@@ -12,7 +12,7 @@
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
         <activity
-            android:name=".Activities.MainActivity"
+            android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
@@ -21,15 +21,23 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".Activities.NewsDetailsActivity"
+        <activity
+            android:name=".Activities.NewsDetailsActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme"/>
-
-        <activity android:name=".Activities.ProfileActivity"
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Activities.ProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme"/>
+            android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Activities.MainActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
 
+        <activity
+            android:name=".Activities.LoginActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
     </application>
 
 </manifest>

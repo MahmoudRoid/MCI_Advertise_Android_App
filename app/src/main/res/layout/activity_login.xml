@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@mipmap/splash"
+    android:layoutDirection="ltr">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/shodani"
+        android:scaleType="fitCenter"
+        android:layout_above="@+id/customTextViewBold"
+        android:layout_alignRight="@+id/customTextViewBold"
+        android:layout_alignEnd="@+id/customTextViewBold"
+        android:layout_alignLeft="@+id/customTextViewBold"
+        android:layout_alignStart="@+id/customTextViewBold" />
+
+    <ir.mahmoud.app.Moudle.CustomEditText
+        android:id="@+id/et_mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_centerVertical="true"
+        android:ems="10"
+        android:hint="09xxxxxxxxx"
+        android:paddingLeft="@dimen/dp16"
+        android:textSize="@dimen/sp15"
+        android:maxLength="11"
+        android:background="@android:color/white"
+        android:inputType="phone"
+        android:layout_alignLeft="@+id/customTextViewBold"
+        android:layout_alignStart="@+id/customTextViewBold"
+        android:layout_alignRight="@+id/customTextViewBold"
+        android:layout_alignEnd="@+id/customTextViewBold" />
+
+    <ir.mahmoud.app.Moudle.CustomButton
+        android:id="@+id/et_login"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_below="@+id/et_mobile"
+        android:text="ورود"
+        android:layout_marginTop="@dimen/dp16"
+        android:background="#ffa800"
+        android:textColor="@android:color/white"
+        android:layout_alignRight="@+id/et_mobile"
+        android:layout_alignEnd="@+id/et_mobile"
+        android:layout_alignLeft="@+id/et_mobile"
+        android:layout_alignStart="@+id/et_mobile" />
+
+    <ir.mahmoud.app.Moudle.CustomTextViewBold
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/et_mobile"
+        android:layout_centerHorizontal="true"
+        android:textColor="@android:color/white"
+        android:layout_margin="@dimen/dp16"
+        android:textSize="@dimen/sp15"
+        android:text="برای ورود شماره موبایل خود را وارد کنید"
+        android:id="@+id/customTextViewBold" />
+</RelativeLayout>
