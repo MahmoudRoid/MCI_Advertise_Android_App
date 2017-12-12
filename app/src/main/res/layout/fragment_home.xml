@@ -8,125 +8,125 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.45"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.45"
+        android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.3">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    style="@style/HomeFra_TextView"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                style="@style/HomeFra_TextView"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="فضای سبز" />
-            </RelativeLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="فضای سبز" />
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.4">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    style="@style/HomeFra_TextView"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                style="@style/HomeFra_TextView"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="بازی با نور" />
-            </RelativeLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="بازی با نور" />
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.3">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.3">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    style="@style/HomeFra_TextView"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                style="@style/HomeFra_TextView"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="تبلیغات مدرن" />
-            </RelativeLayout>
-        </LinearLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="تبلیغات مدرن" />
+        </RelativeLayout>
+    </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="0.55"
-            android:orientation="vertical">
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="0.55"
+        android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.4">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.4">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    style="@style/HomeFra_TextView"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                style="@style/HomeFra_TextView"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="منزل" />
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="منزل" />
 
-            </RelativeLayout>
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.25">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.25">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imageView1"
-                    style="@style/HomeFra_TextView"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                android:id="@+id/imageView1"
+                style="@style/HomeFra_TextView"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="ویدئوهای آموزشی" />
-            </RelativeLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="ویدئوهای آموزشی" />
+        </RelativeLayout>
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.35">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.35">
 
-                <com.makeramen.roundedimageview.RoundedImageView
-                    style="@style/HomeFra_TextView"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@android:color/transparent"
-                    android:src="@mipmap/homeb"
-                    app:riv_corner_radius="10dip" />
+            <com.makeramen.roundedimageview.RoundedImageView
+                style="@style/HomeFra_TextView"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:background="@android:color/transparent"
+                android:src="@mipmap/homeb"
+                app:riv_corner_radius="10dip" />
 
-                <ir.mahmoud.app.Moudle.CustomTextViewMedium
-                    style="@style/HomeFra_TextView"
-                    android:layout_margin="5dp"
-                    android:text="کاردستی های خلاقانه" />
-            </RelativeLayout>
-        </LinearLayout>
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                style="@style/HomeFra_TextView"
+                android:layout_margin="5dp"
+                android:text="کاردستی های خلاقانه" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </LinearLayout>

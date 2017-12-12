@@ -37,7 +37,9 @@ public class CustomEditText extends EditText {
             return false;
 
         return true;
-    }    @Override
+    }
+
+    @Override
     public void setText(CharSequence text, BufferType type) {
         if (text != null)
             text = FormatHelper.toPersianNumber(text.toString());

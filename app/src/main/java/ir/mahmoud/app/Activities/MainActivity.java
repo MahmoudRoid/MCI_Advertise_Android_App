@@ -32,15 +32,15 @@ import ir.mahmoud.app.R;
 
 import static ir.mahmoud.app.Classes.HSH.openFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener,OnMenuItemClickListener {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
 
-    private FragmentManager fragmentManager;
-    private ContextMenuDialogFragment mMenuDialogFragment;
     public static LinearLayout ll_bottomNavigation;
     TextView txt_home;
     TextView txt_tutorial;
     TextView txt_newIdeas;
     TextView txt_videos;
+    private FragmentManager fragmentManager;
+    private ContextMenuDialogFragment mMenuDialogFragment;
     private HomeFragment home_fragment = null;
     private DayTutorialFragment dayTutorial_fragment = null;
     private NewIdeasFragment newIdeas_fragment = null;
@@ -150,9 +150,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void xxx(View v){
+    public void xxx(View v) {
         mMenuDialogFragment.show(fragmentManager, "ContextMenuDialogFragment");
     }
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -224,7 +225,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onMenuItemClick(View view, int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 // بستن
                 break;

@@ -21,10 +21,10 @@
 
         <ImageView
             android:id="@+id/menuIcon"
-            android:onClick="xxx"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
+            android:onClick="xxx"
             app:srcCompat="@mipmap/logo" />
 
     </android.support.v7.widget.Toolbar>

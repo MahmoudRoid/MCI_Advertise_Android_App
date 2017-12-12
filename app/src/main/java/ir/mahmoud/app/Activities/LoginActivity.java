@@ -1,44 +1,23 @@
 package ir.mahmoud.app.Activities;
 
-import android.app.ActivityOptions;
 import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.CountDownTimer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextWatcher;
-import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.view.Window;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import ir.mahmoud.app.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.NetworkUtils;
-import ir.mahmoud.app.Interfaces.ApiClient;
-import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.R;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
 
 
 public class LoginActivity extends AppCompatActivity {
@@ -86,10 +65,10 @@ public class LoginActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     if (NetworkUtils.getConnectivity(LoginActivity.this) == true) {
                         dialog.dismiss();
-                        editTextMobile.setEnabled(false);
-                        progressBar.setVisibility(View.VISIBLE);
-                        view.setEnabled(false);
-                       // params.put(getString(R.string.mobile), ((EditText) findViewById(R.id.et_mobile)).getText().toString().trim());
+                        //editTextMobile.setEnabled(false);
+                        //progressBar.setVisibility(View.VISIBLE);
+                        //view.setEnabled(false);
+                        // params.put(getString(R.string.mobile), ((EditText) findViewById(R.id.et_mobile)).getText().toString().trim());
                         SendPhoneNumber(view);
                     } else
                         HSH.showtoast(LoginActivity.this, "خطا در اتصال به اینترنت");
@@ -118,9 +97,7 @@ public class LoginActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
-                HSH.showtoast(LoginActivity.this, "لطفا دقایقی بعد مجددا تلاش کنید");
-                progressBar.setVisibility(View.GONE);
-                v.setEnabled(true);
+
             }
         });*/
     }
