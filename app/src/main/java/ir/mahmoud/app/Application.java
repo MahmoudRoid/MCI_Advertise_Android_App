@@ -1,6 +1,7 @@
 package ir.mahmoud.app;
 
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -11,6 +12,14 @@ import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
+
+import com.nostra13.universalimageloader.cache.memory.impl.WeakMemoryCache;
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+import com.nostra13.universalimageloader.core.assist.ImageScaleType;
+import com.nostra13.universalimageloader.core.display.FadeInBitmapDisplayer;
+import com.nostra13.universalimageloader.core.display.RoundedBitmapDisplayer;
 
 //import java.util.HashMap;
 //import me.cheshmak.android.sdk.core.Cheshmak;
@@ -27,6 +36,8 @@ public class Application extends android.app.Application {
     public static Animation out;
     public static SharedPreferences preferences;
     public static SharedPreferences.Editor editor;
+    public static DisplayImageOptions options;
+    public static ImageLoader imageLoader;
 
     public static void setTypeFace(ViewGroup viewGroup, Typeface typeface) {
         for (int i = 0; i < viewGroup.getChildCount(); i++) {
@@ -66,5 +77,23 @@ public class Application extends android.app.Application {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(this);
         editor = preferences.edit();
+
+        options = new DisplayImageOptions.Builder()
+                .showImageOnFail(R.mipmap.shodani)
+                .showImageForEmptyUri(R.mipmap.shodani)
+                .displayer(new RoundedBitmapDisplayer(1))
+                .displayer(new FadeInBitmapDisplayer(500))
+                .showImageOnLoading(R.mipmap.shodani)
+                .cacheInMemory(true).cacheOnDisc(true).imageScaleType(ImageScaleType.EXACTLY)
+                .bitmapConfig(Bitmap.Config.RGB_565).build();
+
+        ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(
+                getApplicationContext())
+                .defaultDisplayImageOptions(options)
+                .memoryCache(new WeakMemoryCache())
+                .discCacheSize(100 * 2048 * 2048).build();
+
+        ImageLoader.getInstance().init(config);
+        imageLoader = ImageLoader.getInstance();
     }
 }

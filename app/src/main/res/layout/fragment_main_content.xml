@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nest_scrollview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:isScrollContainer="true"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/fragment_home">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_gravity="center_horizontal|top"
+        android:layout_weight="0.6"
+        android:gravity="center_horizontal|top"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_vip"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#fffcf2">
+
+            <ir.mahmoud.app.Moudle.CustomTextViewBold
+                android:id="@+id/txt_vip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:drawableRight="@mipmap/vip"
+                android:padding="5dp"
+                android:text="پیشنهاد ویژه"
+                android:textColor="#d80027" />
+
+            <LinearLayout
+                android:id="@+id/hrsv_vip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_vip"
+                android:layout_centerVertical="true"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pb2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:id="@+id/rl_newest"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#fffcf2">
+
+            <ir.mahmoud.app.Moudle.CustomTextViewBold
+                android:id="@+id/txt_new1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:layout_toEndOf="@+id/txt_new"
+                android:layout_toRightOf="@+id/txt_new"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:drawableRight="@mipmap/newest"
+                android:padding="5dp"
+                android:text="جدیدترین ها"
+                android:textColor="#d80027" />
+
+            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                android:id="@+id/txt_new"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/hrsv_newest"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:gravity="center"
+                android:padding="5dp"
+                android:textSize="@dimen/sp11"
+                android:text="مشاهده ی همه"
+                android:textColor="#999999" />
+
+            <LinearLayout
+                android:id="@+id/hrsv_newest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_new1"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            android:id="@+id/txt_aboutus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:background="@drawable/txt_background_intro"
+            android:clickable="true"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="درباره شدنی"
+            android:textColor="@color/colorPrimary"
+            android:textSize="12sp" />
+
+    </LinearLayout>
+
+
+</android.support.v4.widget.NestedScrollView>
