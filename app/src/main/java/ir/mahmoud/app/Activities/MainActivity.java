@@ -26,6 +26,7 @@ import java.util.List;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Fragments.DayTutorialFragment;
 import ir.mahmoud.app.Fragments.HomeFragment;
+import ir.mahmoud.app.Fragments.MainFragment;
 import ir.mahmoud.app.Fragments.NewIdeasFragment;
 import ir.mahmoud.app.Fragments.VideosFragment;
 import ir.mahmoud.app.R;
@@ -41,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView txt_videos;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
-    private HomeFragment home_fragment = null;
+    private MainFragment home_fragment = null;
     private DayTutorialFragment dayTutorial_fragment = null;
     private NewIdeasFragment newIdeas_fragment = null;
     private VideosFragment videos_fragment = null;
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         ll_bottomNavigation = (LinearLayout) findViewById(R.id.linearLayout);
 
-        home_fragment = new HomeFragment();
+        home_fragment = new MainFragment();
         openFragment(MainActivity.this, home_fragment);
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
     }
@@ -123,7 +124,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.txt_home:
                 if (home_fragment == null)
-                    home_fragment = new HomeFragment();
+                    home_fragment = new MainFragment();
                 openFragment(MainActivity.this, home_fragment);
                 break;
 

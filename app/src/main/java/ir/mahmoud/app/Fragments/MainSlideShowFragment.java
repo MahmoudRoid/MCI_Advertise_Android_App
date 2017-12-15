@@ -25,9 +25,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 
-import com.nostra13.universalimageloader.core.assist.FailReason;
-import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
-
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.layout;
@@ -62,31 +59,7 @@ public class MainSlideShowFragment extends Fragment {
             imageView = (ImageView) rootView.findViewById(R.id.imgView);
             final ProgressBar p = (ProgressBar) rootView.findViewById(R.id.PrgrsBar);
 
-            try {
 
-                Application.imageLoader.displayImage(temp[1], imageView, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        p.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        p.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-
-                    }
-                });
-            } catch (Exception e) {
-            }
         }
 
         return rootView;

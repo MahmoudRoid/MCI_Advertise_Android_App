@@ -56,7 +56,7 @@ public class MainFragment extends Fragment {
                              Bundle savedInstanceState) {
 
         if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_home, container, false);
+            rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
             rl_vip = (RelativeLayout) rootView.findViewById(id.rl_vip);
             rl_newest = (RelativeLayout) rootView.findViewById(R.id.rl_newest);
@@ -75,84 +75,6 @@ public class MainFragment extends Fragment {
             final Toolbar t = (Toolbar) rootView.findViewById(id.toolbar);
             appBar = (AppBarLayout) rootView.findViewById(id.app_bar);
             float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-            lp.height = (int) heightDp;
-            ///////////////////////////////////////////////////////////////////////////////////
-
-            AppBarLayout.OnOffsetChangedListener mListener = new AppBarLayout.OnOffsetChangedListener() {
-                @Override
-                public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                    if (collapsingToolbarLayout.getHeight() + verticalOffset < 2 * ViewCompat.getMinimumHeight(collapsingToolbarLayout)) {
-                        //	searchView.animate().alpha(1).setDuration(600);
-                        t.setBackgroundColor(Color.rgb(86, 130, 163));
-                        txt_tile_app.setVisibility(View.VISIBLE);
-                        img.setVisibility(View.VISIBLE);
-
-                    } else {
-                        //	searchView.animate().alpha(0).setDuration(600);
-                        t.setBackgroundResource(0);
-                        txt_tile_app.setVisibility(View.GONE);
-                        img.setVisibility(View.GONE);
-                    }
-                }
-            };
-
-            appBar.addOnOffsetChangedListener(mListener);
-
-            RgIndicator = (RadioGroup) rootView.findViewById(R.id.rg_indicator);
-            pager = (ViewPager) rootView.findViewById(R.id.viewFlipper1);
-            GetSlideShowItems();
-
-            final Handler handler = new Handler();
-            final Runnable Update = new Runnable() {
-                public void run() {
-                    if (currentPage == 4) {
-                        currentPage = 0;
-                    }
-                    pager.setCurrentItem(currentPage++, true);
-                }
-            };
-
-            timer = new Timer();
-            timer.schedule(new TimerTask() { // task to be scheduled
-
-                @Override
-                public void run() {
-                    handler.post(Update);
-                }
-            }, 500, 5000);
-
-
-            pager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-                @Override
-                public void onPageSelected(int position) {
-                    RgIndicator.check(position);
-                }
-
-                @Override
-                public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-
-                    if (previousState == ViewPager.SCROLL_STATE_DRAGGING
-                            && state == ViewPager.SCROLL_STATE_SETTLING)
-                        if (currentPage == 4)
-                            currentPage = 0;
-                        else
-                            currentPage++;
-
-                    previousState = state;
-                }
-            });
-
-            RgIndicator.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(RadioGroup group, int checkedId) {
-                    pager.setCurrentItem(checkedId);
-                }
-            });
         }
         return rootView;
     }
