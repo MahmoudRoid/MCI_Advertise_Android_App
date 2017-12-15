@@ -13,7 +13,7 @@ public class CustomTypefaceSpan extends TypefaceSpan {
 
     public CustomTypefaceSpan(String family, Context cn) {
         super(family);
-        newType = Typeface.createFromAsset(cn.getAssets(), "IRANSansMedium.ttf");
+        newType = Typeface.createFromAsset(cn.getAssets(), "fonts/IRANSansMedium.ttf");
 
     }
 

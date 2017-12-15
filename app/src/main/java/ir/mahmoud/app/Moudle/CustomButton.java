@@ -15,21 +15,21 @@ public class CustomButton extends Button {
     public CustomButton(Context context) {
         super(context);
         if (FONT_NAME == null)
-            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "IRANSansMedium.ttf");
+            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "fonts/IRANSansMedium.ttf");
         this.setTypeface(FONT_NAME);
     }
 
     public CustomButton(Context context, AttributeSet attrs) {
         super(context, attrs);
         if (FONT_NAME == null)
-            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "IRANSansMedium.ttf");
+            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "fonts/IRANSansMedium.ttf");
         this.setTypeface(FONT_NAME);
     }
 
     public CustomButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         if (FONT_NAME == null)
-            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "IRANSansMedium.ttf");
+            FONT_NAME = Typeface.createFromAsset(context.getAssets(), "fonts/IRANSansMedium.ttf");
         this.setTypeface(FONT_NAME);
     }
 
@@ -39,7 +39,7 @@ public class CustomButton extends Button {
 
         public CustomTypefaceSpan(String family, Context cn) {
             super(family);
-            newType = Typeface.createFromAsset(cn.getAssets(), "IRANSansMedium.ttf");
+            newType = Typeface.createFromAsset(cn.getAssets(), "fonts/IRANSansMedium.ttf");
 
         }
 

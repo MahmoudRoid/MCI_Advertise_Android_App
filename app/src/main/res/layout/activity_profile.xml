@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         app:srcCompat="@mipmap/smartphone" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewBold
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -72,7 +72,7 @@
                         android:textColor="#ee3078"
                         android:textSize="16sp" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                    <TextView
                         android:id="@+id/txt_phonenumber"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -100,7 +100,7 @@
                         android:layout_height="wrap_content"
                         app:srcCompat="@mipmap/calendar" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewBold
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -110,7 +110,7 @@
                         android:textColor="#ee3078"
                         android:textSize="16sp" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                    <TextView
                         android:id="@+id/txt_registerationdate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -138,7 +138,7 @@
                         android:layout_height="wrap_content"
                         app:srcCompat="@mipmap/username" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewBold
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
@@ -148,7 +148,7 @@
                         android:textColor="#ee3078"
                         android:textSize="16sp" />
 
-                    <ir.mahmoud.app.Moudle.CustomTextViewMedium
+                    <TextView
                         android:id="@+id/txt_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

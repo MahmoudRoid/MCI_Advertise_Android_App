@@ -17,7 +17,7 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/shodani" />
 
-    <ir.mahmoud.app.Moudle.CustomEditText
+    <EditText
         android:id="@+id/et_mobile"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
@@ -34,7 +34,7 @@
         android:paddingLeft="@dimen/dp16"
         android:textSize="@dimen/sp15" />
 
-    <ir.mahmoud.app.Moudle.CustomButton
+     <Button
         android:id="@+id/et_login"
         android:layout_width="wrap_content"
         android:layout_height="?attr/actionBarSize"
@@ -48,7 +48,7 @@
         android:text="ورود"
         android:textColor="@android:color/white" />
 
-    <ir.mahmoud.app.Moudle.CustomTextViewBold
+    <TextView
         android:id="@+id/customTextViewBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

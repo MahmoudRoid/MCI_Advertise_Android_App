@@ -77,7 +77,7 @@ public class HSH {
 
     {
         SpannableStringBuilder ssbuilder = new SpannableStringBuilder(s);
-        ssbuilder.setSpan(new CustomTypefaceSpan("IRANSansMedium.ttf", cn), 0, ssbuilder.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        ssbuilder.setSpan(new CustomTypefaceSpan("fonts/IRANSansMedium.ttf", cn), 0, ssbuilder.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
         return ssbuilder;
     }
 

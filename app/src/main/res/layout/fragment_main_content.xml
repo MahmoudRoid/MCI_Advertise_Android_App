@@ -24,7 +24,7 @@
             android:layout_height="170dp"
             android:background="#fffcf2">
 
-            <ir.mahmoud.app.Moudle.CustomTextViewBold
+            <TextView
                 android:id="@+id/txt_vip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -66,7 +66,7 @@
             android:layout_height="170dp"
             android:background="#fffcf2">
 
-            <ir.mahmoud.app.Moudle.CustomTextViewBold
+            <TextView
                 android:id="@+id/txt_new1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -83,7 +83,7 @@
                 android:text="جدیدترین ها"
                 android:textColor="#d80027" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 android:id="@+id/txt_new"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -117,7 +117,7 @@
 
         </RelativeLayout>
 
-        <ir.mahmoud.app.Moudle.CustomTextViewMedium
+        <TextView
             android:id="@+id/txt_aboutus"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

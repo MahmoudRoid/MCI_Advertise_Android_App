@@ -11,6 +11,21 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon">
+
+
+        <meta-data
+            android:name="DATABASE"
+            android:value="shodani.db" />
+        <meta-data
+            android:name="VERSION"
+            android:value="1" />
+        <meta-data
+            android:name="QUERY_LOG"
+            android:value="true" />
+        <meta-data
+            android:name="DOMAIN_PACKAGE_NAME"
+            android:value="ir.mahmoud.app" />
+
         <activity
             android:name=".Activities.SplashActivity"
             android:screenOrientation="portrait"

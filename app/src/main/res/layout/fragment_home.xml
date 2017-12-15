@@ -25,7 +25,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="فضای سبز" />
@@ -42,7 +42,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="بازی با نور" />
@@ -59,7 +59,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="تبلیغات مدرن" />
@@ -83,7 +83,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="منزل" />
@@ -102,7 +102,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="ویدئوهای آموزشی" />
@@ -122,7 +122,7 @@
                 android:src="@mipmap/homeb"
                 app:riv_corner_radius="10dip" />
 
-            <ir.mahmoud.app.Moudle.CustomTextViewMedium
+            <TextView
                 style="@style/HomeFra_TextView"
                 android:layout_margin="5dp"
                 android:text="کاردستی های خلاقانه" />

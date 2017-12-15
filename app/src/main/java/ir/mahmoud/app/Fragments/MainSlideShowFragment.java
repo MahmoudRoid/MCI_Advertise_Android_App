@@ -28,7 +28,7 @@ import android.widget.ProgressBar;
 import com.nostra13.universalimageloader.core.assist.FailReason;
 import com.nostra13.universalimageloader.core.listener.ImageLoadingListener;
 
-import ir.mahmoud.app.Application;
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.layout;
 

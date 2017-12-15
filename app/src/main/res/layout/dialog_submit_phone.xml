@@ -5,7 +5,7 @@
     android:layoutDirection="ltr">
 
 
-    <ir.mahmoud.app.Moudle.CustomTextViewBold
+    <TextView
         android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,7 +18,7 @@
         android:textSize="@dimen/sp15" />
 
 
-    <ir.mahmoud.app.Moudle.CustomTextViewMedium
+    <TextView
         android:id="@+id/text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,7 +38,7 @@
         android:layout_below="@+id/text"
         android:orientation="horizontal">
 
-        <ir.mahmoud.app.Moudle.CustomTextViewBold
+        <TextView
             android:id="@+id/txt_no"
             android:layout_width="0dp"
             android:layout_height="match_parent"
@@ -50,7 +50,7 @@
             android:textColor="@color/colorPrimary"
             android:textSize="@dimen/sp14" />
 
-        <ir.mahmoud.app.Moudle.CustomTextViewBold
+        <TextView
             android:id="@+id/txt_yes"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
