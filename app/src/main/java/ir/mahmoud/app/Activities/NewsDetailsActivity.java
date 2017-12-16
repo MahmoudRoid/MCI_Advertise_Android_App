@@ -1,5 +1,6 @@
 package ir.mahmoud.app.Activities;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffColorFilter;
@@ -27,6 +28,7 @@ import ir.mahmoud.app.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class NewsDetailsActivity extends AppCompatActivity {
@@ -153,5 +155,10 @@ public class NewsDetailsActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

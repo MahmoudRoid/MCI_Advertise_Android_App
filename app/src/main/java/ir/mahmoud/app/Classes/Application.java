@@ -45,7 +45,7 @@ public class Application extends SugarApp {
     public void onCreate() {
         super.onCreate();
         CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
-                .setDefaultFontPath("fonts/Roboto-RobotoRegular.ttf")
+                .setDefaultFontPath("fonts/IRANSansMedium.ttf")
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );

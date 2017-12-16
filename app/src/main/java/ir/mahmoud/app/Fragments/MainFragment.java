@@ -1,6 +1,7 @@
 package ir.mahmoud.app.Fragments;
 
 import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,7 @@ import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.id;
 import retrofit2.Call;
 import retrofit2.Callback;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
 public class MainFragment extends Fragment {
@@ -153,7 +155,6 @@ public class MainFragment extends Fragment {
         }
     }
 
-
     private void full(final LinearLayout hrsv, final List<PostModel> feed) {
         try {
             for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
@@ -189,4 +190,6 @@ public class MainFragment extends Fragment {
         }
 
     }
+
+
 }

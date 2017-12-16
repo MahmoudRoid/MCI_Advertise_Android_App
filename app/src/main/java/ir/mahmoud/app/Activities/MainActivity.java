@@ -1,6 +1,7 @@
 package ir.mahmoud.app.Activities;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +34,7 @@ import ir.mahmoud.app.Fragments.MainFragment;
 import ir.mahmoud.app.Fragments.NewIdeasFragment;
 import ir.mahmoud.app.Fragments.VideosFragment;
 import ir.mahmoud.app.R;
+import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static ir.mahmoud.app.Classes.HSH.openFragment;
 
@@ -261,5 +263,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "second Item", Toast.LENGTH_SHORT).show();
                 break;
         }
+    }
+
+    @Override
+    protected void attachBaseContext(Context newBase) {
+        super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 }

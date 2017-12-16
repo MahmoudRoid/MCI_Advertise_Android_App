@@ -29,17 +29,19 @@
                 android:id="@+id/txt_vip"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_gravity="right"
+                android:layout_marginBottom="121dp"
                 android:background="@drawable/txt_background_intro"
                 android:drawablePadding="@dimen/dp6"
                 android:drawableRight="@mipmap/vip"
                 android:padding="5dp"
                 android:text="پیشنهاد ویژه"
                 fontPath="fonts/IRANSansMedium.ttf"
-                android:textColor="#d80027" />
+                android:textColor="#d80027"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/hrsv_vip"
@@ -71,8 +73,8 @@
                 android:id="@+id/txt_new1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
                 android:layout_gravity="right"
                 android:background="@drawable/txt_background_intro"
@@ -80,7 +82,8 @@
                 android:drawableRight="@mipmap/newest"
                 android:padding="5dp"
                 android:text="جدیدترین ها"
-                android:textColor="#d80027" />
+                android:textColor="#d80027"
+                android:textSize="20sp" />
 
             <LinearLayout
                 android:id="@+id/hrsv_newest"
