@@ -6,30 +6,87 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:layoutDirection="ltr"
     tools:context=".Activities.MainActivity">
 
-    <android.support.v7.widget.Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/toolbar_top"
+    <android.support.design.widget.CollapsingToolbarLayout
+        android:id="@+id/toolbar_layout"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+        app:contentScrim="#8055B4A7"
+        app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@mipmap/logo" />
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar_top"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:layoutDirection="rtl">
+
+
+        </android.support.v7.widget.Toolbar>
 
         <ImageView
             android:id="@+id/menuIcon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="right"
+            android:layoutDirection="ltr"
             android:onClick="xxx"
             app:srcCompat="@mipmap/logo" />
 
-    </android.support.v7.widget.Toolbar>
+        <LinearLayout
+            android:id="@+id/search_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp50"
+            android:layout_margin="4dp"
+            android:background="@android:color/white"
+            android:gravity="center"
+            android:orientation="horizontal"
 
+            android:weightSum="1">
+
+            <ImageButton
+                android:id="@+id/btn_clear"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@mipmap/clear" />
+
+            <EditText
+                android:id="@+id/edit_srch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:background="@android:color/transparent"
+                android:gravity="right|center_vertical"
+                android:hint="جستجو ..."
+                android:imeOptions="actionSearch"
+                android:inputType="textCapWords"
+                android:maxLines="1"
+                android:paddingLeft="12dp"
+                android:paddingRight="14sp"
+                android:textColor="@android:color/black"
+                android:textColorHint="@android:color/black"
+                android:textSize="14sp" />
+
+            <ImageButton
+                android:id="@+id/btn_srch"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="0.1"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+                android:src="@mipmap/search2" />
+        </LinearLayout>
+
+
+    </android.support.design.widget.CollapsingToolbarLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"

@@ -10,6 +10,9 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -36,10 +39,7 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
 
     public static LinearLayout ll_bottomNavigation;
-    TextView txt_home;
-    TextView txt_tutorial;
-    TextView txt_newIdeas;
-    TextView txt_videos;
+    TextView txt_home, txt_tutorial, txt_newIdeas, txt_videos;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
+        setSupportActionBar(toolbar);
+
         fragmentManager = getSupportFragmentManager();
         initMenuFragment();
         txt_home = (TextView) findViewById(R.id.txt_home);
@@ -68,6 +71,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         home_fragment = new MainFragment();
         openFragment(MainActivity.this, home_fragment);
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+       // _menu = menu;
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        item.setChecked(false);
+        int id = item.getItemId();
+        if (id == R.id.action_search) {
+            HSH.display(MainActivity.this, findViewById(R.id.search_bar));
+            //HSH.hide(MainActivity.this, tabHost);
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initMenuFragment() {

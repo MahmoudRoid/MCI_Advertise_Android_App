@@ -17,6 +17,7 @@ import com.orm.SugarApp;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.SlideShowModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
@@ -28,6 +29,11 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 public class Application extends SugarApp {
 
     public List<SlideShowModel> sl = new ArrayList<>() ;
+    public List<PostModel> vip_feed = new ArrayList<>() ;
+    public List<PostModel> newest_feed = new ArrayList<>() ;
+    public List<PostModel> attractive_feed = new ArrayList<>() ;
+    public List<PostModel> tagged_feed = new ArrayList<>() ;
+
 
 
     private static final Application ourInstance = new Application();

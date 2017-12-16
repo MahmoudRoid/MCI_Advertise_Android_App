@@ -6,8 +6,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:isScrollContainer="true"
+    tools:ignore="MissingPrefix"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:showIn="@layout/fragment_home">
+    tools:showIn="@layout/fragment_main">
 
 
     <LinearLayout
@@ -21,7 +22,7 @@
         <RelativeLayout
             android:id="@+id/rl_vip"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="170dp"
             android:background="#fffcf2">
 
             <TextView
@@ -37,6 +38,7 @@
                 android:drawableRight="@mipmap/vip"
                 android:padding="5dp"
                 android:text="پیشنهاد ویژه"
+                fontPath="fonts/IRANSansMedium.ttf"
                 android:textColor="#d80027" />
 
             <LinearLayout
@@ -46,108 +48,6 @@
                 android:layout_below="@+id/txt_vip"
                 android:layout_centerVertical="true"
                 android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ProgressBar
-                            android:id="@+id/PrgrsBar"
-                            android:layout_width="@dimen/dp20"
-                            android:layout_height="@dimen/dp20"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center_horizontal" />
-
-
-                        <ImageView
-                            android:id="@+id/imgView"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:background="@color/colorAccent"
-                            android:layout_marginTop="16dp"
-                            android:scaleType="centerCrop" />
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/textView"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#00bbff"
-                        android:text="امید" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:orientation="vertical">
-
-
-                    <RelativeLayout
-                        android:id="@+id/rl1"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_margin="5dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-
-                        <ProgressBar
-                            android:id="@+id/PrgrsBar1"
-                            android:layout_width="@dimen/dp20"
-                            android:layout_height="@dimen/dp20"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center_horizontal" />
-
-
-                        <ImageView
-                            android:id="@+id/imgView1"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_alignParentStart="true"
-                            android:layout_alignParentTop="true"
-                            android:background="@color/colorAccent"
-                            android:layout_marginTop="16dp"
-                            android:scaleType="centerCrop" />
-
-                    </RelativeLayout>
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:text="امید" />
-
-                </LinearLayout>
 
             </LinearLayout>
 
@@ -160,7 +60,6 @@
                 android:layout_gravity="center_horizontal" />
 
         </RelativeLayout>
-
 
         <RelativeLayout
             android:id="@+id/rl_newest"
@@ -195,6 +94,88 @@
 
             <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/pb3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_attractive"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#fffcf2">
+
+            <TextView
+                android:id="@+id/txt_attract"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:drawableRight="@mipmap/newest"
+                android:padding="5dp"
+                android:text="جذاب ترین ها"
+                android:textColor="#d80027" />
+
+            <LinearLayout
+                android:id="@+id/hrsv_attractive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_attract"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pb4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rl_tagged"
+            android:layout_width="match_parent"
+            android:layout_height="170dp"
+            android:background="#fffcf2">
+
+            <TextView
+                android:id="@+id/txt_tagged"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:drawableRight="@mipmap/newest"
+                android:padding="5dp"
+                android:text="نشان شده ها"
+                android:textColor="#d80027" />
+
+            <LinearLayout
+                android:id="@+id/hrsv_tagged"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txt_tagged"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+            </LinearLayout>
+
+            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/pb5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"

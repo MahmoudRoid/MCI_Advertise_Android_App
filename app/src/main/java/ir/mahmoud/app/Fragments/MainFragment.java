@@ -17,6 +17,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,8 +30,12 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.RightAlignedHorizontalScrollView;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
+import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.SlideShowModel;
 import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.id;
@@ -46,7 +51,7 @@ public class MainFragment extends Fragment {
     public static RadioGroup.LayoutParams rprms;
     public static ProgressBar pb1, pb2, pb3;
     public static RelativeLayout rl_vip, rl_newest;
-    public static LinearLayout hrsv_vip, hrsv_newest;
+    public static LinearLayout hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged ;
     public static AppBarLayout appBar;
     int previousState = 0, currentPage = 0, scrollviewposition = 0;
     Timer timer;
@@ -58,22 +63,33 @@ public class MainFragment extends Fragment {
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
-            rl_vip = (RelativeLayout) rootView.findViewById(id.rl_vip);
-            rl_newest = (RelativeLayout) rootView.findViewById(R.id.rl_newest);
+            rl_vip = rootView.findViewById(id.rl_vip);
+            rl_newest = rootView.findViewById(R.id.rl_newest);
             ////////////////////////////////////////////////////////////
-            hrsv_vip = (LinearLayout) rootView.findViewById(id.hrsv_vip);
-            hrsv_newest = (LinearLayout) rootView.findViewById(id.hrsv_newest);
+            hrsv_vip = rootView.findViewById(id.hrsv_vip);
+            hrsv_newest = rootView.findViewById(id.hrsv_newest);
+            hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
+            hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
+            PostModel i = new PostModel();
+            i.setTitle("تست 1");
+            i.setDate("دو دقیقه قبل");
+            Application.getInstance().vip_feed.add(i);
+            i = new PostModel();
+            i.setTitle("تست 2");
+            i.setDate("نیم ساعت قبل");
+            Application.getInstance().vip_feed.add(i);
+            full(hrsv_vip, Application.getInstance().vip_feed);
 
-            pb1 = (ProgressBar) rootView.findViewById(id.pb1);
-            pb2 = (ProgressBar) rootView.findViewById(id.pb2);
-            pb3 = (ProgressBar) rootView.findViewById(id.pb3);
 
-            final CollapsingToolbarLayout collapsingToolbarLayout = (CollapsingToolbarLayout) rootView.findViewById(R.id.toolbar_layout);
+            pb1 = rootView.findViewById(id.pb1);
+            pb2 = rootView.findViewById(id.pb2);
+            pb3 = rootView.findViewById(id.pb3);
+
+            final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
             //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
-            final TextView txt_tile_app = (TextView) rootView.findViewById(R.id.txt_tile_app);
-            final ImageView img = (ImageView) rootView.findViewById(R.id.img);
-            final Toolbar t = (Toolbar) rootView.findViewById(id.toolbar);
-            appBar = (AppBarLayout) rootView.findViewById(id.app_bar);
+
+            final Toolbar t = rootView.findViewById(id.toolbar);
+            appBar = rootView.findViewById(id.app_bar);
             float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         }
         return rootView;
@@ -138,104 +154,39 @@ public class MainFragment extends Fragment {
     }
 
 
-    /*private void full(final List<SlideShowModel> feed) {
+    private void full(final LinearLayout hrsv, final List<PostModel> feed) {
         try {
-            hrsv.setHorizontalFadingEdgeEnabled(true);
-            RightAlignedHorizontalScrollView sv = new RightAlignedHorizontalScrollView(getActivity());
-            sv.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT));
-            LinearLayout ll = new LinearLayout(getActivity());
-            ll.setLayoutParams(new ActionBar.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT));
+            for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
+//feed.size() - 1
 
-            sv.addView(ll);
-            for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
-
-
-                @SuppressWarnings("static-access")
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
-                final View view1 = inflater.inflate(R.layout.horizontal_slideshow, null);
-
-                ll.addView(view1);
-
-                TextView txt_title = (TextView) view1.findViewById(R.id.txt_title);
-                TextView txt_view = (TextView) view1.findViewById(R.id.txt_view);
+                final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
+                view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                view1.setPadding(6,0,6,0);
+                TextView txt_title = view1.findViewById(R.id.txt_title);
+                TextView txt_date = view1.findViewById(id.txt_date);
+                ImageView img_post = view1.findViewById(id.img_post);
 
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
-                txt_view.setText(feed.get(scrollviewposition).getView());
+                txt_date.setText(feed.get(scrollviewposition).getDate());
 
-                TextView txt_titr = (TextView) view1.findViewById(R.id.txt_titr);
-                txt_titr.setText(feed.get(scrollviewposition).getExpert());
-
-                try {
-                    RatingBar rate = (RatingBar) view1.findViewById(R.id.ratingBar3);
-                    rate.setRating(Float.parseFloat(feed.get(scrollviewposition).getRate()));
-                } catch (NumberFormatException e) {
-                }
-
-                final ImageView image = (ImageView) view1.findViewById(R.id.imgView);
-                final ProgressBar p = (ProgressBar) view1.findViewById(R.id.PrgrsBar);
+                final ProgressBar p = view1.findViewById(R.id.PrgrsBar);
                 //image.setBackgroundResource(R.anim.rounded);
                 view1.setTag(scrollviewposition);
                 view1.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
-                                                 if (!HSH.isNetworkConnection(getActivity())) {
-                                                     HSH.showtoast(getActivity(), "اتصال اینترنت برقرار نیست.");
-                                                 } else {
-                                                     Application.out.setAnimationListener(new Animation.AnimationListener() {
-                                                         @Override
-                                                         public void onAnimationStart(Animation animation) {
-                                                         }
 
-                                                         @Override
-                                                         public void onAnimationEnd(Animation animation) {
-                                                             final Bundle bundle = new Bundle();
-                                                             bundle.putSerializable("feed", feed.get((int) view1.getTag()));
-                                                             final Intent intent = new Intent(getActivity(), DoctorDetailsActivity.class);
-                                                             intent.putExtras(bundle);
-                                                             intent.putExtra("pos", (int) view1.getTag());
-                                                             startActivity(intent);
-                                                         }
-
-                                                         @Override
-                                                         public void onAnimationRepeat(Animation animation) {
-                                                         }
-                                                     });
-
-                                                     view.startAnimation(Application.in);
-                                                     view.startAnimation(Application.out);
-
-
-                                                 }
                                              }
                                          }
                 );
-                Application.imageLoader.displayImage(feed.get(scrollviewposition).getImage(), image, new ImageLoadingListener() {
-                    @Override
-                    public void onLoadingStarted(String imageUri, View view) {
-
-                    }
-
-                    @Override
-                    public void onLoadingFailed(String imageUri, View view, FailReason failReason) {
-                        p.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage) {
-                        p.setVisibility(View.GONE);
-                    }
-
-                    @Override
-                    public void onLoadingCancelled(String imageUri, View view) {
-
-                    }
-                });
+                hrsv.addView(view1);
             }
-            hrsv.addView(sv);
+
 
         } catch (Exception e) {
         }
 
-    }*/
+    }
 }
