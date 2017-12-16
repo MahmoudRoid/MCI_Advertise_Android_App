@@ -18,6 +18,7 @@ package ir.mahmoud.app.Interfaces;
 
 import java.util.List;
 
+import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.SlideShowModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -31,5 +32,8 @@ public interface ApiInterface {
 
     @GET("api/getSlideShow/")
     Call<List<SlideShowModel>> GetSlideShowItems();
+
+    @GET("api/get_recent_posts/")
+    Call<ResponseBody> GetVipVideos();
 
 }

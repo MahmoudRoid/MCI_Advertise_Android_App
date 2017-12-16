@@ -1,10 +1,7 @@
 package ir.mahmoud.app.Fragments;
 
 import android.app.ActionBar;
-import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
@@ -12,13 +9,11 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,11 +24,9 @@ import android.widget.TextView;
 
 import java.util.List;
 import java.util.Timer;
-import java.util.TimerTask;
 
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Classes.RightAlignedHorizontalScrollView;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Models.PostModel;
@@ -42,12 +35,11 @@ import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.id;
 import retrofit2.Call;
 import retrofit2.Callback;
-import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements TitleMain {
 
-    public static PagerAdapter pagerAdapter;
+        public static PagerAdapter pagerAdapter;
     public static ViewPager pager;
     public static RadioGroup RgIndicator;
     public static RadioGroup.LayoutParams rprms;
@@ -96,6 +88,14 @@ public class MainFragment extends Fragment {
         }
         return rootView;
     }
+
+    private void getPosts(new TitleMain() {
+
+
+        @Override
+        public void FragName (List<PostModel> item){
+
+
 
     private void GetSlideShowItems() {
         Call<List<SlideShowModel>> call =
@@ -159,7 +159,6 @@ public class MainFragment extends Fragment {
         try {
             for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
 //feed.size() - 1
-
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
@@ -184,12 +183,11 @@ public class MainFragment extends Fragment {
                 );
                 hrsv.addView(view1);
             }
-
-
         } catch (Exception e) {
         }
 
     }
+
 
 
 }
