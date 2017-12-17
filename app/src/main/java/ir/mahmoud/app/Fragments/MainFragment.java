@@ -25,6 +25,7 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Timer;
 
+import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Interfaces.ApiClient;
@@ -37,9 +38,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 
 
-public class MainFragment extends Fragment implements TitleMain {
+public class MainFragment extends Fragment {
 
-        public static PagerAdapter pagerAdapter;
+    public static PagerAdapter pagerAdapter;
     public static ViewPager pager;
     public static RadioGroup RgIndicator;
     public static RadioGroup.LayoutParams rprms;
@@ -49,14 +50,22 @@ public class MainFragment extends Fragment implements TitleMain {
     public static AppBarLayout appBar;
     int previousState = 0, currentPage = 0, scrollviewposition = 0;
     Timer timer;
+    TitleMain m;
     View rootView = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+        m = new TitleMain() {
+            @Override
+            public void FragName(List<PostModel> items) {
+               full(hrsv_vip, items);
+            }
+        };
+
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
+            getPostsAsynkTask.getVipVideos(m);
             rl_vip = rootView.findViewById(id.rl_vip);
             rl_newest = rootView.findViewById(R.id.rl_newest);
             ////////////////////////////////////////////////////////////
@@ -64,15 +73,6 @@ public class MainFragment extends Fragment implements TitleMain {
             hrsv_newest = rootView.findViewById(id.hrsv_newest);
             hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
             hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
-            PostModel i = new PostModel();
-            i.setTitle("تست 1");
-            i.setDate("دو دقیقه قبل");
-            Application.getInstance().vip_feed.add(i);
-            i = new PostModel();
-            i.setTitle("تست 2");
-            i.setDate("نیم ساعت قبل");
-            Application.getInstance().vip_feed.add(i);
-            full(hrsv_vip, Application.getInstance().vip_feed);
 
 
             pb1 = rootView.findViewById(id.pb1);
@@ -89,20 +89,22 @@ public class MainFragment extends Fragment implements TitleMain {
         return rootView;
     }
 
-    private void getPosts(new TitleMain() {
 
-
-        @Override
-        public void FragName (List<PostModel> item){
-
-
-
-    private void GetSlideShowItems() {
+    private void GetSlideShowItems(final TitleMain m) {
         Call<List<SlideShowModel>> call =
                 ApiClient.getClient().create(ApiInterface.class).GetSlideShowItems();
         call.enqueue(new Callback<List<SlideShowModel>>() {
             @Override
             public void onResponse(Call<List<SlideShowModel>> call, retrofit2.Response<List<SlideShowModel>> response) {
+                PostModel i = new PostModel();
+                i.setTitle("تست 1");
+                i.setDate("دو دقیقه قبل");
+                Application.getInstance().vip_feed.add(i);
+                i = new PostModel();
+                i.setTitle("تست 2");
+                i.setDate("نیم ساعت قبل");
+                Application.getInstance().vip_feed.add(i);
+                m.FragName(Application.getInstance().vip_feed);
                 if (!response.equals("[]")) {
                     for (SlideShowModel m : response.body()) {
                         try {
@@ -125,17 +127,14 @@ public class MainFragment extends Fragment implements TitleMain {
                     appBar.setLayoutParams(lp);
                 }
             }
-
             @Override
             public void onFailure(Call<List<SlideShowModel>> call, Throwable t) {
-
             }
         });
     }
 
     private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
         List<SlideShowModel> feed;
-
         public ScreenSlidePagerAdapter(FragmentManager fm, List<SlideShowModel> feed) {
             super(fm);
             this.feed = feed;
@@ -144,7 +143,6 @@ public class MainFragment extends Fragment implements TitleMain {
         @Override
         public Fragment getItem(int position) {
             MainSlideShowFragment fragment = new MainSlideShowFragment();
-
             fragment.setAsset(feed.get(position).getId() + "///" + feed.get(position).getImage());
             return fragment;
         }
@@ -187,7 +185,4 @@ public class MainFragment extends Fragment implements TitleMain {
         }
 
     }
-
-
-
 }

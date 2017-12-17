@@ -22,44 +22,45 @@
         <RelativeLayout
             android:id="@+id/rl_vip"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
+            android:layout_height="200dp"
             android:background="#fffcf2">
 
-            <TextView
-                android:id="@+id/txt_vip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_gravity="right"
-                android:layout_marginBottom="121dp"
-                android:background="@drawable/txt_background_intro"
-                android:drawablePadding="@dimen/dp6"
-                android:drawableRight="@mipmap/vip"
-                android:padding="5dp"
-                android:text="پیشنهاد ویژه"
-                fontPath="fonts/IRANSansMedium.ttf"
-                android:textColor="#d80027"
-                android:textSize="20sp" />
-
-            <LinearLayout
-                android:id="@+id/hrsv_vip"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txt_vip"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal">
-
-            </LinearLayout>
-
-            <ProgressBar xmlns:app="http://schemas.android.com/apk/res-auto"
+            <ProgressBar
                 android:id="@+id/pb2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal" />
+
+            <TextView
+                android:id="@+id/txt_vip"
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_gravity="right"
+                android:background="@drawable/txt_background_intro"
+                android:drawablePadding="@dimen/dp6"
+                android:drawableRight="@mipmap/vip"
+                android:padding="5dp"
+                android:text="پیشنهاد ویژه"
+                android:textColor="#d80027"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/hrsv_vip"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_below="@+id/txt_vip"
+                android:orientation="horizontal">
+
+            </LinearLayout>
 
         </RelativeLayout>
 
@@ -81,9 +82,10 @@
                 android:drawablePadding="@dimen/dp6"
                 android:drawableRight="@mipmap/newest"
                 android:padding="5dp"
+                fontPath="fonts/IRANSansMedium.ttf"
                 android:text="جدیدترین ها"
                 android:textColor="#d80027"
-                android:textSize="20sp" />
+                android:textSize="14sp" />
 
             <LinearLayout
                 android:id="@+id/hrsv_newest"
@@ -121,6 +123,7 @@
                 android:layout_gravity="right"
                 android:background="@drawable/txt_background_intro"
                 android:drawablePadding="@dimen/dp6"
+                fontPath="fonts/IRANSansMedium.ttf"
                 android:drawableRight="@mipmap/newest"
                 android:padding="5dp"
                 android:text="جذاب ترین ها"
@@ -164,6 +167,7 @@
                 android:drawablePadding="@dimen/dp6"
                 android:drawableRight="@mipmap/newest"
                 android:padding="5dp"
+                fontPath="fonts/IRANSansMedium.ttf"
                 android:text="نشان شده ها"
                 android:textColor="#d80027" />
 

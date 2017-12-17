@@ -60,4 +60,13 @@ public class Application extends SugarApp {
         this.sl = sl;
     }
 
+    public List<PostModel> getVip_feed() {
+        return vip_feed;
+    }
+
+    public void setVip_feed(List<PostModel> vip_feed) {
+        this.vip_feed = vip_feed;
+    }
+
+
 }

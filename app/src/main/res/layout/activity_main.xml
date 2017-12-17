@@ -44,7 +44,7 @@
             android:background="@android:color/white"
             android:gravity="center"
             android:orientation="horizontal"
-
+            android:visibility="gone"
             android:weightSum="1">
 
             <ImageButton
