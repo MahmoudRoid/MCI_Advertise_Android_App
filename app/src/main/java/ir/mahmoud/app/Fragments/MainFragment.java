@@ -27,9 +27,9 @@ import java.util.Timer;
 
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
-import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
+import ir.mahmoud.app.Interfaces.IWerbService;
 import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.SlideShowModel;
 import ir.mahmoud.app.R;
@@ -50,16 +50,21 @@ public class MainFragment extends Fragment {
     public static AppBarLayout appBar;
     int previousState = 0, currentPage = 0, scrollviewposition = 0;
     Timer timer;
-    TitleMain m;
+    IWerbService m;
     View rootView = null;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        m = new TitleMain() {
+        m = new IWerbService() {
             @Override
-            public void FragName(List<PostModel> items) {
+            public void getResult(List<PostModel> items)throws Exception {
                full(hrsv_vip, items);
+            }
+
+            @Override
+            public void getError(String ErrorCodeTitle) throws Exception {
+
             }
         };
 
@@ -90,7 +95,7 @@ public class MainFragment extends Fragment {
     }
 
 
-    private void GetSlideShowItems(final TitleMain m) {
+    private void GetSlideShowItems(final IWerbService m) {
         Call<List<SlideShowModel>> call =
                 ApiClient.getClient().create(ApiInterface.class).GetSlideShowItems();
         call.enqueue(new Callback<List<SlideShowModel>>() {
@@ -104,7 +109,7 @@ public class MainFragment extends Fragment {
                 i.setTitle("تست 2");
                 i.setDate("نیم ساعت قبل");
                 Application.getInstance().vip_feed.add(i);
-                m.FragName(Application.getInstance().vip_feed);
+               //m.getResult(Application.getInstance().vip_feed);
                 if (!response.equals("[]")) {
                     for (SlideShowModel m : response.body()) {
                         try {
