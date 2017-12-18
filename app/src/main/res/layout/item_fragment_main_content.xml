@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_weight="0.5"
     android:layout_gravity="center"
     android:layout_margin="5dp"
     android:gravity="center"
     android:orientation="vertical"
+    tools:ignore="MissingPrefix"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
 
@@ -40,6 +42,7 @@
 
         <TextView
             android:id="@+id/txt_title"
+            fontPath="fonts/IRANSansMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"
@@ -49,6 +52,7 @@
 
         <TextView
             android:id="@+id/txt_date"
+            fontPath="fonts/IRANSansMedium.ttf"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="right"

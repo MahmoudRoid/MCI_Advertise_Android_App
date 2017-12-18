@@ -22,6 +22,9 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+
 import java.util.List;
 import java.util.Timer;
 
@@ -34,6 +37,7 @@ import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.SlideShowModel;
 import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.id;
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -45,7 +49,6 @@ public class MainFragment extends Fragment {
     public static RadioGroup RgIndicator;
     public static RadioGroup.LayoutParams rprms;
     public static ProgressBar pb1, pb2, pb3;
-    public static RelativeLayout rl_vip, rl_newest;
     public static LinearLayout hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged ;
     public static AppBarLayout appBar;
     int previousState = 0, currentPage = 0, scrollviewposition = 0;
@@ -58,8 +61,8 @@ public class MainFragment extends Fragment {
 
         m = new IWerbService() {
             @Override
-            public void getResult(List<PostModel> items)throws Exception {
-               full(hrsv_vip, items);
+            public void getResult(List<PostModel> items, LinearLayout ll)throws Exception {
+               full(ll, items);
             }
 
             @Override
@@ -70,15 +73,11 @@ public class MainFragment extends Fragment {
 
         if (rootView == null) {
             rootView = inflater.inflate(R.layout.fragment_main, container, false);
-            getPostsAsynkTask.getVipVideos(m);
-            rl_vip = rootView.findViewById(id.rl_vip);
-            rl_newest = rootView.findViewById(R.id.rl_newest);
-            ////////////////////////////////////////////////////////////
+
             hrsv_vip = rootView.findViewById(id.hrsv_vip);
             hrsv_newest = rootView.findViewById(id.hrsv_newest);
             hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
             hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
-
 
             pb1 = rootView.findViewById(id.pb1);
             pb2 = rootView.findViewById(id.pb2);
@@ -86,8 +85,7 @@ public class MainFragment extends Fragment {
 
             final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
             //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
-
-            final Toolbar t = rootView.findViewById(id.toolbar);
+            getPostsAsynkTask.getVipVideos(m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
             appBar = rootView.findViewById(id.app_bar);
             float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         }
@@ -96,22 +94,14 @@ public class MainFragment extends Fragment {
 
 
     private void GetSlideShowItems(final IWerbService m) {
-        Call<List<SlideShowModel>> call =
+        Call<ResponseBody> call =
                 ApiClient.getClient().create(ApiInterface.class).GetSlideShowItems();
-        call.enqueue(new Callback<List<SlideShowModel>>() {
+        call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<List<SlideShowModel>> call, retrofit2.Response<List<SlideShowModel>> response) {
-                PostModel i = new PostModel();
-                i.setTitle("تست 1");
-                i.setDate("دو دقیقه قبل");
-                Application.getInstance().vip_feed.add(i);
-                i = new PostModel();
-                i.setTitle("تست 2");
-                i.setDate("نیم ساعت قبل");
-                Application.getInstance().vip_feed.add(i);
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
                //m.getResult(Application.getInstance().vip_feed);
                 if (!response.equals("[]")) {
-                    for (SlideShowModel m : response.body()) {
+                   /* for (SlideShowModel m : response.body()) {
                         try {
                             final RadioButton rd = new RadioButton(getActivity());
                             rd.setButtonDrawable(R.drawable.rdbtnselector);
@@ -121,10 +111,10 @@ public class MainFragment extends Fragment {
                             RgIndicator.addView(rd, rprms);
                         } catch (Exception e) {
                         }
-                    }
-                    pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager(), response.body());
+                    }*/
+                   /* pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager(), response.body().string());
                     pagerAdapter.notifyDataSetChanged();
-                    pager.setAdapter(pagerAdapter);
+                    pager.setAdapter(pagerAdapter);*/
                 } else {
                     CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
                     lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -133,7 +123,7 @@ public class MainFragment extends Fragment {
                 }
             }
             @Override
-            public void onFailure(Call<List<SlideShowModel>> call, Throwable t) {
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
             }
         });
     }
@@ -160,7 +150,7 @@ public class MainFragment extends Fragment {
 
     private void full(final LinearLayout hrsv, final List<PostModel> feed) {
         try {
-            for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
+            for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
 //feed.size() - 1
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
@@ -170,6 +160,11 @@ public class MainFragment extends Fragment {
                 TextView txt_title = view1.findViewById(R.id.txt_title);
                 TextView txt_date = view1.findViewById(id.txt_date);
                 ImageView img_post = view1.findViewById(id.img_post);
+                try {
+                    Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageUrl())
+                            .into(img_post);
+                } catch (Exception e) {
+                }
 
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
                 txt_date.setText(feed.get(scrollviewposition).getDate());
