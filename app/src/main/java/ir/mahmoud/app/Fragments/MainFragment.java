@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Timer;
 
 import ir.mahmoud.app.Activities.LoginActivity;
+import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
@@ -94,7 +95,6 @@ public class MainFragment extends Fragment {
         float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         return rootView;
     }
-
 
     private void GetSlideShowItems(final IWerbService m) {
         Call<ResponseBody> call =
@@ -173,10 +173,10 @@ public class MainFragment extends Fragment {
                 view1.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
-                                                 /*Intent intent;
-                                                 intent = new Intent(getActivity(), *//*VideoDetails.class*//*);
+                                                 Intent intent;
+                                                 intent = new Intent(getActivity(),VideoDetailActivity.class);
                                                  intent.putExtra("feedItem",  feed.get(scrollviewposition));
-                                                 startActivity(intent);*/
+                                                 startActivity(intent);
                                              }
                                          }
                 );

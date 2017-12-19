@@ -54,20 +54,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void AssignViews()
     {
-        toolbar = findViewById(R.id.toolbar_top);
-        btn_clear = findViewById(R.id.btn_clear);
-        btn_srch = findViewById(R.id.btn_srch);
-        txt_home = findViewById(R.id.txt_home);
-        txt_tutorial = findViewById(R.id.txt_tutorial);
-        txt_newIdeas = findViewById(R.id.txt_newIdeas);
-        txt_videos = findViewById(R.id.txt_videos);
+        toolbar = (Toolbar)findViewById(R.id.toolbar_top);
+        btn_clear = (ImageButton)findViewById(R.id.btn_clear);
+        btn_srch = (ImageButton)findViewById(R.id.btn_srch);
+        txt_home =(TextView) findViewById(R.id.txt_home);
+        txt_tutorial = (TextView)findViewById(R.id.txt_tutorial);
+        txt_newIdeas = (TextView)findViewById(R.id.txt_newIdeas);
+        txt_videos = (TextView)findViewById(R.id.txt_videos);
         txt_home.setOnClickListener(this);
         txt_tutorial.setOnClickListener(this);
         txt_newIdeas.setOnClickListener(this);
         txt_videos.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
         btn_srch.setOnClickListener(this);
-        ll_bottomNavigation = findViewById(R.id.ll_bottomNavigation);
+        ll_bottomNavigation =(LinearLayout) findViewById(R.id.ll_bottomNavigation);
     }
 
     @Override
