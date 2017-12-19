@@ -56,8 +56,8 @@ public class MainSlideShowFragment extends Fragment {
         if (asset != null) {
             temp = asset.split("///");
 
-            imageView = (ImageView) rootView.findViewById(R.id.imgView);
-            final ProgressBar p = (ProgressBar) rootView.findViewById(R.id.PrgrsBar);
+            imageView = rootView.findViewById(R.id.imgView);
+            final ProgressBar p = rootView.findViewById(R.id.PrgrsBar);
 
 
         }

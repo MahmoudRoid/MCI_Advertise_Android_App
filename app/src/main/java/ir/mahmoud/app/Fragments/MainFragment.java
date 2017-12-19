@@ -1,6 +1,8 @@
 package ir.mahmoud.app.Fragments;
 
 import android.app.ActionBar;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.NestedScrollView;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +31,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import java.util.List;
 import java.util.Timer;
 
+import ir.mahmoud.app.Activities.LoginActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
@@ -44,51 +48,50 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
-    public static PagerAdapter pagerAdapter;
-    public static ViewPager pager;
-    public static RadioGroup RgIndicator;
-    public static RadioGroup.LayoutParams rprms;
-    public static ProgressBar pb1, pb2, pb3;
-    public static LinearLayout hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged ;
-    public static AppBarLayout appBar;
+    private PagerAdapter pagerAdapter;
+    private ViewPager pager;
+    private RadioGroup RgIndicator;
+    private RadioGroup.LayoutParams rprms;
+    private LinearLayout hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged ;
+    private ProgressBar pb;
+    private AppBarLayout appBar;
+    CollapsingToolbarLayout collapsingToolbarLayout;
+    NestedScrollView nest_scrollview;
     int previousState = 0, currentPage = 0, scrollviewposition = 0;
     Timer timer;
     IWerbService m;
     View rootView = null;
 
+    private void AssignViews()
+    {
+        hrsv_vip = rootView.findViewById(id.hrsv_vip);
+        hrsv_newest = rootView.findViewById(id.hrsv_newest);
+        hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
+        hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
+        nest_scrollview = rootView.findViewById(R.id.nest_scrollview);
+        collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
+        appBar = rootView.findViewById(id.app_bar);
+        pb = rootView.findViewById(id.pb);
+    }
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_main, container, false);
+        AssignViews();
 
         m = new IWerbService() {
             @Override
             public void getResult(List<PostModel> items, LinearLayout ll)throws Exception {
-               full(ll, items);
+                Binding(ll, items);
             }
-
             @Override
             public void getError(String ErrorCodeTitle) throws Exception {
-
             }
         };
-
-        if (rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_main, container, false);
-
-            hrsv_vip = rootView.findViewById(id.hrsv_vip);
-            hrsv_newest = rootView.findViewById(id.hrsv_newest);
-            hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
-            hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
-
-            pb1 = rootView.findViewById(id.pb1);
-            pb2 = rootView.findViewById(id.pb2);
-            pb3 = rootView.findViewById(id.pb3);
-
-            final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
-            //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
-            getPostsAsynkTask.getVipVideos(m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
-            appBar = rootView.findViewById(id.app_bar);
-            float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
-        }
+        final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
+        //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
+        getPostsAsynkTask.getVipVideos(getActivity(), m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
+        float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         return rootView;
     }
 
@@ -112,7 +115,7 @@ public class MainFragment extends Fragment {
                         } catch (Exception e) {
                         }
                     }*/
-                   /* pagerAdapter = new ScreenSlidePagerAdapter(getActivity().getSupportFragmentManager(), response.body().string());
+                   /* pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), response.body().string());
                     pagerAdapter.notifyDataSetChanged();
                     pager.setAdapter(pagerAdapter);*/
                 } else {
@@ -128,9 +131,9 @@ public class MainFragment extends Fragment {
         });
     }
 
-    private class ScreenSlidePagerAdapter extends FragmentStatePagerAdapter {
+    private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
         List<SlideShowModel> feed;
-        public ScreenSlidePagerAdapter(FragmentManager fm, List<SlideShowModel> feed) {
+        public SlideShowPagerAdapter(FragmentManager fm, List<SlideShowModel> feed) {
             super(fm);
             this.feed = feed;
         }
@@ -148,39 +151,40 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void full(final LinearLayout hrsv, final List<PostModel> feed) {
+    private void Binding(final LinearLayout hrsv, final List<PostModel> feed) {
         try {
             for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
-//feed.size() - 1
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
-                view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f));
+                view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
                 view1.setPadding(6,0,6,0);
                 TextView txt_title = view1.findViewById(R.id.txt_title);
                 TextView txt_date = view1.findViewById(id.txt_date);
                 ImageView img_post = view1.findViewById(id.img_post);
+
+                txt_title.setText(feed.get(scrollviewposition).getTitle());
+                txt_date.setText(feed.get(scrollviewposition).getDate());
                 try {
                     Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageUrl())
                             .into(img_post);
                 } catch (Exception e) {
                 }
-
-                txt_title.setText(feed.get(scrollviewposition).getTitle());
-                txt_date.setText(feed.get(scrollviewposition).getDate());
-
-                final ProgressBar p = view1.findViewById(R.id.PrgrsBar);
-                //image.setBackgroundResource(R.anim.rounded);
-                view1.setTag(scrollviewposition);
                 view1.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
-
+                                                 /*Intent intent;
+                                                 intent = new Intent(getActivity(), *//*VideoDetails.class*//*);
+                                                 intent.putExtra("feedItem",  feed.get(scrollviewposition));
+                                                 startActivity(intent);*/
                                              }
                                          }
                 );
                 hrsv.addView(view1);
             }
+            nest_scrollview.setVisibility(View.VISIBLE);
+            appBar.setVisibility(View.VISIBLE);
+            pb.setVisibility(View.GONE);
         } catch (Exception e) {
         }
 

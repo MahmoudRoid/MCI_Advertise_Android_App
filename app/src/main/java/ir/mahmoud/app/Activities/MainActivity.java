@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +41,10 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
 
-    public static LinearLayout ll_bottomNavigation;
-    TextView txt_home, txt_tutorial, txt_newIdeas, txt_videos;
+    Toolbar toolbar;
+    private LinearLayout ll_bottomNavigation;
+    private TextView txt_home, txt_tutorial, txt_newIdeas, txt_videos;
+    ImageButton btn_clear, btn_srch;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
@@ -49,26 +52,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private NewIdeasFragment newIdeas_fragment = null;
     private VideosFragment videos_fragment = null;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_top);
-        setSupportActionBar(toolbar);
-
-        fragmentManager = getSupportFragmentManager();
-        initMenuFragment();
-        txt_home = (TextView) findViewById(R.id.txt_home);
-        txt_tutorial = (TextView) findViewById(R.id.txt_tutorial);
-        txt_newIdeas = (TextView) findViewById(R.id.txt_newIdeas);
-        txt_videos = (TextView) findViewById(R.id.txt_videos);
+    private void AssignViews()
+    {
+        toolbar = findViewById(R.id.toolbar_top);
+        btn_clear = findViewById(R.id.btn_clear);
+        btn_srch = findViewById(R.id.btn_srch);
+        txt_home = findViewById(R.id.txt_home);
+        txt_tutorial = findViewById(R.id.txt_tutorial);
+        txt_newIdeas = findViewById(R.id.txt_newIdeas);
+        txt_videos = findViewById(R.id.txt_videos);
         txt_home.setOnClickListener(this);
         txt_tutorial.setOnClickListener(this);
         txt_newIdeas.setOnClickListener(this);
         txt_videos.setOnClickListener(this);
+        btn_clear.setOnClickListener(this);
+        btn_srch.setOnClickListener(this);
+        ll_bottomNavigation = findViewById(R.id.ll_bottomNavigation);
+    }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        AssignViews();
+        setSupportActionBar(toolbar);
 
-        ll_bottomNavigation = (LinearLayout) findViewById(R.id.linearLayout);
+        fragmentManager = getSupportFragmentManager();
+        initMenuFragment();
 
         home_fragment = new MainFragment();
         openFragment(MainActivity.this, home_fragment);
@@ -147,6 +157,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         HSH.setMainDrawableColor(ll_bottomNavigation, v);
         switch (v.getId()) {
+            case R.id.btn_clear :
+                HSH.hide(MainActivity.this, findViewById(R.id.search_bar));
+                break;
             case R.id.txt_home:
                 if (home_fragment == null)
                     home_fragment = new MainFragment();
@@ -190,7 +203,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         .getBackStackEntryAt(getSupportFragmentManager()
                                 .getBackStackEntryCount() - 2).getName();
 
-                if (tag.equals("HomeFragment"))
+                if (tag.equals("MainFragment"))
                     HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
 
                 else if (tag.equals("DayTutorialFragment"))

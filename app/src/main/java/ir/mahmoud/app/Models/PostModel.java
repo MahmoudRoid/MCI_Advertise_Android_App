@@ -1,7 +1,10 @@
 package ir.mahmoud.app.Models;
 
-public class PostModel {
+import java.io.Serializable;
 
+public class PostModel  implements Serializable {
+
+    public static final long serialVersionUID = 1L;
     public int id;
     public String title;
     public String content;
