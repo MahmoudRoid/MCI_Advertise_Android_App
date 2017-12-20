@@ -44,6 +44,14 @@ public class getPostsAsynkTask {
                         item.setCategoryTitle(jary2.getJSONObject(0).getString(cn.getString(R.string.title)));
 
                         try {
+                            JSONArray jary3 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.tags)));
+                            item.setTagSlug(jary3.getJSONObject(0).getString(cn.getString(R.string.slug)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        ///item.setTagSlug();
+
+                        try {
                             jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.attachments)));
                             item.setVideoUrl(jary2.getJSONObject(0).getString(cn.getString(R.string.url)));
 

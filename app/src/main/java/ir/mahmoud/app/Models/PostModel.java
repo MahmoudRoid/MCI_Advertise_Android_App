@@ -12,6 +12,7 @@ public class PostModel  implements Serializable {
     public String categoryTitle;
     public String videoUrl;
     public String imageUrl;
+    public String tagSlug;
 
     public int getId() {
         return id;
@@ -67,5 +68,12 @@ public class PostModel  implements Serializable {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
+    }
+    public String getTagSlug() {
+        return tagSlug;
+    }
+
+    public void setTagSlug(String tagSlug) {
+        this.tagSlug = tagSlug;
     }
 }

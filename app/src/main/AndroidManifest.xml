@@ -52,7 +52,12 @@
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".Activities.VideoDetailActivity" />
+        <activity android:name=".Activities.VideoDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme"/>
+        <activity android:name=".Activities.ShowVideoActivity"
+            android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
+            android:theme="@style/MyMaterialTheme"/>
     </application>
 
 </manifest>
