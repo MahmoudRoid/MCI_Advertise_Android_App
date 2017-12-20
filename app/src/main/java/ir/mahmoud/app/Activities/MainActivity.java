@@ -137,18 +137,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         MenuObject close = new MenuObject();
         close.setResource(R.mipmap.ic_launcher);
 
-        MenuObject like = new MenuObject("First Item");
+        MenuObject account = new MenuObject("ساخت حساب کاربری");
         Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        like.setBitmap(b);
+        account.setBitmap(b);
 
-        MenuObject addFr = new MenuObject("Second Item");
-        BitmapDrawable bd = new BitmapDrawable(getResources(),
+        MenuObject download = new MenuObject("دانلود ها");
+        BitmapDrawable b1 = new BitmapDrawable(getResources(),
                 BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        addFr.setDrawable(bd);
+        download.setDrawable(b1);
+
+        MenuObject mintroduce = new MenuObject("معرفی به دوستان");
+        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        mintroduce.setBitmap(b2);
+
+        MenuObject aboutUs = new MenuObject("درباره ما");
+        Bitmap b3 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        aboutUs.setBitmap(b3);
 
         menuObjects.add(close);
-        menuObjects.add(like);
-        menuObjects.add(addFr);
+        menuObjects.add(account);
+        menuObjects.add(download);
+        menuObjects.add(mintroduce);
+        menuObjects.add(aboutUs);
 
         return menuObjects;
     }// end getMenuObjects()
@@ -189,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    public void xxx(View v) {
+    public void menuClick(View v) {
         mMenuDialogFragment.show(fragmentManager, "ContextMenuDialogFragment");
     }
 
@@ -269,11 +279,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 // بستن
                 break;
             case 1:
-                Toast.makeText(this, "first Item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "ساخت حساب کاربری", Toast.LENGTH_SHORT).show();
                 break;
 
             case 2:
-                Toast.makeText(this, "second Item", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "دانلودها", Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                Toast.makeText(this, "معرفی به دوستان", Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Toast.makeText(this, "درباره ما", Toast.LENGTH_SHORT).show();
                 break;
         }
     }

@@ -35,7 +35,7 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.title_tv);
             tv_date = (TextView) itemView.findViewById(R.id.date_tv);
-            tv_bazdid = (TextView) itemView.findViewById(R.id.bazdid_tv);
+            //tv_bazdid = (TextView) itemView.findViewById(R.id.bazdid_tv);
             image = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }

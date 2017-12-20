@@ -28,12 +28,11 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
 
     private void getData() {
         videoTitle = getIntent().getStringExtra("title");
-        videoUrl = getIntent().getStringExtra("image_url");
+        videoUrl = getIntent().getStringExtra("url");
     }
 
     @Override
     public void onStarted(BetterVideoPlayer player) {
-
     }
 
     @Override

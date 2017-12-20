@@ -36,4 +36,7 @@ public interface ApiInterface {
     @GET("api/get_recent_posts/")
     Call<ResponseBody> GetVipVideos();
 
+    @GET("api/get_tag_posts/?slug={tagSlug}")
+    Call<ResponseBody> getSameVideos(@Path("tagSlug") String tagSlug);
+
 }
