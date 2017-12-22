@@ -24,6 +24,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface ApiInterface {
 
@@ -36,7 +37,7 @@ public interface ApiInterface {
     @GET("api/get_recent_posts/")
     Call<ResponseBody> GetVipVideos();
 
-    @GET("api/get_tag_posts/?slug={tagSlug}")
-    Call<ResponseBody> getSameVideos(@Path("tagSlug") String tagSlug);
+    @GET("api/get_tag_posts/")
+    Call<ResponseBody> getSameVideos(@Query("slug") String tagSlug);
 
 }
