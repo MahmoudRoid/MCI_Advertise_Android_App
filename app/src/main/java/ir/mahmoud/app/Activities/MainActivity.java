@@ -202,7 +202,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void menuClick(View v) {
         mMenuDialogFragment.show(fragmentManager, "ContextMenuDialogFragment");
     }
-
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -234,7 +233,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+    @Override
+    public void onMenuItemClick(View view, int position) {
+        switch (position) {
+            case 0:
+                // بستن
+                break;
+            case 1:
+                Toast.makeText(this, "ساخت حساب کاربری", Toast.LENGTH_SHORT).show();
+                break;
 
+            case 2:
+                Toast.makeText(this, "دانلودها", Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                Toast.makeText(this, "معرفی به دوستان", Toast.LENGTH_SHORT).show();
+                break;
+            case 4:
+                Toast.makeText(this, "درباره ما", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
     public void exit() {
         final AlertDialog.Builder alertComment = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         alertComment.setMessage(HSH.setTypeFace(MainActivity.this, "آیا مایل به خروج از برنامه هستید؟"));
@@ -271,29 +290,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         alertComment.show();
     }
-
-    @Override
-    public void onMenuItemClick(View view, int position) {
-        switch (position) {
-            case 0:
-                // بستن
-                break;
-            case 1:
-                Toast.makeText(this, "ساخت حساب کاربری", Toast.LENGTH_SHORT).show();
-                break;
-
-            case 2:
-                Toast.makeText(this, "دانلودها", Toast.LENGTH_SHORT).show();
-                break;
-            case 3:
-                Toast.makeText(this, "معرفی به دوستان", Toast.LENGTH_SHORT).show();
-                break;
-            case 4:
-                Toast.makeText(this, "درباره ما", Toast.LENGTH_SHORT).show();
-                break;
-        }
-    }
-
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
