@@ -42,7 +42,7 @@ public class GetSameVideos {
                 // handle data
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-//                    if(jsonObject.optString("status") == "ok"){
+                    if(jsonObject.getString("status").equals("ok")){
                         JSONArray jsonArray = jsonObject.getJSONArray("posts");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -60,8 +60,8 @@ public class GetSameVideos {
                         }
                         if (postModelList.size()>0) delegate.getResult(postModelList);
                         else delegate.getError("empty list");
-//                    }
-//                    else delegate.getError("status error");
+                   }
+                   else delegate.getError("status error");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
