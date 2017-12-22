@@ -2,7 +2,6 @@
 <RelativeLayout android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_weight="0.5"
     android:layout_gravity="center"
     android:layout_margin="5dp"
     android:gravity="center"

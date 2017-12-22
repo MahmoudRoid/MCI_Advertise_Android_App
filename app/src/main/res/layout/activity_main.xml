@@ -34,7 +34,7 @@
             android:layout_gravity="right"
             android:layoutDirection="ltr"
             android:onClick="menuClick"
-            app:srcCompat="@mipmap/back" />
+            app:srcCompat="@drawable/ic_menu" />
 
         <LinearLayout
             android:id="@+id/search_bar"

@@ -102,6 +102,7 @@ public class MainFragment extends Fragment {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                appBar.setVisibility(View.VISIBLE);
                //m.getResult(Application.getInstance().vip_feed);
                 if (!response.equals("[]")) {
                    /* for (SlideShowModel m : response.body()) {
@@ -192,7 +193,6 @@ public class MainFragment extends Fragment {
                 hrsv.addView(view1);
             }
             nest_scrollview.setVisibility(View.VISIBLE);
-            appBar.setVisibility(View.VISIBLE);
             pb.setVisibility(View.GONE);
         } catch (Exception e) {
         }
