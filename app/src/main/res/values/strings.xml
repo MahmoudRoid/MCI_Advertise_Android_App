@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">shodani</string>
-    <string name="videos">ویدئوها</string>
-    <string name="newIdeas">ایده های نو</string>
-    <string name="day_tutorial">آموزش روز</string>
+    <string name="attractive">جذابترین ها</string>
+    <string name="newest">جدیدترین ها</string>
+    <string name="vip_sujest">پیشنهاد ویژه</string>
     <string name="mainPage">صفحه اصلی</string>
     <string name="title_activity_main2">Main2Activity</string>
 

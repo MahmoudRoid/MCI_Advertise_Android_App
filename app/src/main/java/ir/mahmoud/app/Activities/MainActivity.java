@@ -28,6 +28,7 @@ import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Fragments.DayTutorialFragment;
 import ir.mahmoud.app.Fragments.HomeFragment;
@@ -177,21 +178,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.txt_tutorial:
-                if (dayTutorial_fragment == null)
+                Application.getInstance().videoType = "پیشنهاد-ویژه";
+                //if (dayTutorial_fragment == null)
+                    dayTutorial_fragment = new DayTutorialFragment();
+                openFragment(MainActivity.this, dayTutorial_fragment);
+                break;
+            case R.id.txt_newIdeas:
+                Application.getInstance().videoType = "جدیدترین-ها";
+                //if (dayTutorial_fragment == null)
                     dayTutorial_fragment = new DayTutorialFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
-            case R.id.txt_newIdeas:
-                if (newIdeas_fragment == null)
-                    newIdeas_fragment = new NewIdeasFragment();
-                openFragment(MainActivity.this, newIdeas_fragment);
-                break;
-
             case R.id.txt_videos:
-                if (videos_fragment == null)
-                    videos_fragment = new VideosFragment();
-                openFragment(MainActivity.this, videos_fragment);
+                Application.getInstance().videoType = "جذابترین_ها";
+                //if (dayTutorial_fragment == null)
+                    dayTutorial_fragment = new DayTutorialFragment();
+                openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
             default:

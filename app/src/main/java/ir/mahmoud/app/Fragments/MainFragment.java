@@ -91,7 +91,8 @@ public class MainFragment extends Fragment {
         };
         final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
         //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
-        getPostsAsynkTask.getVipVideos(getActivity(), m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
+        getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
+        getPosts.getData();
         float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         return rootView;
     }
@@ -162,7 +163,7 @@ public class MainFragment extends Fragment {
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
                 hrsv.addView(view1);
             }
-            for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
+            for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);

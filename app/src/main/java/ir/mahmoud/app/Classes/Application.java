@@ -33,8 +33,7 @@ public class Application extends SugarApp {
     public List<PostModel> newest_feed = new ArrayList<>() ;
     public List<PostModel> attractive_feed = new ArrayList<>() ;
     public List<PostModel> tagged_feed = new ArrayList<>() ;
-
-
+    public String videoType = "";
 
     private static final Application ourInstance = new Application();
     public static Application getInstance() {

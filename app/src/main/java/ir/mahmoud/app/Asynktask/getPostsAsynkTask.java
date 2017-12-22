@@ -2,27 +2,51 @@ package ir.mahmoud.app.Asynktask;
 
 
 import android.content.Context;
+import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
+import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Interfaces.IWerbService;
 import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class getPostsAsynkTask {
 
-    public static void getVipVideos(final Context cn, final IWerbService m, final LinearLayout hrsv_vip, final LinearLayout hrsv_newest,
-                                    final LinearLayout hrsv_attractive, final LinearLayout hrsv_tagged) {
+    public Context cn;
+    private IWerbService delegate = null;
+    private LinearLayout hrsv_vip;
+    private LinearLayout hrsv_newest;
+    private LinearLayout hrsv_attractive;
+    private LinearLayout hrsv_tagged;
+
+    public getPostsAsynkTask(final Context cn, final IWerbService m, final LinearLayout hrsv_vip, final LinearLayout hrsv_newest,
+                             final LinearLayout hrsv_attractive, final LinearLayout hrsv_tagged){
+        this.cn=cn;
+        this.delegate=m;
+        this.hrsv_vip = hrsv_vip;
+        this.hrsv_newest = hrsv_newest;
+        this.hrsv_attractive = hrsv_attractive;
+        this.hrsv_tagged = hrsv_tagged;
+    }
+
+    public void getData() {
         Call<ResponseBody> call =
                 ApiClient.getClient().create(ApiInterface.class).GetVipVideos();
         call.enqueue(new Callback<ResponseBody>() {
@@ -74,10 +98,10 @@ public class getPostsAsynkTask {
                             Application.getInstance().tagged_feed.add(item);
                     }
 
-                    m.getResult(Application.getInstance().vip_feed, hrsv_vip);
-                    m.getResult(Application.getInstance().newest_feed, hrsv_newest);
-                    m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
-                    m.getResult(Application.getInstance().tagged_feed, hrsv_tagged);
+                    delegate.getResult(Application.getInstance().vip_feed, hrsv_vip);
+                    delegate.getResult(Application.getInstance().newest_feed, hrsv_newest);
+                    delegate.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
+                    delegate.getResult(Application.getInstance().tagged_feed, hrsv_tagged);
                 } catch (Exception e) {
 
                 }

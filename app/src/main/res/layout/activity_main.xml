@@ -123,19 +123,19 @@
                 android:clickable="true"
                 fontPath="fonts/IRANSansMedium.ttf"
                 android:drawableTop="@mipmap/video"
-                android:text="@string/videos" />
+                android:text="@string/attractive" />
 
             <TextView
                 android:id="@+id/txt_newIdeas"
                 style="@style/bottom_navigation"
                 android:drawableTop="@mipmap/newideas"
-                android:text="@string/newIdeas" />
+                android:text="@string/newest" />
 
             <TextView
                 android:id="@+id/txt_tutorial"
                 style="@style/bottom_navigation"
                 android:drawableTop="@mipmap/daytutorial"
-                android:text="@string/day_tutorial" />
+                android:text="@string/vip_sujest" />
 
             <TextView
                 android:id="@+id/txt_home"
