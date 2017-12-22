@@ -153,6 +153,14 @@ public class MainFragment extends Fragment {
 
     private void Binding(final LinearLayout hrsv, final List<PostModel> feed) {
         try {
+            if(feed.size() == 1)
+            {
+                LayoutInflater inflater = (LayoutInflater)
+                        getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
+                final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
+                view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
+                hrsv.addView(view1);
+            }
             for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
@@ -170,12 +178,13 @@ public class MainFragment extends Fragment {
                             .into(img_post);
                 } catch (Exception e) {
                 }
+                view1.setTag(scrollviewposition);
                 view1.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View view) {
                                                  Intent intent;
                                                  intent = new Intent(getActivity(),VideoDetailActivity.class);
-                                                 intent.putExtra("feedItem",  feed.get(scrollviewposition));
+                                                 intent.putExtra("feedItem",  feed.get(Integer.parseInt(view1.getTag().toString())));
                                                  startActivity(intent);
                                              }
                                          }
