@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:ignore="MissingPrefix"
     tools:context="ir.mahmoud.app.Activities.VideoDetailActivity">
 
     <RelativeLayout
@@ -15,8 +17,61 @@
             android:id="@+id/imageView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:src="@mipmap/homeb"
             android:scaleType="fitXY"/>
 
     </RelativeLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="عنوان ویدیو"
+        android:textSize="16sp"
+        android:textColor="#000"
+        android:layout_gravity="right"
+        fontPath="fonts/IRANSansMedium.ttf"
+        android:layout_margin="10dp"/>
 
-</android.support.constraint.ConstraintLayout>
+    <ir.mahmoud.app.Classes.ExpandableTextView
+        android:id="@+id/postContent_tv"
+        android:layout_width="match_parent"
+        android:layout_margin="10dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="right"
+        app:contentTextSize="9sp"
+        app:contentLineSpacingMultiplier="1.5"
+        android:textDirection="rtl"
+        fontPath="fonts/IRANSansMedium.ttf"
+        app:maxCollapsedLines="1"/>
+
+    <ImageView
+        android:id="@+id/share_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_share"
+        android:layout_margin="10dp"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#405682A3"
+        />
+
+    <TextView
+        fontPath="fonts/IRANSansMedium.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_gravity="right"
+        android:drawablePadding="@dimen/dp6"
+        android:drawableRight="@mipmap/vip"
+        android:padding="5dp"
+        android:text="ویدئوهای مرتبط"
+        android:textColor="#d80027"
+        android:textSize="14sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>

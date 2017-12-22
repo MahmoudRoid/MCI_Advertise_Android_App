@@ -12,16 +12,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.R;
 
 public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.DataObjectHolder> {
     public Context context;
-    public ArrayList<PostModel> myObjectArrayList;
+    public List<PostModel> myObjectArrayList;
     public String Language_kind;
 
-    public SameVideoAdapter(Context context, ArrayList<PostModel> arrayList) {
+    public SameVideoAdapter(Context context, List<PostModel> arrayList) {
         this.myObjectArrayList = arrayList;
         this.context = context;
     }

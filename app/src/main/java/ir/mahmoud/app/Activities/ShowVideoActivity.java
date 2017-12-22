@@ -23,7 +23,7 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
         player = (BetterVideoPlayer) findViewById(R.id.player);
         player.setCallback(this);
         player.setSource(Uri.parse(videoUrl));
-
+        player.setAutoPlay(true);
     }
 
     private void getData() {
