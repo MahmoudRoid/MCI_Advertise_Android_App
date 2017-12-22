@@ -55,13 +55,20 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         holder.tv_date.setText(myObjectArrayList.get(position).getDate());
         //holder.tv_bazdid.setText(myObjectArrayList.get(position).getTitle());
         Glide.with(context).load(myObjectArrayList.get(position).getImageUrl())
-                .apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)
+                .apply(new RequestOptions().placeholder(R.mipmap.homeb)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                .into(holder.image);
+
     }
 
     @Override
     public int getItemCount() {
         return myObjectArrayList.size();
+    }
+
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 }

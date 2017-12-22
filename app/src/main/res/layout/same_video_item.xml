@@ -5,13 +5,13 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="MissingPrefix"
+    android:layout_marginTop="2dp"
     android:layout_marginLeft="8dp"
     android:layout_marginRight="8dp">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/bottom_navigation_background">
+        android:layout_height="100dp">
 
         <ImageView
             android:id="@+id/imageView"
@@ -62,8 +62,12 @@
 
         </RelativeLayout>
 
-
-
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#405682A3"
+            />
     </RelativeLayout>
 
 </LinearLayout>
