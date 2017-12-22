@@ -39,7 +39,4 @@ public interface ApiInterface {
 
     @GET("api/get_tag_posts/")
     Call<ResponseBody> getSameVideos(@Query("slug") String tagSlug);
-
-    // alan chi ?
-
 }
