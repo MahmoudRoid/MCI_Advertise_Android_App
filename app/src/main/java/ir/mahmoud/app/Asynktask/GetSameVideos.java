@@ -1,6 +1,8 @@
 package ir.mahmoud.app.Asynktask;
 
 import android.content.Context;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,11 +28,13 @@ public class GetSameVideos {
     private IWebService2 delegate = null;
     private String tagSlug;
     List<PostModel> postModelList = new ArrayList<>();
+    private ProgressBar pb;
 
-    public GetSameVideos(Context context, IWebService2 delegate,String tagSlug){
+    public GetSameVideos(Context context, IWebService2 delegate, String tagSlug, ProgressBar pb){
         this.context=context;
         this.delegate=delegate;
         this.tagSlug=tagSlug;
+        this.pb = pb;
     }
 
     public void getData(){
@@ -42,7 +46,7 @@ public class GetSameVideos {
                 // handle data
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    if(jsonObject.optString("status") .equals("ok")){
+                    if(jsonObject.getString("status").equals("ok")){
                         JSONArray jsonArray = jsonObject.getJSONArray("posts");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -60,8 +64,8 @@ public class GetSameVideos {
                         }
                         if (postModelList.size()>0) delegate.getResult(postModelList);
                         else delegate.getError("empty list");
-                    }
-                    else delegate.getError("status error");
+                   }
+                   else delegate.getError("status error");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -70,11 +74,13 @@ public class GetSameVideos {
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
+                pb.setVisibility(View.GONE);
             }
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 try {
+                    pb.setVisibility(View.GONE);
                     delegate.getError("error");
                 } catch (Exception e) {
                     e.printStackTrace();

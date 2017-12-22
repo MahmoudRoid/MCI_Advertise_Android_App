@@ -22,7 +22,6 @@
 
     </RelativeLayout>
     <TextView
-        android:id="@+id/postTitile_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="عنوان ویدیو"
@@ -70,9 +69,22 @@
         android:textColor="#d80027"
         android:textSize="14sp" />
 
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
+
+    </android.support.v7.widget.RecyclerView>
+
 
 </LinearLayout>
