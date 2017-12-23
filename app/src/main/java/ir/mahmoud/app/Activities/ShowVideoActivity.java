@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Toast;
 
 import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
@@ -30,10 +32,13 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
         videoTitle = getIntent().getStringExtra("title");
         videoUrl = getIntent().getStringExtra("url");
     }
+    
+    public void saveVideo(View view){
+        Toast.makeText(this, "sss", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
-    public void onStarted(BetterVideoPlayer player) {
-    }
+    public void onStarted(BetterVideoPlayer player) {}
 
     @Override
     public void onPaused(BetterVideoPlayer player) {

@@ -115,5 +115,6 @@
     <string name="expand_string">بیشتر</string>
     <string name="collapsed_string">کمتر</string>
     <string name="tags">tags</string>
+    <string name="title_activity_video_details">VideoDetailsActivity</string>
 
 </resources>

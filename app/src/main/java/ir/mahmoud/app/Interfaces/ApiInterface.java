@@ -43,6 +43,8 @@ public interface ApiInterface {
     @GET("api/get_posts/")
     Call<ResponseBody> getPosts(@Query("slug") String tagSlug);
 
-    // alan chi ?
+    @GET("api/get_search_results/")
+    Call<ResponseBody> searchVideos(@Query("search") String searchString);
+
 
 }

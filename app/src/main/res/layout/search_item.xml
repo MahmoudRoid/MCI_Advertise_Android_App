@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="MissingPrefix"
+    android:layout_marginTop="2dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="120dp"
+            android:layout_height="70dp"
+            android:src="@mipmap/homeb"
+            android:scaleType="fitXY"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_toLeftOf="@+id/imageView"
+            android:layout_marginRight="8dp"
+            android:layout_centerVertical="true"
+            android:id="@+id/relativeLayout">
+
+            <TextView
+                android:id="@+id/title_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:maxLines="1"
+                android:text="عنوان ویدیو"
+                android:textSize="14sp"
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="#000000"/>
+
+            <TextView
+            android:id="@+id/kind_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/title_tv"
+            fontPath="fonts/IRANSansMedium.ttf"
+            android:text="6930 بازدید"/>
+
+
+            <TextView
+                android:id="@+id/date_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+               android:layout_alignParentBottom="true"
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:text="5 ماه پیش"/>
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_alignParentBottom="true"
+            android:background="#405682A3"
+            />
+    </RelativeLayout>
+
+</LinearLayout>
+
+

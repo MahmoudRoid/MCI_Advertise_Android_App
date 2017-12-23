@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -45,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     private LinearLayout ll_bottomNavigation;
     private TextView txt_home, txt_tutorial, txt_newIdeas, txt_videos;
+    private EditText edt_search;
     ImageButton btn_clear, btn_srch;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
@@ -62,6 +64,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_tutorial = (TextView)findViewById(R.id.txt_tutorial);
         txt_newIdeas = (TextView)findViewById(R.id.txt_newIdeas);
         txt_videos = (TextView)findViewById(R.id.txt_videos);
+        edt_search = (EditText) findViewById(R.id.edit_srch);
         txt_home.setOnClickListener(this);
         txt_tutorial.setOnClickListener(this);
         txt_newIdeas.setOnClickListener(this);
@@ -170,6 +173,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_clear :
                 HSH.hide(MainActivity.this, findViewById(R.id.search_bar));
+                break;
+            case R.id.btn_srch:
+                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
+                intent.putExtra("searchString",edt_search.getText().toString());
+                startActivity(intent);
                 break;
             case R.id.txt_home:
                 if (home_fragment == null)

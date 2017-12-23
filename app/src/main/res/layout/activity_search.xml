@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix"
+    tools:context="ir.mahmoud.app.Activities.SearchActivity">
+
+    <LinearLayout
+        android:id="@+id/search_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:background="#54545666">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/search_edt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.8"
+            android:hint="جستجو"
+            fontPath="fonts/IRANSansMedium.ttf"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"/>
+
+        <ImageView
+            android:id="@+id/search_icon"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:src="@mipmap/search2"
+            android:layout_gravity="center_vertical"/>
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pb"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/search_linear"
+        android:visibility="invisible"/>
+
+</RelativeLayout>

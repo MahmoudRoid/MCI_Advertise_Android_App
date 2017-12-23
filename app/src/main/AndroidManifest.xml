@@ -32,6 +32,7 @@
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -51,12 +52,15 @@
             android:name=".Activities.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".Activities.VideoDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme"/>
-        <activity android:name=".Activities.ShowVideoActivity"
+        <activity
+            android:name=".Activities.ShowVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
-            android:theme="@style/MyMaterialTheme"/>
+            android:theme="@style/MyMaterialTheme" />
+        <activity android:name=".Activities.SearchActivity" />
+        <activity
+            android:name=".Activities.VideoDetailActivity"
+            android:label="@string/title_activity_video_details"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
