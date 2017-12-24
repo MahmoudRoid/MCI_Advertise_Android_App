@@ -22,17 +22,17 @@ import retrofit2.Response;
 
 public class SearchVideos {
     public Context context;
+    List<PostModel> postModelList = new ArrayList<>();
     private IWebService2 delegate = null;
     private String searchString;
-    List<PostModel> postModelList = new ArrayList<>();
 
-    public SearchVideos(Context context, IWebService2 delegate, String searchString){
+    public SearchVideos(Context context, IWebService2 delegate, String searchString) {
         this.context = context;
         this.delegate = delegate;
         this.searchString = searchString;
     }
 
-    public void getData(){
+    public void getData() {
         Call<ResponseBody> call =
                 ApiClient.getClient().create(ApiInterface.class).searchVideos(this.searchString);
         call.enqueue(new Callback<ResponseBody>() {
@@ -41,7 +41,7 @@ public class SearchVideos {
                 // handle data
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    if(jsonObject.getString("status").equals("ok")){
+                    if (jsonObject.getString("status").equals("ok")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("posts");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -57,17 +57,19 @@ public class SearchVideos {
 
                             postModelList.add(postModel);
                         }
-                        if (postModelList.size()>0) delegate.getResult(postModelList);
+                        if (postModelList.size() > 0) delegate.getResult(postModelList);
                         else delegate.getResult("empty list");
-                    }
-                    else delegate.getError("status error");
+                    } else delegate.getError("status error");
 
                 } catch (JSONException e) {
-                    e.printStackTrace();sendError();
+                    e.printStackTrace();
+                    sendError();
                 } catch (IOException e) {
-                    e.printStackTrace();sendError();
+                    e.printStackTrace();
+                    sendError();
                 } catch (Exception e) {
-                    e.printStackTrace();sendError();
+                    e.printStackTrace();
+                    sendError();
                 }
             }
 

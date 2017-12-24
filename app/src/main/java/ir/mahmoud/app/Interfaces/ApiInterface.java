@@ -27,8 +27,8 @@ public interface ApiInterface {
     @GET("api/getNewsDetails/{NewsId}")
     Call<ResponseBody> getNewsDetails(@Path("NewsId") String NewsId);
 
-    @GET("api/get_recent_posts/")
-    Call<ResponseBody> GetSlideShowItems();
+    @GET("api/get_posts/")
+    Call<ResponseBody> GetSlideShowItems(@Query("slug") String searchString);
 
     @GET("api/get_recent_posts/")
     Call<ResponseBody> GetVipVideos();

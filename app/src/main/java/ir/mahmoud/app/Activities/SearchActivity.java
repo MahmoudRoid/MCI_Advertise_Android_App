@@ -83,7 +83,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
 
     @OnClick(R.id.search_icon)
     public void onViewClicked() {
-        if(searchEdt.getText().toString().trim().length()>0){
+        if (searchEdt.getText().toString().trim().length() > 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
             SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());

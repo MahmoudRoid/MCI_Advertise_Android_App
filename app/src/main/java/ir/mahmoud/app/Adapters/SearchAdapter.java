@@ -19,29 +19,14 @@ import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.R;
 
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.DataObjectHolder> {
-public Context context;
-public List<PostModel> myObjectArrayList;
-public String Language_kind;
+    public Context context;
+    public List<PostModel> myObjectArrayList;
+    public String Language_kind;
 
-public SearchAdapter(Context context, List<PostModel> arrayList) {
+    public SearchAdapter(Context context, List<PostModel> arrayList) {
         this.myObjectArrayList = arrayList;
         this.context = context;
-        }
-
-public static class DataObjectHolder extends RecyclerView.ViewHolder {
-    ImageView image;
-    TextView tv_title, tv_date, tv_kind;
-
-
-    public DataObjectHolder(View itemView) {
-        super(itemView);
-        tv_title = (TextView) itemView.findViewById(R.id.title_tv);
-        tv_date = (TextView) itemView.findViewById(R.id.date_tv);
-        tv_kind = (TextView) itemView.findViewById(R.id.kind_tv);
-        image = (ImageView) itemView.findViewById(R.id.imageView);
     }
-}
-
 
     @Override
     public SearchAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -66,10 +51,23 @@ public static class DataObjectHolder extends RecyclerView.ViewHolder {
         return myObjectArrayList.size();
     }
 
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView tv_title, tv_date, tv_kind;
+
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            tv_title = (TextView) itemView.findViewById(R.id.title_tv);
+            tv_date = (TextView) itemView.findViewById(R.id.date_tv);
+            tv_kind = (TextView) itemView.findViewById(R.id.kind_tv);
+            image = (ImageView) itemView.findViewById(R.id.imageView);
+        }
     }
 }
 

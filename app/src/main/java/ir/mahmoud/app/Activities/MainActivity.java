@@ -31,8 +31,8 @@ import java.util.List;
 
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Fragments.VideosFragment;
 import ir.mahmoud.app.Fragments.MainFragment;
+import ir.mahmoud.app.Fragments.VideosFragment;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -41,24 +41,23 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
 
     Toolbar toolbar;
+    ImageButton btn_clear, btn_srch;
     private LinearLayout ll_bottomNavigation;
     private TextView txt_home, txt_vip, txt_newest, txt_attractive;
     private EditText edt_search;
-    ImageButton btn_clear, btn_srch;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
     private VideosFragment dayTutorial_fragment = null;
 
-    private void AssignViews()
-    {
-        toolbar = (Toolbar)findViewById(R.id.toolbar_top);
-        btn_clear = (ImageButton)findViewById(R.id.btn_clear);
-        btn_srch = (ImageButton)findViewById(R.id.btn_srch);
-        txt_home =(TextView) findViewById(R.id.txt_home);
-        txt_vip = (TextView)findViewById(R.id.txt_vip);
-        txt_newest = (TextView)findViewById(R.id.txt_newest);
-        txt_attractive = (TextView)findViewById(R.id.txt_attractive);
+    private void AssignViews() {
+        toolbar = (Toolbar) findViewById(R.id.toolbar_top);
+        btn_clear = (ImageButton) findViewById(R.id.btn_clear);
+        btn_srch = (ImageButton) findViewById(R.id.btn_srch);
+        txt_home = (TextView) findViewById(R.id.txt_home);
+        txt_vip = (TextView) findViewById(R.id.txt_vip);
+        txt_newest = (TextView) findViewById(R.id.txt_newest);
+        txt_attractive = (TextView) findViewById(R.id.txt_attractive);
         edt_search = (EditText) findViewById(R.id.edit_srch);
         txt_home.setOnClickListener(this);
         txt_vip.setOnClickListener(this);
@@ -66,7 +65,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_attractive.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
         btn_srch.setOnClickListener(this);
-        ll_bottomNavigation =(LinearLayout) findViewById(R.id.ll_bottomNavigation);
+        ll_bottomNavigation = (LinearLayout) findViewById(R.id.ll_bottomNavigation);
     }
 
     @Override
@@ -87,7 +86,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-       // _menu = menu;
+        // _menu = menu;
         return true;
     }
 
@@ -166,12 +165,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         HSH.setMainDrawableColor(ll_bottomNavigation, v);
         switch (v.getId()) {
-            case R.id.btn_clear :
+            case R.id.btn_clear:
                 HSH.hide(MainActivity.this, findViewById(R.id.search_bar));
                 break;
             case R.id.btn_srch:
-                Intent intent = new Intent(MainActivity.this,SearchActivity.class);
-                intent.putExtra("searchString",edt_search.getText().toString());
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                intent.putExtra("searchString", edt_search.getText().toString());
                 startActivity(intent);
                 break;
             case R.id.txt_home:
@@ -183,20 +182,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.txt_vip:
                 Application.getInstance().videoType = "پیشنهاد-ویژه";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new VideosFragment();
+                dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
             case R.id.txt_newest:
                 Application.getInstance().videoType = "جدیدترین-ها";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new VideosFragment();
+                dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
             case R.id.txt_attractive:
                 Application.getInstance().videoType = "جذابترین_ها";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new VideosFragment();
+                dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
@@ -208,6 +207,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void menuClick(View v) {
         mMenuDialogFragment.show(fragmentManager, "ContextMenuDialogFragment");
     }
+
     @Override
     public void onBackPressed() {
         if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
@@ -239,6 +239,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
     }
+
     @Override
     public void onMenuItemClick(View view, int position) {
         switch (position) {
@@ -260,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
         }
     }
+
     public void exit() {
         final AlertDialog.Builder alertComment = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         alertComment.setMessage(HSH.setTypeFace(MainActivity.this, "آیا مایل به خروج از برنامه هستید؟"));
@@ -296,6 +298,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
         alertComment.show();
     }
+
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));

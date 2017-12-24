@@ -22,10 +22,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 
 import ir.mahmoud.app.R;
-import ir.mahmoud.app.R.layout;
 
 public class MainSlideShowFragment extends Fragment {
 
@@ -44,7 +46,7 @@ public class MainSlideShowFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(layout.slideshow, container, false);
+        View rootView = inflater.inflate(R.layout.slideshow, container, false);
 
         if (savedInstanceState != null) {
             if (asset == null && savedInstanceState.containsKey(BUNDLE_ASSET)) {
@@ -53,13 +55,12 @@ public class MainSlideShowFragment extends Fragment {
         }
         if (asset != null) {
             temp = asset.split("///");
-
             imageView = rootView.findViewById(R.id.imgView);
-            final ProgressBar p = rootView.findViewById(R.id.PrgrsBar);
-
-
+            Glide.with(getActivity()).load(temp[1])
+                    .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                            .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
+                    .into(imageView);
         }
-
         return rootView;
     }
 

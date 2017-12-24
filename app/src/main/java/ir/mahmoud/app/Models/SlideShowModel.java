@@ -5,22 +5,24 @@ import java.io.Serializable;
 public class SlideShowModel implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private String Id = "";
-    private String Image = "";
+    private int id;
+    private String imageUrl = "";
 
-    public String getId() {
-        return Id;
+
+    public int getId() {
+        return id;
     }
 
-    public void setId(String id) {
-        Id = id;
+    public void setId(int id) {
+        this.id = id;
     }
+
 
     public String getImage() {
-        return Image;
+        return imageUrl;
     }
 
     public void setImage(String image) {
-        Image = image;
+        imageUrl = image;
     }
 }

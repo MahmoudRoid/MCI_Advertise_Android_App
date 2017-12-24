@@ -27,21 +27,6 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         this.context = context;
     }
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView tv_title, tv_date, tv_bazdid;
-
-
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            tv_title = (TextView) itemView.findViewById(R.id.title_tv);
-            tv_date = (TextView) itemView.findViewById(R.id.date_tv);
-            //tv_bazdid = (TextView) itemView.findViewById(R.id.bazdid_tv);
-            image = (ImageView) itemView.findViewById(R.id.imageView);
-        }
-    }
-
-
     @Override
     public SameVideoAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -57,7 +42,7 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         Glide.with(context).load(myObjectArrayList.get(position).getImageUrl())
                 .apply(new RequestOptions().placeholder(R.mipmap.homeb)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
-               .into(holder.image);
+                .into(holder.image);
 
     }
 
@@ -66,9 +51,22 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         return myObjectArrayList.size();
     }
 
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView tv_title, tv_date, tv_bazdid;
+
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            tv_title = (TextView) itemView.findViewById(R.id.title_tv);
+            tv_date = (TextView) itemView.findViewById(R.id.date_tv);
+            //tv_bazdid = (TextView) itemView.findViewById(R.id.bazdid_tv);
+            image = (ImageView) itemView.findViewById(R.id.imageView);
+        }
     }
 }

@@ -16,20 +16,18 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Application extends SugarApp {
 
-    public List<SlideShowModel> sl = new ArrayList<>() ;
-    public List<PostModel> vip_feed = new ArrayList<>() ;
-    public List<PostModel> newest_feed = new ArrayList<>() ;
-    public List<PostModel> attractive_feed = new ArrayList<>() ;
-    public List<PostModel> tagged_feed = new ArrayList<>() ;
-
-    public List<PostModel> vip_feed_list = new ArrayList<>() ;
-    public List<PostModel> newest_feed_list = new ArrayList<>() ;
-    public List<PostModel> attractive_feed_list = new ArrayList<>() ;
-    public List<PostModel> tagged_feed_list = new ArrayList<>() ;
-
+    private static final Application ourInstance = new Application();
+    public List<SlideShowModel> sl = new ArrayList<>();
+    public List<PostModel> vip_feed = new ArrayList<>();
+    public List<PostModel> newest_feed = new ArrayList<>();
+    public List<PostModel> attractive_feed = new ArrayList<>();
+    public List<PostModel> tagged_feed = new ArrayList<>();
+    public List<PostModel> vip_feed_list = new ArrayList<>();
+    public List<PostModel> newest_feed_list = new ArrayList<>();
+    public List<PostModel> attractive_feed_list = new ArrayList<>();
+    public List<PostModel> tagged_feed_list = new ArrayList<>();
     public String videoType = "";
 
-    private static final Application ourInstance = new Application();
     public static Application getInstance() {
         return ourInstance;
     }

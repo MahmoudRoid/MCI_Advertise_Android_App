@@ -54,7 +54,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         /*if (feedItemList.get(position) == null)
             return VIEW_TYPE_LOADING;
         else*/
-            return VIEW_TYPE_ITEM;
+        return VIEW_TYPE_ITEM;
     }
 
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, final int i) {
@@ -79,8 +79,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent;
-                intent = new Intent(mContext,VideoDetailActivity.class);
-                intent.putExtra("feedItem",  feedItemList.get(i));
+                intent = new Intent(mContext, VideoDetailActivity.class);
+                intent.putExtra("feedItem", feedItemList.get(i));
                 mContext.startActivity(intent);
             }
 

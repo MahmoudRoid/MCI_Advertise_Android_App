@@ -24,10 +24,9 @@ public class getListPostsAsynkTask {
     public Context cn;
     private IWebService2 delegate = null;
     private String slug;
-    private List<PostModel> feed = new ArrayList<>() ;
+    private List<PostModel> feed = new ArrayList<>();
 
-    public getListPostsAsynkTask(final Context cn,final List<PostModel> feed , final IWebService2 m, final  String slug)
-    {
+    public getListPostsAsynkTask(final Context cn, final List<PostModel> feed, final IWebService2 m, final String slug) {
         this.cn = cn;
         this.feed = feed;
         this.delegate = m;
@@ -44,8 +43,7 @@ public class getListPostsAsynkTask {
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(cn.getString(R.string.posts)));
-                    for (int i = 0; i< jary.length() ; i++)
-                    {
+                    for (int i = 0; i < jary.length(); i++) {
                         PostModel item = new PostModel();
                         item.setId(jary.getJSONObject(i).getInt(cn.getString(R.string.id)));
                         item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
@@ -70,13 +68,14 @@ public class getListPostsAsynkTask {
                             item.setImageUrl(jary.getJSONObject(i).getJSONObject(cn.getString(R.string.thumbnail_images)).getJSONObject(cn.getString(R.string.thumbnail)).getString(cn.getString(R.string.url)));
                         } catch (Exception e) {
                         }
-                         feed.add(item);
+                        feed.add(item);
                     }
                     delegate.getResult(feed);
                 } catch (Exception e) {
 
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 

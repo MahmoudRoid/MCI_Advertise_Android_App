@@ -2,7 +2,7 @@ package ir.mahmoud.app.Models;
 
 import java.io.Serializable;
 
-public class PostModel  implements Serializable {
+public class PostModel implements Serializable {
 
     public static final long serialVersionUID = 1L;
     public int id;
@@ -69,6 +69,7 @@ public class PostModel  implements Serializable {
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
     }
+
     public String getTagSlug() {
         return tagSlug;
     }

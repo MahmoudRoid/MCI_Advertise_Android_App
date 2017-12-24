@@ -28,9 +28,9 @@ public class getPostsAsynkTask {
     private LinearLayout hrsv_tagged;
 
     public getPostsAsynkTask(final Context cn, final IWerbService m, final LinearLayout hrsv_vip, final LinearLayout hrsv_newest,
-                             final LinearLayout hrsv_attractive, final LinearLayout hrsv_tagged){
-        this.cn=cn;
-        this.delegate=m;
+                             final LinearLayout hrsv_attractive, final LinearLayout hrsv_tagged) {
+        this.cn = cn;
+        this.delegate = m;
         this.hrsv_vip = hrsv_vip;
         this.hrsv_newest = hrsv_newest;
         this.hrsv_attractive = hrsv_attractive;
@@ -47,8 +47,7 @@ public class getPostsAsynkTask {
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(cn.getString(R.string.posts)));
-                    for (int i = 0; i< jary.length() ; i++)
-                    {
+                    for (int i = 0; i < jary.length(); i++) {
                         PostModel item = new PostModel();
                         item.setId(jary.getJSONObject(i).getInt(cn.getString(R.string.id)));
                         item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
@@ -79,13 +78,13 @@ public class getPostsAsynkTask {
                         obj = obj.getJSONObject("thumbnail");
                         item.setImageUrl(obj.getString("url"));*/
 
-                        if(item.getCategoryTitle().contains("ویژه") && Application.getInstance().vip_feed.size() <2)
+                        if (item.getCategoryTitle().contains("ویژه") && Application.getInstance().vip_feed.size() < 2)
                             Application.getInstance().vip_feed.add(item);
-                        else if(item.getCategoryTitle().contains("جدید") && Application.getInstance().newest_feed.size() <2)
+                        else if (item.getCategoryTitle().contains("جدید") && Application.getInstance().newest_feed.size() < 2)
                             Application.getInstance().newest_feed.add(item);
-                        else if(item.getCategoryTitle().contains("جذاب")&& Application.getInstance().attractive_feed.size() <2)
+                        else if (item.getCategoryTitle().contains("جذاب") && Application.getInstance().attractive_feed.size() < 2)
                             Application.getInstance().attractive_feed.add(item);
-                        else if(item.getCategoryTitle().contains("نشان")&& Application.getInstance().tagged_feed.size() <2)
+                        else if (item.getCategoryTitle().contains("نشان") && Application.getInstance().tagged_feed.size() < 2)
                             Application.getInstance().tagged_feed.add(item);
                     }
 
@@ -97,6 +96,7 @@ public class getPostsAsynkTask {
 
                 }
             }
+
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
 

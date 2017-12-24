@@ -25,19 +25,19 @@ import retrofit2.Response;
 public class GetSameVideos {
 
     public Context context;
+    List<PostModel> postModelList = new ArrayList<>();
     private IWebService2 delegate = null;
     private String tagSlug;
-    List<PostModel> postModelList = new ArrayList<>();
     private ProgressBar pb;
 
-    public GetSameVideos(Context context, IWebService2 delegate, String tagSlug, ProgressBar pb){
-        this.context=context;
-        this.delegate=delegate;
-        this.tagSlug=tagSlug;
+    public GetSameVideos(Context context, IWebService2 delegate, String tagSlug, ProgressBar pb) {
+        this.context = context;
+        this.delegate = delegate;
+        this.tagSlug = tagSlug;
         this.pb = pb;
     }
 
-    public void getData(){
+    public void getData() {
         Call<ResponseBody> call =
                 ApiClient.getClient().create(ApiInterface.class).getSameVideos(this.tagSlug);
         call.enqueue(new Callback<ResponseBody>() {
@@ -46,7 +46,7 @@ public class GetSameVideos {
                 // handle data
                 try {
                     JSONObject jsonObject = new JSONObject(response.body().string());
-                    if(jsonObject.getString("status").equals("ok")){
+                    if (jsonObject.getString("status").equals("ok")) {
                         JSONArray jsonArray = jsonObject.getJSONArray("posts");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
@@ -62,10 +62,9 @@ public class GetSameVideos {
 
                             postModelList.add(postModel);
                         }
-                        if (postModelList.size()>0) delegate.getResult(postModelList);
+                        if (postModelList.size() > 0) delegate.getResult(postModelList);
                         else delegate.getError("empty list");
-                   }
-                   else delegate.getError("status error");
+                    } else delegate.getError("status error");
 
                 } catch (JSONException e) {
                     e.printStackTrace();
