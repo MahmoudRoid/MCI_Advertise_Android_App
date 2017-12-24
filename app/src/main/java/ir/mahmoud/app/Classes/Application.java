@@ -5,14 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Environment;
-import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
+
 import com.orm.SugarApp;
 
 import java.util.ArrayList;
@@ -34,7 +27,7 @@ public class Application extends SugarApp {
 
 
     private static final Application ourInstance = new Application();
-    public List<SlideShowModel> sl = new ArrayList<>();
+    public List<PostModel> sl = new ArrayList<>();
     public List<PostModel> vip_feed = new ArrayList<>();
     public List<PostModel> newest_feed = new ArrayList<>();
     public List<PostModel> attractive_feed = new ArrayList<>();
@@ -60,11 +53,11 @@ public class Application extends SugarApp {
     }
 
 
-    public List<SlideShowModel> getSl() {
+    public List<PostModel> getSl() {
         return sl;
     }
 
-    public void setSl(List<SlideShowModel> sl) {
+    public void setSl(List<PostModel> sl) {
         this.sl = sl;
     }
 

@@ -32,6 +32,7 @@ import java.util.List;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Fragments.MainFragment;
+import ir.mahmoud.app.Fragments.MarkedFragment;
 import ir.mahmoud.app.Fragments.VideosFragment;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -43,12 +44,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Toolbar toolbar;
     ImageButton btn_clear, btn_srch;
     private LinearLayout ll_bottomNavigation;
-    private TextView txt_home, txt_vip, txt_newest, txt_attractive;
+    private TextView txt_home, txt_vip, txt_newest, txt_attractive, txt_marked;
     private EditText edt_search;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
     private VideosFragment dayTutorial_fragment = null;
+    private MarkedFragment marked_fragment = null;
 
     private void AssignViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_top);
@@ -58,11 +60,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         txt_vip = (TextView) findViewById(R.id.txt_vip);
         txt_newest = (TextView) findViewById(R.id.txt_newest);
         txt_attractive = (TextView) findViewById(R.id.txt_attractive);
+        txt_marked = (TextView) findViewById(R.id.txt_marked);
         edt_search = (EditText) findViewById(R.id.edit_srch);
         txt_home.setOnClickListener(this);
         txt_vip.setOnClickListener(this);
         txt_newest.setOnClickListener(this);
         txt_attractive.setOnClickListener(this);
+        txt_marked.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
         btn_srch.setOnClickListener(this);
         ll_bottomNavigation = (LinearLayout) findViewById(R.id.ll_bottomNavigation);
@@ -174,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
             case R.id.txt_home:
-                if (home_fragment == null)
-                    home_fragment = new MainFragment();
+                //if (home_fragment == null)
+                home_fragment = new MainFragment();
                 openFragment(MainActivity.this, home_fragment);
                 break;
 
@@ -197,6 +201,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 //if (dayTutorial_fragment == null)
                 dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
+                break;
+
+            case R.id.txt_marked:
+                marked_fragment = new MarkedFragment();
+                openFragment(MainActivity.this, marked_fragment);
                 break;
 
             default:

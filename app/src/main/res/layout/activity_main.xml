@@ -128,6 +128,15 @@
             android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/txt_marked"
+                style="@style/bottom_navigation"
+                android:clickable="true"
+                android:gravity="center"
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:drawableTop="@mipmap/video"
+                android:text="@string/marked" />
+
+            <TextView
                 android:id="@+id/txt_attractive"
                 style="@style/bottom_navigation"
                 android:clickable="true"
