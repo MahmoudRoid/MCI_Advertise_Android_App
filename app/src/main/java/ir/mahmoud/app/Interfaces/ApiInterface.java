@@ -16,10 +16,6 @@ limitations under the License.
 
 package ir.mahmoud.app.Interfaces;
 
-import java.util.List;
-
-import ir.mahmoud.app.Models.PostModel;
-import ir.mahmoud.app.Models.SlideShowModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -2,7 +2,6 @@ package ir.mahmoud.app.Asynktask;
 
 
 import android.content.Context;
-import android.widget.LinearLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,13 +10,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Interfaces.IWerbService;
 import ir.mahmoud.app.Models.PostModel;
-import ir.mahmoud.app.Models.SlideShowModel;
 import ir.mahmoud.app.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;

@@ -23,7 +23,7 @@
         <RelativeLayout
             android:id="@+id/rl_vip"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
+            android:layout_height="@dimen/dp200">
 
             <TextView
                 android:id="@+id/txt_vip"
@@ -59,8 +59,7 @@
         <RelativeLayout
             android:id="@+id/rl_newest"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="#fffcf2">
+            android:layout_height="@dimen/dp200">
 
             <TextView
                 android:id="@+id/txt_new1"
@@ -94,8 +93,7 @@
         <RelativeLayout
             android:id="@+id/rl_attractive"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="#fffcf2">
+            android:layout_height="@dimen/dp200">
 
             <TextView
                 android:id="@+id/txt_attract"
@@ -128,8 +126,7 @@
         <RelativeLayout
             android:id="@+id/rl_tagged"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:background="#fffcf2">
+            android:layout_height="@dimen/dp200">
 
             <TextView
                 android:id="@+id/txt_tagged"
@@ -164,6 +161,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            fontPath="fonts/IRANSansMedium.ttf"
             android:layout_gravity="center"
             android:background="@drawable/txt_background_intro"
             android:clickable="true"

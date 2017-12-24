@@ -1,17 +1,5 @@
 package ir.mahmoud.app.Classes;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
-import android.preference.PreferenceManager;
-import android.support.design.widget.Snackbar;
-import android.view.Gravity;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.TextView;
 import com.orm.SugarApp;
 
 import java.util.ArrayList;
@@ -33,6 +21,12 @@ public class Application extends SugarApp {
     public List<PostModel> newest_feed = new ArrayList<>() ;
     public List<PostModel> attractive_feed = new ArrayList<>() ;
     public List<PostModel> tagged_feed = new ArrayList<>() ;
+
+    public List<PostModel> vip_feed_list = new ArrayList<>() ;
+    public List<PostModel> newest_feed_list = new ArrayList<>() ;
+    public List<PostModel> attractive_feed_list = new ArrayList<>() ;
+    public List<PostModel> tagged_feed_list = new ArrayList<>() ;
+
     public String videoType = "";
 
     private static final Application ourInstance = new Application();

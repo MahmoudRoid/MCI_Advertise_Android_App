@@ -1,8 +1,6 @@
 package ir.mahmoud.app.Asynktask;
 
 import android.content.Context;
-import android.view.View;
-import android.widget.ProgressBar;
 
 import org.json.JSONArray;
 import org.json.JSONException;

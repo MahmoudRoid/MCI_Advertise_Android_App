@@ -22,11 +22,13 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWerbService;
@@ -45,12 +47,13 @@ public class MainFragment extends Fragment {
     private ViewPager pager;
     private RadioGroup RgIndicator;
     private RadioGroup.LayoutParams rprms;
+    List<PostModel> feed = new ArrayList<>();
     private LinearLayout hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged ;
     private ProgressBar pb;
     private AppBarLayout appBar;
     CollapsingToolbarLayout collapsingToolbarLayout;
     NestedScrollView nest_scrollview;
-    int previousState = 0, currentPage = 0, scrollviewposition = 0;
+    int scrollviewposition = 0;
     Timer timer;
     IWerbService m;
     View rootView = null;
@@ -83,8 +86,23 @@ public class MainFragment extends Fragment {
         };
         final CollapsingToolbarLayout collapsingToolbarLayout = rootView.findViewById(R.id.toolbar_layout);
         //collapsingToolbarLayout.setBackgroundResource(R.drawable.a2);
-        getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest , hrsv_attractive ,hrsv_tagged);
-        getPosts.getData();
+        if(Application.getInstance().vip_feed.size() == 0 ||
+           Application.getInstance().newest_feed.size() == 0 ||
+           Application.getInstance().attractive_feed.size() == 0  ) {
+
+            getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
+            getPosts.getData();
+        }
+        else
+        {
+            try {
+                m.getResult(Application.getInstance().vip_feed, hrsv_vip);
+                m.getResult(Application.getInstance().newest_feed, hrsv_newest);
+                m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
+                m.getResult(Application.getInstance().tagged_feed, hrsv_tagged);
+            } catch (Exception e) {
+            }
+        }
         float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         return rootView;
     }

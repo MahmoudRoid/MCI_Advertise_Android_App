@@ -31,11 +31,8 @@ import java.util.List;
 
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Fragments.DayTutorialFragment;
-import ir.mahmoud.app.Fragments.HomeFragment;
-import ir.mahmoud.app.Fragments.MainFragment;
-import ir.mahmoud.app.Fragments.NewIdeasFragment;
 import ir.mahmoud.app.Fragments.VideosFragment;
+import ir.mahmoud.app.Fragments.MainFragment;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -45,15 +42,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Toolbar toolbar;
     private LinearLayout ll_bottomNavigation;
-    private TextView txt_home, txt_tutorial, txt_newIdeas, txt_videos;
+    private TextView txt_home, txt_vip, txt_newest, txt_attractive;
     private EditText edt_search;
     ImageButton btn_clear, btn_srch;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
-    private DayTutorialFragment dayTutorial_fragment = null;
-    private NewIdeasFragment newIdeas_fragment = null;
-    private VideosFragment videos_fragment = null;
+    private VideosFragment dayTutorial_fragment = null;
 
     private void AssignViews()
     {
@@ -61,14 +56,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btn_clear = (ImageButton)findViewById(R.id.btn_clear);
         btn_srch = (ImageButton)findViewById(R.id.btn_srch);
         txt_home =(TextView) findViewById(R.id.txt_home);
-        txt_tutorial = (TextView)findViewById(R.id.txt_tutorial);
-        txt_newIdeas = (TextView)findViewById(R.id.txt_newIdeas);
-        txt_videos = (TextView)findViewById(R.id.txt_videos);
+        txt_vip = (TextView)findViewById(R.id.txt_vip);
+        txt_newest = (TextView)findViewById(R.id.txt_newest);
+        txt_attractive = (TextView)findViewById(R.id.txt_attractive);
         edt_search = (EditText) findViewById(R.id.edit_srch);
         txt_home.setOnClickListener(this);
-        txt_tutorial.setOnClickListener(this);
-        txt_newIdeas.setOnClickListener(this);
-        txt_videos.setOnClickListener(this);
+        txt_vip.setOnClickListener(this);
+        txt_newest.setOnClickListener(this);
+        txt_attractive.setOnClickListener(this);
         btn_clear.setOnClickListener(this);
         btn_srch.setOnClickListener(this);
         ll_bottomNavigation =(LinearLayout) findViewById(R.id.ll_bottomNavigation);
@@ -185,23 +180,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 openFragment(MainActivity.this, home_fragment);
                 break;
 
-            case R.id.txt_tutorial:
+            case R.id.txt_vip:
                 Application.getInstance().videoType = "پیشنهاد-ویژه";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new DayTutorialFragment();
+                    dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
-            case R.id.txt_newIdeas:
+            case R.id.txt_newest:
                 Application.getInstance().videoType = "جدیدترین-ها";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new DayTutorialFragment();
+                    dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
-            case R.id.txt_videos:
+            case R.id.txt_attractive:
                 Application.getInstance().videoType = "جذابترین_ها";
                 //if (dayTutorial_fragment == null)
-                    dayTutorial_fragment = new DayTutorialFragment();
+                    dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);
                 break;
 
@@ -226,14 +221,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 if (tag.equals("MainFragment"))
                     HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
 
-                else if (tag.equals("DayTutorialFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_tutorial);
+                else if (tag.equals("VideosFragment"))
+                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
 
                 else if (tag.equals("NewIdeasFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_newIdeas);
+                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
 
                 else if (tag.equals("VideosFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_videos);
+                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
                 super.onBackPressed();
             } catch (Exception e) {
                 try {
