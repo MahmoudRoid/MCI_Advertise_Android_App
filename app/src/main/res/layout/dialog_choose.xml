@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/scrollView">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
+
+          <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:visibility="visible" >
+
+                <LinearLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:padding="10dp" >
+
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="33dp"
+                            android:id="@+id/ivHeader_dialog"
+                            android:src="@mipmap/ic_launcher"
+                            android:layout_marginRight="10dp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:textAppearance="?android:attr/textAppearanceLarge"
+                            android:id="@+id/txtHeader_dialog"
+                            fontPath="fonts/IRANSansMedium.ttf"
+                            android:layout_weight="1"
+                            android:gravity="center|right"
+                            android:textColor="@color/FABcolor" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:id="@+id/txtContext_dialog"
+                        android:gravity="right"
+                        fontPath="fonts/IRANSansMedium.ttf"
+                        android:layout_margin="10dp"
+                        android:textColor="@color/TXTcolor" />
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:id="@+id/txtThree_dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            fontPath="fonts/IRANSansMedium.ttf"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/TXTcolor"
+                            android:background="@drawable/shape_dialog_txt_button" />
+
+                        <TextView
+                            android:id="@+id/txtTwo_dialog"
+                            android:layout_width="wrap_content"
+                            fontPath="fonts/IRANSansMedium.ttf"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/TXTcolor"
+                            android:background="@drawable/shape_dialog_txt_button" />
+
+                        <TextView
+                            android:id="@+id/txtOne_dialog"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            fontPath="fonts/IRANSansMedium.ttf"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
+                            android:layout_weight="1"
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:textColor="@color/TXTcolor"
+                            android:background="@drawable/shape_dialog_txt_button" />
+
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -1,6 +1,7 @@
 package ir.mahmoud.app.Activities;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SearchAdapter;
 import ir.mahmoud.app.Asynktask.SearchVideos;
+import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.R;
@@ -69,11 +71,20 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
     }
 
-    private void showList(List<PostModel> searchList) {
+    private void showList(final List<PostModel> searchList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         adapter = new SearchAdapter(this, searchList);
         recyclerView.setAdapter(adapter);
+
+        recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Intent intent = new Intent(SearchActivity.this, VideoDetailActivity.class);
+                intent.putExtra("feedItem", searchList.get(position));
+                startActivity(intent);
+            }
+        }));
     }
 
     @Override

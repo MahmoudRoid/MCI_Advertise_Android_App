@@ -1,5 +1,18 @@
 package ir.mahmoud.app.Classes;
 
+import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.Typeface;
+import android.os.Environment;
+import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
+import android.view.Gravity;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.TextView;
 import com.orm.SugarApp;
 
 import java.util.ArrayList;
@@ -15,6 +28,10 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 //import me.cheshmak.android.sdk.core.CheshmakConfig;
 
 public class Application extends SugarApp {
+
+    public static final String ROOT = Environment.getExternalStorageDirectory()+"/shodani";
+    public static final String VIDEO = ROOT + "/videos";
+
 
     private static final Application ourInstance = new Application();
     public List<SlideShowModel> sl = new ArrayList<>();

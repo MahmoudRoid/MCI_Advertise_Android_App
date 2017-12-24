@@ -15,6 +15,8 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.orm.query.Condition;
+import com.orm.query.Select;
 
 import java.util.List;
 
@@ -27,6 +29,7 @@ import ir.mahmoud.app.Classes.ExpandableTextView;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -46,6 +49,8 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
     TextView postTitleTv;
     @BindView(R.id.toolbar_custom_tv)
     TextView toolbarCustomTv;
+    @BindView(R.id.mark_icon)
+    ImageView markIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +69,8 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         Glide.with(this).load(myModel.imageUrl).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)).into(imageView);
         postTitleTv.setText(myModel.getTitle());
         postContentTv.setText(myModel.getContent());
+        long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).count();
+        if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);
         // get same videos
         GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagSlug, pb);
         getdata.getData();
@@ -79,23 +86,44 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
     }
 
-    @OnClick({R.id.videoRelative, R.id.share_icon})
+    @OnClick({R.id.videoRelative, R.id.share_icon, R.id.mark_icon})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.videoRelative:
                 Intent intent = new Intent(this, ShowVideoActivity.class);
                 intent.putExtra("title", myModel.getTitle());
                 intent.putExtra("url", myModel.getVideoUrl());
+                intent.putExtra("id", String.valueOf(myModel.getId()));
                 startActivity(intent);
                 break;
             case R.id.share_icon:
                 share();
                 break;
+            case R.id.mark_icon:
+                mark();
+                break;
+        }
+    }
+
+    private void mark() {
+        long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).count();
+        if (count > 0) {
+            // unmark and delete from database
+            markIcon.setImageResource(R.drawable.ic_unmark);
+           tbl_PostModel tbl = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).first();
+           tbl.delete();
+        } else {
+            // mark and save into db
+            markIcon.setImageResource(R.drawable.ic_mark);
+           tbl_PostModel tbl = new tbl_PostModel(myModel.getId(),myModel.getTitle(),myModel.getContent()
+           ,myModel.getDate(),myModel.getCategoryTitle(),myModel.getVideoUrl(),myModel.getImageUrl(),myModel.getTagSlug());
+            tbl.save();
+            Toast.makeText(this, "نشان شد", Toast.LENGTH_SHORT).show();
         }
     }
 
     private void share() {
-        Intent share = new Intent(android.content.Intent.ACTION_SEND);
+        Intent share = new Intent(Intent.ACTION_SEND);
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         share.putExtra(Intent.EXTRA_SUBJECT, myModel.getTitle());
@@ -128,4 +156,5 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
             }
         }));
     }
+
 }

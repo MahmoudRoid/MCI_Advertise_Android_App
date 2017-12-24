@@ -4,4 +4,43 @@
     <color name="colorPrimaryDark">#b90046</color>
     <color name="colorAccent">#3F51B5</color>
     <color name="footerBackground">#f1f5f8</color>
+
+
+    <color name="pri700">#1A237E</color>
+    <color name="pri500">#0D47A1</color>
+    <color name="appBarAlpha">#227F1416</color>
+    <color name="pri100">#F5F5F5</color>
+    <color name="black">#000000</color>
+    <color name="white">#ffffff</color>
+    <color name="FABcolor">#1565C0</color>
+    <color name="CC">#60ddc164</color>
+    <color name="TXTcolor">#12385E</color>
+    <color name="secColor">#3E2723</color>
+
+    <color name="Myred">#950707</color>
+    <color name="Mygreen">#1B5E20</color>
+    <color name="Mylight">#eabd8f</color>
+    <color name="splashCo">#a39d93</color>
+    <color name="Tire">#504435</color>
+    <color name="Mygold">#BF360C</color>
+
+
+    <color name="V_Sormeii">#06415F</color>
+    <color name="V_Blue">#0868A5</color>
+    <color name="V_Red">#F00C0D</color>
+    <color name="V_Yellow">#FFD800</color>
+    <color name="V_Violet">#4D0E55</color>
+    <color name="V_Pink">#E4047E</color>
+    <color name="V_Green">#099E76</color>
+    <color name="V_Orange">#FF7F00</color>
+    <color name="V_Sorkhabi">#E82C2D</color>
+    <color name="V_Cyan">#07C4B0</color>
+    <color name="V_VioPink">#A80369</color>
+    <color name="V_Gray">#BF999999</color>
+    <color name="V_White">#BFffffff</color>
+
+    <color name="mdtp_accent_color">#7F1416</color>
+    <color name="mdtp_accent_color_dark">#7F1416</color>
+
+
 </resources>
