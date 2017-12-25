@@ -263,7 +263,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(this, "دانلودها", Toast.LENGTH_SHORT).show();
                 break;
             case 3:
-                Toast.makeText(this, "معرفی به دوستان", Toast.LENGTH_SHORT).show();
+                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;
+                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+                sharingIntent.setType("text/plain");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "شدنی\n\n");
+                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+                startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری"));
                 break;
             case 4:
                 Toast.makeText(this, "درباره ما", Toast.LENGTH_SHORT).show();

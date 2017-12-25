@@ -27,7 +27,7 @@ public class Application extends SugarApp {
 
 
     private static final Application ourInstance = new Application();
-    public List<PostModel> sl = new ArrayList<>();
+
     public List<PostModel> vip_feed = new ArrayList<>();
     public List<PostModel> newest_feed = new ArrayList<>();
     public List<PostModel> attractive_feed = new ArrayList<>();
@@ -50,15 +50,6 @@ public class Application extends SugarApp {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-    }
-
-
-    public List<PostModel> getSl() {
-        return sl;
-    }
-
-    public void setSl(List<PostModel> sl) {
-        this.sl = sl;
     }
 
     public List<PostModel> getVip_feed() {

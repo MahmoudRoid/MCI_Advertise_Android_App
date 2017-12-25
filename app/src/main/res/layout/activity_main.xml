@@ -133,7 +133,7 @@
                 android:clickable="true"
                 android:gravity="center"
                 fontPath="fonts/IRANSansMedium.ttf"
-                android:drawableTop="@mipmap/video"
+                android:drawableTop="@mipmap/tagged"
                 android:text="@string/marked" />
 
             <TextView

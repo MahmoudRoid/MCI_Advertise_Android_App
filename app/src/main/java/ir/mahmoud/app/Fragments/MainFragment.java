@@ -37,6 +37,7 @@ import java.util.TimerTask;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWerbService;
@@ -51,6 +52,7 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
+    public List<PostModel> sl = new ArrayList<>();
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
@@ -129,7 +131,7 @@ public class MainFragment extends Fragment {
             } catch (Exception e) {
             }
         }
-        if(Application.getInstance().sl.size() > 0)
+        if(sl.size() > 0)
             BindSlideShow();
         else
             GetSlideShowItems();
@@ -169,7 +171,7 @@ public class MainFragment extends Fragment {
                                 item.setImageUrl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
                             } catch (Exception e) {
                             }
-                        Application.getInstance().sl.add(item);
+                        sl.add(item);
                     }
                 } catch (Exception e) {
                 }
@@ -183,32 +185,32 @@ public class MainFragment extends Fragment {
     }
 
     private void BindSlideShow() {
-        pager.removeAllViews();
-        if (Application.getInstance().sl.size() > 0) {
-            if(RgIndicator.getChildCount() == 0)
-            for ( int i = 0; i < Application.getInstance().sl.size() ; i++) {
-                try {
-                    final RadioButton rd = new RadioButton(getActivity());
-                    rd.setButtonDrawable(R.drawable.rdbtnselector);
-                    rd.setPadding(0, 0, 5, 5);
-                    rd.setId(i);
-                    rprms = new RadioGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-                    RgIndicator.addView(rd, rprms);
-                } catch (Exception e) {
+        try {
+            pager.removeAllViews();
+            if (sl.size() > 0) {
+                if(RgIndicator.getChildCount() == 0)
+                for ( int i = 0; i < sl.size() ; i++) {
+                    try {
+                        final RadioButton rd = new RadioButton(getActivity());
+                        rd.setButtonDrawable(R.drawable.rdbtnselector);
+                        rd.setPadding(0, 0, 5, 5);
+                        rd.setId(i);
+                        rprms = new RadioGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                        RgIndicator.addView(rd, rprms);
+                    } catch (Exception e) {
+                    }
                 }
+                RgIndicator.check(0);
+                pagerAdapter = null;
+                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), sl);
+                pager.setAdapter(pagerAdapter);
+            } else {
+                CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+                lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
+                lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
+                appBar.setLayoutParams(lp);
             }
-            RgIndicator.check(0);
-            List<PostModel> feed = new ArrayList<>();
-            feed.addAll( Application.getInstance().sl);
-            pagerAdapter = null;
-            pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(),feed);
-            pager.setAdapter(pagerAdapter);
-        } else {
-            CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-            lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
-            lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-            appBar.setLayoutParams(lp);
-        }
+        } catch (Exception e) {}
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
