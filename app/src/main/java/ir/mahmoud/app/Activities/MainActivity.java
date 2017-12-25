@@ -204,7 +204,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.txt_marked:
-                marked_fragment = new MarkedFragment();
+                if(marked_fragment == null)
+                    marked_fragment = new MarkedFragment();
                 openFragment(MainActivity.this, marked_fragment);
                 break;
 
@@ -223,21 +224,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             exit();
         } else {
             try {
-                String tag = getSupportFragmentManager()
-                        .getBackStackEntryAt(getSupportFragmentManager()
-                                .getBackStackEntryCount() - 2).getName();
-
-                if (tag.equals("MainFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
-
-                else if (tag.equals("VideosFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
-
-                else if (tag.equals("NewIdeasFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
-
-                else if (tag.equals("VideosFragment"))
-                    HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
+                HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
                 super.onBackPressed();
             } catch (Exception e) {
                 try {

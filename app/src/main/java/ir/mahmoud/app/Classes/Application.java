@@ -27,7 +27,7 @@ public class Application extends SugarApp {
 
 
     private static final Application ourInstance = new Application();
-
+    public List<PostModel> sl = new ArrayList<>();
     public List<PostModel> vip_feed = new ArrayList<>();
     public List<PostModel> newest_feed = new ArrayList<>();
     public List<PostModel> attractive_feed = new ArrayList<>();

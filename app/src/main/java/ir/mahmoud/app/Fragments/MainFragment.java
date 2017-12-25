@@ -131,7 +131,7 @@ public class MainFragment extends Fragment {
             } catch (Exception e) {
             }
         }
-        if(sl.size() > 0)
+        if(Application.getInstance().sl.size() > 0)
             BindSlideShow();
         else
             GetSlideShowItems();
@@ -144,7 +144,7 @@ public class MainFragment extends Fragment {
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                appBar.setVisibility(View.VISIBLE);
+
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(getString(R.string.posts)));
@@ -171,7 +171,7 @@ public class MainFragment extends Fragment {
                                 item.setImageUrl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
                             } catch (Exception e) {
                             }
-                        sl.add(item);
+                        Application.getInstance().sl.add(item);
                     }
                 } catch (Exception e) {
                 }
@@ -186,10 +186,12 @@ public class MainFragment extends Fragment {
 
     private void BindSlideShow() {
         try {
+            appBar.setVisibility(View.VISIBLE);
             pager.removeAllViews();
-            if (sl.size() > 0) {
+            RgIndicator.removeAllViews();
+            if (Application.getInstance().sl.size() > 0) {
                 if(RgIndicator.getChildCount() == 0)
-                for ( int i = 0; i < sl.size() ; i++) {
+                for ( int i = 0; i < Application.getInstance().sl.size() ; i++) {
                     try {
                         final RadioButton rd = new RadioButton(getActivity());
                         rd.setButtonDrawable(R.drawable.rdbtnselector);
@@ -201,8 +203,10 @@ public class MainFragment extends Fragment {
                     }
                 }
                 RgIndicator.check(0);
+                List<PostModel> feed = new ArrayList<>();
+                feed.addAll( Application.getInstance().sl);
                 pagerAdapter = null;
-                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), sl);
+                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(),feed);
                 pager.setAdapter(pagerAdapter);
             } else {
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
@@ -210,7 +214,11 @@ public class MainFragment extends Fragment {
                 lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 appBar.setLayoutParams(lp);
             }
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            HSH.showtoast(getActivity(),e.getMessage());
+            HSH.showtoast(getActivity(),e.getMessage());
+            HSH.showtoast(getActivity(),e.getMessage());
+        }
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {

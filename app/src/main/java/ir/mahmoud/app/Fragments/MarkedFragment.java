@@ -21,6 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Adapters.MarkedAdapter;
+import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.tbl_PostModel;
@@ -29,30 +30,32 @@ import ir.mahmoud.app.R;
 public class MarkedFragment extends Fragment {
 
     List<tbl_PostModel> list;
-    @BindView(R.id.pb)
+
     ProgressBar pb;
-    @BindView(R.id.rv)
+
     RecyclerView rv;
     MarkedAdapter adapter;
-    private List<PostModel> feed = new ArrayList<>();
     View rootView = null;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootView = inflater.inflate(R.layout.fragment_marked, container, false);
-        ButterKnife.bind(getActivity());
-        rv = rootView.findViewById(R.id.rv);
-        pb = rootView.findViewById(R.id.pb);
+        if(rootView == null) {
+            rootView = inflater.inflate(R.layout.fragment_marked, container, false);
 
-        list = Select.from(tbl_PostModel.class).list();
-        if(list.size()>0){
-            // show list
-            showList(list);
+            rv = rootView.findViewById(R.id.rv);
+            pb = rootView.findViewById(R.id.pb);
+
+            list = Select.from(tbl_PostModel.class).list();
+            if (list.size() > 0) {
+                // show list
+                showList(list);
+            } else {
+                HSH.showtoast(getActivity(), "موردی یافت نشد");
+                pb.setVisibility(View.GONE);
+            }
         }
-        else Toast.makeText(getActivity(), "no record", Toast.LENGTH_SHORT).show();
-
         return rootView;
     }
 
@@ -61,7 +64,7 @@ public class MarkedFragment extends Fragment {
         rv.setLayoutManager(lm);
         adapter = new MarkedAdapter(getActivity(), list);
         rv.setAdapter(adapter);
-
+        pb.setVisibility(View.GONE);
         rv.addOnItemTouchListener(new RecyclerItemClickListener(getActivity(), new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
