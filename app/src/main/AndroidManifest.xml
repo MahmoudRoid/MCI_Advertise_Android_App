@@ -65,9 +65,6 @@
             android:name=".Activities.VideoDetailActivity"
             android:label="@string/title_activity_video_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activities.MarkedActivity"
-            android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme"/>
     </application>
 
 </manifest>
