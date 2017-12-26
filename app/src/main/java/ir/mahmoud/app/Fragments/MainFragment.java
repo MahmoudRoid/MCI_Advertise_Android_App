@@ -184,6 +184,27 @@ public class MainFragment extends Fragment {
         });
     }
 
+    private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
+        List<PostModel> feed;
+
+        public SlideShowPagerAdapter(FragmentManager fm, List<PostModel> feed) {
+            super(fm);
+            this.feed = feed;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            SlideShowFragment fragment = new SlideShowFragment();
+            fragment.setAsset(feed.get(position));
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return feed.size();
+        }
+    }
+
     private void BindSlideShow() {
         try {
             appBar.setVisibility(View.VISIBLE);
@@ -214,32 +235,7 @@ public class MainFragment extends Fragment {
                 lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 appBar.setLayoutParams(lp);
             }
-        } catch (Exception e) {
-            HSH.showtoast(getActivity(),e.getMessage());
-            HSH.showtoast(getActivity(),e.getMessage());
-            HSH.showtoast(getActivity(),e.getMessage());
-        }
-    }
-
-    private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
-        List<PostModel> feed;
-
-        public SlideShowPagerAdapter(FragmentManager fm, List<PostModel> feed) {
-            super(fm);
-            this.feed = feed;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            SlideShowFragment fragment = new SlideShowFragment();
-            fragment.setAsset(feed.get(position));
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return feed.size();
-        }
+        } catch (Exception e) {}
     }
 
     private void Binding(final LinearLayout hrsv, final List<PostModel> feed) {

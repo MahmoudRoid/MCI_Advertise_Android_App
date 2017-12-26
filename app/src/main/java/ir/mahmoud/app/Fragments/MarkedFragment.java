@@ -41,20 +41,18 @@ public class MarkedFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        if(rootView == null) {
-            rootView = inflater.inflate(R.layout.fragment_marked, container, false);
+        rootView = inflater.inflate(R.layout.fragment_marked, container, false);
 
-            rv = rootView.findViewById(R.id.rv);
-            pb = rootView.findViewById(R.id.pb);
+        rv = rootView.findViewById(R.id.rv);
+        pb = rootView.findViewById(R.id.pb);
 
-            list = Select.from(tbl_PostModel.class).list();
-            if (list.size() > 0) {
-                // show list
-                showList(list);
-            } else {
-                HSH.showtoast(getActivity(), "موردی یافت نشد");
-                pb.setVisibility(View.GONE);
-            }
+        list = Select.from(tbl_PostModel.class).list();
+        if (list.size() > 0) {
+            // show list
+            showList(list);
+        } else {
+            HSH.showtoast(getActivity(), "موردی یافت نشد");
+            pb.setVisibility(View.GONE);
         }
         return rootView;
     }
