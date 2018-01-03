@@ -22,7 +22,7 @@
             android:value="shodani.db" />
         <meta-data
             android:name="VERSION"
-            android:value="1" />
+            android:value="2" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -65,6 +65,25 @@
             android:name=".Activities.VideoDetailActivity"
             android:label="@string/title_activity_video_details"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.MarkedActivity"
+            />
+
+        <activity android:name=".Activities.DownloadsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme"/>
+
+        <service android:name=".Classes.DownloadSevice" />
+
+        <receiver
+            android:name=".BroadCastReceiver.MyBroadCastReceiver"
+            android:enabled="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"></action>
+            </intent-filter>
+        </receiver>
+
+
     </application>
 
 </manifest>

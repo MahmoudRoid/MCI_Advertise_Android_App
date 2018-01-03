@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
 
 import java.util.List;
 
@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SearchAdapter;
 import ir.mahmoud.app.Asynktask.SearchVideos;
+import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.PostModel;
@@ -58,7 +59,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         pb.setVisibility(View.INVISIBLE);
         if (result instanceof String) {
             if (result.equals("empty list"))
-                Toast.makeText(this, "نتیجه ای نداریم", Toast.LENGTH_SHORT).show();
+                HSH.showtoast(this, "نتیجه ای نداریم");
         } else {
             recyclerView.setVisibility(View.VISIBLE);
             showList((List<PostModel>) result);
@@ -68,7 +69,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
         pb.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
+        HSH.showtoast(this, "مشکلی پیش آمده است");
     }
 
     private void showList(final List<PostModel> searchList) {

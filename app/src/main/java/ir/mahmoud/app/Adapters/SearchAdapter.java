@@ -21,7 +21,7 @@ import ir.mahmoud.app.R;
 public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.DataObjectHolder> {
     public Context context;
     public List<PostModel> myObjectArrayList;
-    public String Language_kind;
+
 
     public SearchAdapter(Context context, List<PostModel> arrayList) {
         this.myObjectArrayList = arrayList;

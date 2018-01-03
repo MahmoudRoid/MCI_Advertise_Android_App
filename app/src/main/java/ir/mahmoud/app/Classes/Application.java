@@ -9,6 +9,7 @@ import android.os.Environment;
 import com.orm.SugarApp;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import ir.mahmoud.app.Models.PostModel;
@@ -36,7 +37,14 @@ public class Application extends SugarApp {
     public List<PostModel> newest_feed_list = new ArrayList<>();
     public List<PostModel> attractive_feed_list = new ArrayList<>();
     public List<PostModel> tagged_feed_list = new ArrayList<>();
+    public List<PostModel> downloadList = new ArrayList<>();
     public String videoType = "";
+
+    public HashMap getHashMap() {
+        return hashMap;
+    }
+
+    public HashMap hashMap = new HashMap();
 
     public static Application getInstance() {
         return ourInstance;
@@ -60,5 +68,6 @@ public class Application extends SugarApp {
         this.vip_feed = vip_feed;
     }
 
+    public List<PostModel> getDownloadList(){return downloadList;}
 
 }

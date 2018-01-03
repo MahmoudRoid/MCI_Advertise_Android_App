@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
+
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -25,7 +25,9 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SameVideoAdapter;
 import ir.mahmoud.app.Asynktask.GetSameVideos;
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.ExpandableTextView;
+import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.PostModel;
@@ -60,6 +62,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         init();
+
     }
 
     private void init() {
@@ -91,9 +94,15 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         switch (view.getId()) {
             case R.id.videoRelative:
                 Intent intent = new Intent(this, ShowVideoActivity.class);
-                intent.putExtra("title", myModel.getTitle());
-                intent.putExtra("url", myModel.getVideoUrl());
                 intent.putExtra("id", String.valueOf(myModel.getId()));
+                intent.putExtra("title", myModel.getTitle());
+                intent.putExtra("content", myModel.getContent());
+                intent.putExtra("date", myModel.getDate());
+                intent.putExtra("categoryTitle",myModel.getCategoryTitle());
+                intent.putExtra("url", myModel.getVideoUrl());
+                intent.putExtra("imageUrl", myModel.getImageUrl());
+                intent.putExtra("tagSlug", myModel.getTagSlug());
+
                 startActivity(intent);
                 break;
             case R.id.share_icon:
@@ -118,7 +127,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
            tbl_PostModel tbl = new tbl_PostModel(myModel.getId(),myModel.getTitle(),myModel.getContent()
            ,myModel.getDate(),myModel.getCategoryTitle(),myModel.getVideoUrl(),myModel.getImageUrl(),myModel.getTagSlug());
             tbl.save();
-            Toast.makeText(this, "نشان شد", Toast.LENGTH_SHORT).show();
+            HSH.showtoast(this, "نشان شد");
         }
     }
 
@@ -138,7 +147,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
 
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
-        Toast.makeText(this, "error", Toast.LENGTH_SHORT).show();
+        HSH.showtoast(this, "error");
     }
 
     private void showList(final List<PostModel> sameVidesList) {

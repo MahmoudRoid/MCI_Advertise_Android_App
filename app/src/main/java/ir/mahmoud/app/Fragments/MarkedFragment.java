@@ -10,15 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ProgressBar;
-import android.widget.Toast;
 
 import com.orm.query.Select;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Adapters.MarkedAdapter;
 import ir.mahmoud.app.Classes.HSH;
