@@ -2,8 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
     android:background="@mipmap/splash"
+    tools:ignore="MissingPrefix"
     android:layoutDirection="ltr">
 
     <ImageView
@@ -31,6 +33,7 @@
         android:hint="09xxxxxxxxx"
         android:inputType="phone"
         android:maxLength="11"
+        fontPath="fonts/IRANSansMedium.ttf"
         android:paddingLeft="@dimen/dp16"
         android:textSize="@dimen/sp15" />
 
@@ -45,6 +48,7 @@
         android:layout_below="@+id/et_mobile"
         android:layout_marginTop="@dimen/dp16"
         android:background="#ffa800"
+         fontPath="fonts/IRANSansMedium.ttf"
         android:text="ورود"
         android:textColor="@android:color/white" />
 
@@ -54,8 +58,19 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/et_mobile"
         android:layout_centerHorizontal="true"
+        fontPath="fonts/IRANSansMedium.ttf"
         android:layout_margin="@dimen/dp16"
         android:text="برای ورود شماره موبایل خود را وارد کنید"
         android:textColor="@android:color/white"
         android:textSize="@dimen/sp15" />
+
+    <TextView
+        android:id="@+id/txt_guest"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/et_login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:textColor="@color/white"
+        android:text="ورود به صورت مهمان" />
 </RelativeLayout>

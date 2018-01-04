@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<MenuObject> menuObjects = new ArrayList<>();
 
         MenuObject close = new MenuObject();
-        close.setResource(R.mipmap.ic_launcher);
+        close.setResource(R.mipmap.clear);
 
 //        MenuObject account = new MenuObject("ساخت حساب کاربری");
 //        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
@@ -146,11 +146,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         MenuObject download = new MenuObject("دانلود ها");
         BitmapDrawable b1 = new BitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+                BitmapFactory.decodeResource(getResources(), R.mipmap.download));
         download.setDrawable(b1);
 
         MenuObject mintroduce = new MenuObject("معرفی به دوستان");
-        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.drawable.ic_share_dark);
         mintroduce.setBitmap(b2);
 
 //        MenuObject aboutUs = new MenuObject("درباره ما");

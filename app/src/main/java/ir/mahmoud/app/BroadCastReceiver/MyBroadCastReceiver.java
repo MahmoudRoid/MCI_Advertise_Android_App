@@ -8,8 +8,8 @@ import android.content.Intent;
 
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.tbl_Download;
+import ir.mahmoud.app.Models.tbl_PostModel;
 
 
 public class MyBroadCastReceiver extends BroadcastReceiver {
@@ -19,11 +19,11 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
             long refrenceId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1);
             if(refrenceId != -1){
                 int videoId = (int) Application.getInstance().hashMap.get(refrenceId);
-                for (PostModel model : Application.getInstance().getDownloadList()){
+                for (tbl_PostModel model : Application.getInstance().getDownloadList()){
                     if(model.getId() == videoId ){
                         // save into download Table
                         tbl_Download tbl = new tbl_Download(model.getId(),model.getTitle(),model.getContent(),
-                                model.getDate(),model.categoryTitle,model.videoUrl,model.getImageUrl(),model.getTagSlug());
+                                model.getDate(),model.categorytitle,model.videourl,model.getImageurl(),model.getTagslug());
                         tbl.save();
                         HSH.showtoast(context, "ویدئو با موفقیت ذخیره شد");
                         break;

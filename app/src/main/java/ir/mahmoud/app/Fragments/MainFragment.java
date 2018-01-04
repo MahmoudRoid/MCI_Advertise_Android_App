@@ -2,9 +2,7 @@ package ir.mahmoud.app.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -21,9 +19,11 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.orm.query.Select;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,8 +31,6 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
@@ -41,8 +39,7 @@ import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWerbService;
-import ir.mahmoud.app.Models.PostModel;
-import ir.mahmoud.app.Models.SlideShowModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import ir.mahmoud.app.R.id;
 import okhttp3.ResponseBody;
@@ -52,7 +49,7 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
-    public List<PostModel> sl = new ArrayList<>();
+    public List<tbl_PostModel> sl = new ArrayList<>();
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
@@ -107,8 +104,13 @@ public class MainFragment extends Fragment {
 
         m = new IWerbService() {
             @Override
-            public void getResult(List<PostModel> items, LinearLayout ll) throws Exception {
-                Binding(ll, items);
+            public void getResult(List<tbl_PostModel> items, LinearLayout ll) throws Exception {
+                if(hrsv_tagged.getChildCount() == 0)
+                    Binding(hrsv_tagged, Select.from(tbl_PostModel.class).list());
+                if(items.size() > 0)
+                    Binding(ll, items);
+                else
+                    ((RelativeLayout)ll.getParent()).setVisibility(View.GONE);
             }
 
             @Override
@@ -116,6 +118,7 @@ public class MainFragment extends Fragment {
             }
         };
 
+        try {
         if (Application.getInstance().vip_feed.size() == 0 ||
                 Application.getInstance().newest_feed.size() == 0 ||
                 Application.getInstance().attractive_feed.size() == 0) {
@@ -123,14 +126,14 @@ public class MainFragment extends Fragment {
             getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
             getPosts.getData();
         } else {
-            try {
-                m.getResult(Application.getInstance().vip_feed, hrsv_vip);
-                m.getResult(Application.getInstance().newest_feed, hrsv_newest);
-                m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
-                m.getResult(Application.getInstance().tagged_feed, hrsv_tagged);
-            } catch (Exception e) {
-            }
+             m.getResult(Application.getInstance().vip_feed, hrsv_vip);
+             m.getResult(Application.getInstance().newest_feed, hrsv_newest);
+             m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
+             Binding(hrsv_tagged, Select.from(tbl_PostModel.class).list());
         }
+        } catch (Exception e) {
+        }
+
         if(Application.getInstance().sl.size() > 0)
             BindSlideShow();
         else
@@ -149,26 +152,26 @@ public class MainFragment extends Fragment {
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
-                            PostModel item = new PostModel();
-                            item.setId(jary.getJSONObject(i).getInt(getString(R.string.id)));
+                            tbl_PostModel item = new tbl_PostModel();
+                            item.setId(jary.getJSONObject(i).getLong(getString(R.string.id)));
                             item.setTitle(jary.getJSONObject(i).getString(getString(R.string.title)));
                             item.setContent(jary.getJSONObject(i).getString(getString(R.string.excerpt)));
                             item.setDate(jary.getJSONObject(i).getString(getString(R.string.date)));
 
                             JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.categories)));
-                            item.setCategoryTitle(jary2.getJSONObject(0).getString(getString(R.string.title)));
+                            item.setCategorytitle(jary2.getJSONObject(0).getString(getString(R.string.title)));
 
                             try {
                                 JSONArray jary3 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.tags)));
-                                item.setTagSlug(jary3.getJSONObject(0).getString(getString(R.string.slug)));
+                                item.setTagslug(jary3.getJSONObject(0).getString(getString(R.string.slug)));
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             try {
                                 jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.attachments)));
-                                item.setVideoUrl(jary2.getJSONObject(0).getString(getString(R.string.url)));
+                                item.setVideourl(jary2.getJSONObject(0).getString(getString(R.string.url)));
 
-                                item.setImageUrl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
+                                item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
                             } catch (Exception e) {
                             }
                         Application.getInstance().sl.add(item);
@@ -203,7 +206,7 @@ public class MainFragment extends Fragment {
                     }
                 }
                 RgIndicator.check(0);
-                List<PostModel> feed = new ArrayList<>();
+                List<tbl_PostModel> feed = new ArrayList<>();
                 feed.addAll( Application.getInstance().sl);
                 pagerAdapter = null;
                 pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(),feed);
@@ -222,9 +225,9 @@ public class MainFragment extends Fragment {
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
-        List<PostModel> feed;
+        List<tbl_PostModel> feed;
 
-        public SlideShowPagerAdapter(FragmentManager fm, List<PostModel> feed) {
+        public SlideShowPagerAdapter(FragmentManager fm, List<tbl_PostModel> feed) {
             super(fm);
             this.feed = feed;
         }
@@ -242,7 +245,7 @@ public class MainFragment extends Fragment {
         }
     }
 
-    private void Binding(final LinearLayout hrsv, final List<PostModel> feed) {
+    private void Binding(final LinearLayout hrsv, final List<tbl_PostModel> feed) {
         try {
             if (feed.size() == 1) {
                 LayoutInflater inflater = (LayoutInflater)
@@ -251,7 +254,7 @@ public class MainFragment extends Fragment {
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
                 hrsv.addView(view1);
             }
-            for (scrollviewposition = 1; scrollviewposition >= 0; scrollviewposition--) {
+            for (scrollviewposition = feed.size()-1; scrollviewposition >= 0; scrollviewposition--) {
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
@@ -264,7 +267,7 @@ public class MainFragment extends Fragment {
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
                 txt_date.setText(feed.get(scrollviewposition).getDate());
                 try {
-                    Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageUrl())
+                    Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageurl())
                             .into(img_post);
                 } catch (Exception e) {
                 }

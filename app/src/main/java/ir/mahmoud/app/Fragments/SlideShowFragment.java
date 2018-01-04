@@ -1,6 +1,5 @@
 package ir.mahmoud.app.Fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,16 +13,16 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import ir.mahmoud.app.Activities.VideoDetailActivity;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 public class SlideShowFragment extends Fragment {
 
     public static ImageView imageView;
     public static ImageView i;
-    private PostModel asset;
+    private tbl_PostModel asset;
 
-    public void setAsset(PostModel asset) {
+    public void setAsset(tbl_PostModel asset) {
         this.asset = asset;
     }
 
@@ -39,7 +38,7 @@ public class SlideShowFragment extends Fragment {
         if (asset != null) {
             //temp = asset.split("///");
             imageView = rootView.findViewById(R.id.imgView);
-            Glide.with(getActivity()).load(asset.getImageUrl())
+            Glide.with(getActivity()).load(asset.getImageurl())
                     .apply(new RequestOptions().placeholder(R.mipmap.homeb)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                     .into(imageView);

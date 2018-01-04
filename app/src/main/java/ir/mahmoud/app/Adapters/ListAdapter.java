@@ -16,7 +16,7 @@ import java.util.List;
 
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Holders.PostHolder;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 
@@ -24,12 +24,12 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     private final int VIEW_TYPE_ITEM = 1;
     //private final int VIEW_TYPE_LOADING = 2;
-    private List<PostModel> feedItemList;
+    private List<tbl_PostModel> feedItemList;
     private ProgressBar pb;
     private int s = 0;
     private Context mContext;
 
-    public ListAdapter(Context context, List<PostModel> feedItemList, ProgressBar pb) {
+    public ListAdapter(Context context, List<tbl_PostModel> feedItemList, ProgressBar pb) {
         this.feedItemList = feedItemList;
         this.mContext = context;
         this.pb = pb;
@@ -67,8 +67,8 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 Holder.setIsRecyclable(false);
                 Holder.txt_title.setText(feedItemList.get(i).getTitle());
                 Holder.txt_date.setText(feedItemList.get(i).getDate());
-                Glide.with(mContext).load(feedItemList.get(i).getImageUrl())
-                        .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                Glide.with(mContext).load(feedItemList.get(i).getImageurl())
+                        .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                                 .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                         .into(((PostHolder) holder).img_post);
             } catch (Exception e) {
@@ -92,7 +92,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
         return (null != feedItemList ? feedItemList.size() : 0);
     }
 
-    public void addItem(PostModel post) {
+    public void addItem(tbl_PostModel post) {
         this.feedItemList.add(post);
         notifyDataSetChanged();
     }

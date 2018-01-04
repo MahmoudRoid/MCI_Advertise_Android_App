@@ -14,15 +14,15 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.List;
 
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.DataObjectHolder> {
     public Context context;
-    public List<PostModel> myObjectArrayList;
+    public List<tbl_PostModel> myObjectArrayList;
     public String Language_kind;
 
-    public SameVideoAdapter(Context context, List<PostModel> arrayList) {
+    public SameVideoAdapter(Context context, List<tbl_PostModel> arrayList) {
         this.myObjectArrayList = arrayList;
         this.context = context;
     }
@@ -39,7 +39,7 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         holder.tv_title.setText(myObjectArrayList.get(position).getTitle());
         holder.tv_date.setText(myObjectArrayList.get(position).getDate());
         //holder.tv_bazdid.setText(myObjectArrayList.get(position).getTitle());
-        Glide.with(context).load(myObjectArrayList.get(position).getImageUrl())
+        Glide.with(context).load(myObjectArrayList.get(position).getImageurl())
                 .apply(new RequestOptions().placeholder(R.mipmap.homeb)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                 .into(holder.image);

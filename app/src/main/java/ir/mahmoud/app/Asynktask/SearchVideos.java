@@ -13,7 +13,7 @@ import java.util.List;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -22,7 +22,7 @@ import retrofit2.Response;
 
 public class SearchVideos {
     public Context context;
-    List<PostModel> postModelList = new ArrayList<>();
+    List<tbl_PostModel> postModelList = new ArrayList<>();
     private IWebService2 delegate = null;
     private String searchString;
 
@@ -45,15 +45,15 @@ public class SearchVideos {
                         JSONArray jsonArray = jsonObject.getJSONArray("posts");
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
-                            PostModel postModel = new PostModel();
-                            postModel.setId(jsonObject2.getInt("id"));
+                            tbl_PostModel postModel = new tbl_PostModel();
+                            postModel.setId(jsonObject2.getLong("id"));
                             postModel.setTitle(jsonObject2.optString("title"));
                             postModel.setContent(jsonObject2.optString("excerpt"));
                             postModel.setDate(jsonObject2.optString("date"));
-                            postModel.setCategoryTitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
-                            postModel.setTagSlug(jsonObject2.getJSONArray("tags").getJSONObject(0).optString("slug"));
-                            postModel.setVideoUrl(jsonObject2.getJSONArray("attachments").getJSONObject(0).optString("url"));
-                            postModel.setImageUrl(jsonObject2.getJSONObject("thumbnail_images").getJSONObject("thumbnail").optString("url"));
+                            postModel.setCategorytitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
+                            postModel.setTagslug(jsonObject2.getJSONArray("tags").getJSONObject(0).optString("slug"));
+                            postModel.setVideourl(jsonObject2.getJSONArray("attachments").getJSONObject(0).optString("url"));
+                            postModel.setImageurl(jsonObject2.getJSONObject("thumbnail_images").getJSONObject("thumbnail").optString("url"));
 
                             postModelList.add(postModel);
                         }

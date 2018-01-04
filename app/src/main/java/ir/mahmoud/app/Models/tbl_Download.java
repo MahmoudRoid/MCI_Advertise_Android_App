@@ -5,12 +5,12 @@ import com.orm.SugarRecord;
 
 public class tbl_Download extends SugarRecord<tbl_Download> {
 
-    public int postid;
+    public long postid;
     public String title,content,date,categorytitle,videourl,imageurl,tagslug;
 
     public tbl_Download(){}
 
-    public tbl_Download(int postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
+    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
         this.postid = postid;
         this.title = title;
         this.content = content;
@@ -22,7 +22,7 @@ public class tbl_Download extends SugarRecord<tbl_Download> {
     }
 
 
-    public int getPostid() {
+    public long getPostid() {
         return postid;
     }
 

@@ -1,16 +1,13 @@
 package ir.mahmoud.app.Activities;
 
+import android.Manifest;
 import android.app.Dialog;
-import android.app.DownloadManager;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
-import android.os.Handler;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -20,18 +17,23 @@ import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
 import java.io.File;
 import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.BaseActivity;
 import ir.mahmoud.app.Classes.DownloadSevice;
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Classes.PermissionHandler;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
-public class ShowVideoActivity extends AppCompatActivity implements BetterVideoCallback {
+public class ShowVideoActivity extends BaseActivity implements BetterVideoCallback {
 
     private BetterVideoPlayer player;
     String videoTitle,videoUrl,videoId,videoContent,videoDate,videoCategoryTitle,
             videoImageUrl,videoTaglug;
     long refrenceId;
     BroadcastReceiver receiver ;
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,24 +129,34 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
             @Override
             public void onClick(View v) {
                 if(isNetworkAvailable()){
-                    d.dismiss();
-                    // add to download List
-                    PostModel model = new PostModel();
-                    model.setId(Integer.valueOf(videoId));
-                    model.setTitle(videoTitle);
-                    model.setContent(videoContent);
-                    model.setDate(videoDate);
-                    model.setCategoryTitle(videoCategoryTitle);
-                    model.setVideoUrl(videoUrl);
-                    model.setImageUrl(videoImageUrl);
-                    model.setTagSlug(videoTaglug);
-                    Application.getInstance().downloadList.add(model);
+                    new PermissionHandler().checkPermission(ShowVideoActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
+                        @Override
+                        public void onPermissionGranted() {
+                            d.dismiss();
+                            // add to download List
+                            tbl_PostModel model = new tbl_PostModel();
+                            model.setId(Long.valueOf(videoId));
+                            model.setTitle(videoTitle);
+                            model.setContent(videoContent);
+                            model.setDate(videoDate);
+                            model.setCategorytitle(videoCategoryTitle);
+                            model.setVideourl(videoUrl);
+                            model.setImageurl(videoImageUrl);
+                            model.setTagslug(videoTaglug);
+                            Application.getInstance().downloadList.add(model);
 
-                    Intent intent = new Intent(ShowVideoActivity.this, DownloadSevice.class);
-                    intent.putExtra("URL",fileUrl);
-                    intent.putExtra("Name",fileName);
-                    intent.putExtra("Id",videoId);
-                    startService(intent);
+                            Intent intent = new Intent(ShowVideoActivity.this, DownloadSevice.class);
+                            intent.putExtra("URL",fileUrl);
+                            intent.putExtra("Name",fileName);
+                            intent.putExtra("Id",videoId);
+                            startService(intent);
+                        }
+
+                        @Override
+                        public void onPermissionDenied() {
+                            HSH.showtoast(ShowVideoActivity.this, "برای دانلود ویدئو دسترسی را صادر نمایید.");
+                        }
+                    });
 
                 }else{
                     HSH.showtoast(getApplicationContext(), getResources().getString(R.string.error_internet));

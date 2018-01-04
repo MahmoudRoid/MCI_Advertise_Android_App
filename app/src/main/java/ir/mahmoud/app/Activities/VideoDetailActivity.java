@@ -25,19 +25,17 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SameVideoAdapter;
 import ir.mahmoud.app.Asynktask.GetSameVideos;
-import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.ExpandableTextView;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Models.PostModel;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class VideoDetailActivity extends AppCompatActivity implements IWebService2 {
 
-    PostModel myModel;
+    tbl_PostModel myModel;
     @BindView(R.id.imageView)
     ImageView imageView;
     @BindView(R.id.postContent_tv)
@@ -69,19 +67,23 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         getModel();
         setTitle("");
         toolbarCustomTv.setText(myModel.getTitle());
-        Glide.with(this).load(myModel.imageUrl).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)).into(imageView);
+        Glide.with(this).load(myModel.imageurl).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)).into(imageView);
         postTitleTv.setText(myModel.getTitle());
         postContentTv.setText(myModel.getContent());
-        long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).count();
-        if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);
-        // get same videos
-        GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagSlug, pb);
-        getdata.getData();
+        try {
+            long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).count();
+            if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);
+            // get same videos
+            GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagslug, pb);
+            getdata.getData();
+        } catch (Exception e) {
+            HSH.showtoast(VideoDetailActivity.this,e.getMessage());
+        }
     }
 
     public void getModel() {
         Intent i = getIntent();
-        myModel = (PostModel) i.getSerializableExtra("feedItem");
+        myModel = (tbl_PostModel) i.getSerializableExtra("feedItem");
     }
 
     @Override
@@ -94,14 +96,14 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         switch (view.getId()) {
             case R.id.videoRelative:
                 Intent intent = new Intent(this, ShowVideoActivity.class);
-                intent.putExtra("id", String.valueOf(myModel.getId()));
+                intent.putExtra("id", String.valueOf(myModel.getPostid()));
                 intent.putExtra("title", myModel.getTitle());
                 intent.putExtra("content", myModel.getContent());
                 intent.putExtra("date", myModel.getDate());
-                intent.putExtra("categoryTitle",myModel.getCategoryTitle());
-                intent.putExtra("url", myModel.getVideoUrl());
-                intent.putExtra("imageUrl", myModel.getImageUrl());
-                intent.putExtra("tagSlug", myModel.getTagSlug());
+                intent.putExtra("categoryTitle",myModel.getCategorytitle());
+                intent.putExtra("url", myModel.getVideourl());
+                intent.putExtra("imageUrl", myModel.getImageurl());
+                intent.putExtra("tagSlug", myModel.getTagslug());
 
                 startActivity(intent);
                 break;
@@ -115,17 +117,17 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
     }
 
     private void mark() {
-        long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).count();
+        long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).count();
         if (count > 0) {
             // unmark and delete from database
             markIcon.setImageResource(R.drawable.ic_unmark);
-           tbl_PostModel tbl = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getId())).first();
+           tbl_PostModel tbl = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).first();
            tbl.delete();
         } else {
             // mark and save into db
             markIcon.setImageResource(R.drawable.ic_mark);
-           tbl_PostModel tbl = new tbl_PostModel(myModel.getId(),myModel.getTitle(),myModel.getContent()
-           ,myModel.getDate(),myModel.getCategoryTitle(),myModel.getVideoUrl(),myModel.getImageUrl(),myModel.getTagSlug());
+           tbl_PostModel tbl = new tbl_PostModel(myModel.getPostid(),myModel.getTitle(),myModel.getContent()
+           ,myModel.getDate(),myModel.getCategorytitle(),myModel.getVideourl(),myModel.getImageurl(),myModel.getTagslug());
             tbl.save();
             HSH.showtoast(this, "نشان شد");
         }
@@ -136,13 +138,13 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         share.setType("text/plain");
         share.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
         share.putExtra(Intent.EXTRA_SUBJECT, myModel.getTitle());
-        share.putExtra(Intent.EXTRA_TEXT, myModel.getVideoUrl());
+        share.putExtra(Intent.EXTRA_TEXT, myModel.getVideourl());
         startActivity(Intent.createChooser(share, "اشترک گذاری از طریق"));
     }
 
     @Override
     public void getResult(Object result) throws Exception {
-        showList((List<PostModel>) result);
+        showList((List<tbl_PostModel>) result);
     }
 
     @Override
@@ -150,7 +152,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         HSH.showtoast(this, "error");
     }
 
-    private void showList(final List<PostModel> sameVidesList) {
+    private void showList(final List<tbl_PostModel> sameVidesList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         adapter = new SameVideoAdapter(this, sameVidesList);

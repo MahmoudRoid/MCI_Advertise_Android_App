@@ -19,7 +19,7 @@ public class SplashActivity extends AppCompatActivity {
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                HSH.onOpenPage(SplashActivity.this, MainActivity.class);
+                HSH.onOpenPage(SplashActivity.this, LoginActivity.class);
                 finish();
             }
         }, 3000);

@@ -1,9 +1,5 @@
 package ir.mahmoud.app.Classes;
 
-import android.content.SharedPreferences;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Environment;
 
 import com.orm.SugarApp;
@@ -12,8 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import ir.mahmoud.app.Models.PostModel;
-import ir.mahmoud.app.Models.SlideShowModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
@@ -28,16 +23,16 @@ public class Application extends SugarApp {
 
 
     private static final Application ourInstance = new Application();
-    public List<PostModel> sl = new ArrayList<>();
-    public List<PostModel> vip_feed = new ArrayList<>();
-    public List<PostModel> newest_feed = new ArrayList<>();
-    public List<PostModel> attractive_feed = new ArrayList<>();
-    public List<PostModel> tagged_feed = new ArrayList<>();
-    public List<PostModel> vip_feed_list = new ArrayList<>();
-    public List<PostModel> newest_feed_list = new ArrayList<>();
-    public List<PostModel> attractive_feed_list = new ArrayList<>();
-    public List<PostModel> tagged_feed_list = new ArrayList<>();
-    public List<PostModel> downloadList = new ArrayList<>();
+    public List<tbl_PostModel> sl = new ArrayList<>();
+    public List<tbl_PostModel> vip_feed = new ArrayList<>();
+    public List<tbl_PostModel> newest_feed = new ArrayList<>();
+    public List<tbl_PostModel> attractive_feed = new ArrayList<>();
+    public List<tbl_PostModel> tagged_feed = new ArrayList<>();
+    public List<tbl_PostModel> vip_feed_list = new ArrayList<>();
+    public List<tbl_PostModel> newest_feed_list = new ArrayList<>();
+    public List<tbl_PostModel> attractive_feed_list = new ArrayList<>();
+    public List<tbl_PostModel> tagged_feed_list = new ArrayList<>();
+    public List<tbl_PostModel> downloadList = new ArrayList<>();
     public String videoType = "";
 
     public HashMap getHashMap() {
@@ -60,14 +55,14 @@ public class Application extends SugarApp {
         );
     }
 
-    public List<PostModel> getVip_feed() {
+    public List<tbl_PostModel> getVip_feed() {
         return vip_feed;
     }
 
-    public void setVip_feed(List<PostModel> vip_feed) {
+    public void setVip_feed(List<tbl_PostModel> vip_feed) {
         this.vip_feed = vip_feed;
     }
 
-    public List<PostModel> getDownloadList(){return downloadList;}
+    public List<tbl_PostModel> getDownloadList(){return downloadList;}
 
 }

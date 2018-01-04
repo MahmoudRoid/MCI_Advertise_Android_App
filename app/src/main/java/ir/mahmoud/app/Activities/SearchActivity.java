@@ -21,7 +21,7 @@ import ir.mahmoud.app.Asynktask.SearchVideos;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
                 HSH.showtoast(this, "نتیجه ای نداریم");
         } else {
             recyclerView.setVisibility(View.VISIBLE);
-            showList((List<PostModel>) result);
+            showList((List<tbl_PostModel>) result);
         }
     }
 
@@ -72,7 +72,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         HSH.showtoast(this, "مشکلی پیش آمده است");
     }
 
-    private void showList(final List<PostModel> searchList) {
+    private void showList(final List<tbl_PostModel> searchList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         adapter = new SearchAdapter(this, searchList);

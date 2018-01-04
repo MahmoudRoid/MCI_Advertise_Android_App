@@ -12,7 +12,7 @@ import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWerbService;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -48,18 +48,18 @@ public class getPostsAsynkTask {
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(cn.getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
-                        PostModel item = new PostModel();
-                        item.setId(jary.getJSONObject(i).getInt(cn.getString(R.string.id)));
+                        tbl_PostModel item = new tbl_PostModel();
+                        item.setId(jary.getJSONObject(i).getLong(cn.getString(R.string.id)));
                         item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
                         item.setContent(jary.getJSONObject(i).getString(cn.getString(R.string.excerpt)));
                         item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)));
 
                         JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.categories)));
-                        item.setCategoryTitle(jary2.getJSONObject(0).getString(cn.getString(R.string.title)));
+                        item.setCategorytitle(jary2.getJSONObject(0).getString(cn.getString(R.string.title)));
 
                         try {
                             JSONArray jary3 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.tags)));
-                            item.setTagSlug(jary3.getJSONObject(0).getString(cn.getString(R.string.slug)));
+                            item.setTagslug(jary3.getJSONObject(0).getString(cn.getString(R.string.slug)));
                         } catch (JSONException e) {
                             e.printStackTrace();
                         }
@@ -67,9 +67,9 @@ public class getPostsAsynkTask {
 
                         try {
                             jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.attachments)));
-                            item.setVideoUrl(jary2.getJSONObject(0).getString(cn.getString(R.string.url)));
+                            item.setVideourl(jary2.getJSONObject(0).getString(cn.getString(R.string.url)));
 
-                            item.setImageUrl(jary.getJSONObject(i).getJSONObject(cn.getString(R.string.thumbnail_images)).getJSONObject(cn.getString(R.string.thumbnail)).getString(cn.getString(R.string.url)));
+                            item.setImageurl(jary.getJSONObject(i).getJSONObject(cn.getString(R.string.thumbnail_images)).getJSONObject(cn.getString(R.string.thumbnail)).getString(cn.getString(R.string.url)));
                         } catch (Exception e) {
                         }
 
@@ -78,20 +78,17 @@ public class getPostsAsynkTask {
                         obj = obj.getJSONObject("thumbnail");
                         item.setImageUrl(obj.getString("url"));*/
 
-                        if (item.getCategoryTitle().contains("ویژه") && Application.getInstance().vip_feed.size() < 2)
+                        if (item.getCategorytitle().contains("ویژه") && Application.getInstance().vip_feed.size() < 2)
                             Application.getInstance().vip_feed.add(item);
-                        else if (item.getCategoryTitle().contains("جدید") && Application.getInstance().newest_feed.size() < 2)
+                        else if (item.getCategorytitle().contains("جدید") && Application.getInstance().newest_feed.size() < 2)
                             Application.getInstance().newest_feed.add(item);
-                        else if (item.getCategoryTitle().contains("جذاب") && Application.getInstance().attractive_feed.size() < 2)
+                        else if (item.getCategorytitle().contains("جذاب") && Application.getInstance().attractive_feed.size() < 2)
                             Application.getInstance().attractive_feed.add(item);
-                        else if (item.getCategoryTitle().contains("نشان") && Application.getInstance().tagged_feed.size() < 2)
-                            Application.getInstance().tagged_feed.add(item);
                     }
 
                     delegate.getResult(Application.getInstance().vip_feed, hrsv_vip);
                     delegate.getResult(Application.getInstance().newest_feed, hrsv_newest);
                     delegate.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
-                    delegate.getResult(Application.getInstance().tagged_feed, hrsv_tagged);
                 } catch (Exception e) {
 
                 }
