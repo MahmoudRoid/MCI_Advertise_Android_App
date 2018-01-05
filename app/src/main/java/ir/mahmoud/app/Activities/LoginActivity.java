@@ -85,15 +85,15 @@ public class LoginActivity extends BaseActivity {
             txt_yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (NetworkUtils.getConnectivity(LoginActivity.this) == true) {
+                    if (NetworkUtils.getConnectivity(LoginActivity.this)) {
                         dialog.dismiss();
                         //editTextMobile.setEnabled(false);
                         //progressBar.setVisibility(View.VISIBLE);
                         //view.setEnabled(false);
                         // params.put(getString(R.string.mobile), ((EditText) findViewById(R.id.et_mobile)).getText().toString().trim());
                         SendPhoneNumber(view);
-                    } else
-                        HSH.showtoast(LoginActivity.this, "خطا در اتصال به اینترنت");
+                    }
+                    else HSH.showtoast(LoginActivity.this,getString(R.string.error_internet));
                 }
             });
             txt_no.setOnClickListener(new View.OnClickListener() {

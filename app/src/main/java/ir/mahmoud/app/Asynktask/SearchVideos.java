@@ -46,7 +46,7 @@ public class SearchVideos {
                         for (int i = 0; i < jsonArray.length(); i++) {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                             tbl_PostModel postModel = new tbl_PostModel();
-                            postModel.setId(jsonObject2.getLong("id"));
+                            postModel.setPostid(jsonObject2.getLong("id"));
                             postModel.setTitle(jsonObject2.optString("title"));
                             postModel.setContent(jsonObject2.optString("excerpt"));
                             postModel.setDate(jsonObject2.optString("date"));

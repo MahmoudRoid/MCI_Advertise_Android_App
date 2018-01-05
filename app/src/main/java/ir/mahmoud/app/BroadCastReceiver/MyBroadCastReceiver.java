@@ -20,9 +20,9 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
             if(refrenceId != -1){
                 int videoId = (int) Application.getInstance().hashMap.get(refrenceId);
                 for (tbl_PostModel model : Application.getInstance().getDownloadList()){
-                    if(model.getId() == videoId ){
+                    if(model.getPostid() == videoId ){
                         // save into download Table
-                        tbl_Download tbl = new tbl_Download(model.getId(),model.getTitle(),model.getContent(),
+                        tbl_Download tbl = new tbl_Download(model.getPostid(),model.getTitle(),model.getContent(),
                                 model.getDate(),model.categorytitle,model.videourl,model.getImageurl(),model.getTagslug());
                         tbl.save();
                         HSH.showtoast(context, "ویدئو با موفقیت ذخیره شد");

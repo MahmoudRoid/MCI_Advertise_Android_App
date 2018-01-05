@@ -60,14 +60,13 @@
             android:name=".Activities.ShowVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".Activities.SearchActivity" />
+        <activity android:name=".Activities.SearchActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme"/>
         <activity
             android:name=".Activities.VideoDetailActivity"
             android:label="@string/title_activity_video_details"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".Activities.MarkedActivity"
-            />
 
         <activity android:name=".Activities.DownloadsActivity"
             android:screenOrientation="portrait"

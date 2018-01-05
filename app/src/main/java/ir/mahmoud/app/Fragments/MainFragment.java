@@ -36,6 +36,7 @@ import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWerbService;
@@ -105,8 +106,18 @@ public class MainFragment extends Fragment {
         m = new IWerbService() {
             @Override
             public void getResult(List<tbl_PostModel> items, LinearLayout ll) throws Exception {
+                List<tbl_PostModel> endList = new ArrayList<>() ;
+                List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
+                if(tmpList.size() <= 2){
+                    endList = tmpList;
+                }
+                else {
+                    endList.add(tmpList.get(tmpList.size()-2));
+                    endList.add(tmpList.get(tmpList.size()-1));
+                }
+
                 if(hrsv_tagged.getChildCount() == 0)
-                    Binding(hrsv_tagged, Select.from(tbl_PostModel.class).list());
+                    Binding(hrsv_tagged, endList);
                 if(items.size() > 0)
                     Binding(ll, items);
                 else
@@ -123,8 +134,12 @@ public class MainFragment extends Fragment {
                 Application.getInstance().newest_feed.size() == 0 ||
                 Application.getInstance().attractive_feed.size() == 0) {
 
-            getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
-            getPosts.getData();
+            if (NetworkUtils.getConnectivity(getActivity())) {
+                getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
+                getPosts.getData();
+            }
+            else HSH.showtoast(getActivity(),getString(R.string.error_internet));
+
         } else {
              m.getResult(Application.getInstance().vip_feed, hrsv_vip);
              m.getResult(Application.getInstance().newest_feed, hrsv_newest);
@@ -136,8 +151,12 @@ public class MainFragment extends Fragment {
 
         if(Application.getInstance().sl.size() > 0)
             BindSlideShow();
-        else
-            GetSlideShowItems();
+        else{
+
+            if (NetworkUtils.getConnectivity(getActivity())) {
+                GetSlideShowItems();
+            }
+        }
         return rootView;
     }
 
@@ -153,7 +172,7 @@ public class MainFragment extends Fragment {
                     JSONArray jary = new JSONArray(obj.getString(getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
                             tbl_PostModel item = new tbl_PostModel();
-                            item.setId(jary.getJSONObject(i).getLong(getString(R.string.id)));
+                            item.setPostid(jary.getJSONObject(i).getLong(getString(R.string.id)));
                             item.setTitle(jary.getJSONObject(i).getString(getString(R.string.title)));
                             item.setContent(jary.getJSONObject(i).getString(getString(R.string.excerpt)));
                             item.setDate(jary.getJSONObject(i).getString(getString(R.string.date)));

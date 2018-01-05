@@ -20,7 +20,6 @@ import ir.mahmoud.app.R;
 public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.DataObjectHolder> {
     public Context context;
     public List<tbl_PostModel> myObjectArrayList;
-    public String Language_kind;
 
     public SameVideoAdapter(Context context, List<tbl_PostModel> arrayList) {
         this.myObjectArrayList = arrayList;

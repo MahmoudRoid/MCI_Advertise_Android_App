@@ -46,7 +46,6 @@ public class getListPostsAsynkTask {
                     for (int i = 0; i < jary.length(); i++) {
                         tbl_PostModel item = new tbl_PostModel();
                         item.setPostid(jary.getJSONObject(i).getLong(cn.getString(R.string.id)));
-                        item.setId(jary.getJSONObject(i).getLong(cn.getString(R.string.id)));
                         item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
                         item.setContent(jary.getJSONObject(i).getString(cn.getString(R.string.excerpt)));
                         item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)));

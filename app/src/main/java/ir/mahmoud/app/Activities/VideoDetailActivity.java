@@ -27,6 +27,7 @@ import ir.mahmoud.app.Adapters.SameVideoAdapter;
 import ir.mahmoud.app.Asynktask.GetSameVideos;
 import ir.mahmoud.app.Classes.ExpandableTextView;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.tbl_PostModel;
@@ -74,8 +75,11 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
             long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).count();
             if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);
             // get same videos
-            GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagslug, pb);
-            getdata.getData();
+            if(NetworkUtils.getConnectivity(this)){
+                GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagslug, pb);
+                getdata.getData();
+            }
+            else HSH.showtoast(this,getString(R.string.error_internet));
         } catch (Exception e) {
             HSH.showtoast(VideoDetailActivity.this,e.getMessage());
         }
@@ -149,7 +153,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
 
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
-        HSH.showtoast(this, "error");
+        HSH.showtoast(this, "مشکلی پیش آمده است");
     }
 
     private void showList(final List<tbl_PostModel> sameVidesList) {

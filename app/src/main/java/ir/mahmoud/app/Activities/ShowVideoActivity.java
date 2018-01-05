@@ -3,23 +3,24 @@ package ir.mahmoud.app.Activities;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
+
 import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
+
 import java.io.File;
+
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.BaseActivity;
 import ir.mahmoud.app.Classes.DownloadSevice;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Classes.PermissionHandler;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
@@ -48,8 +49,13 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
             player.setAutoPlay(true);
         }
         else {
-            player.setSource(Uri.parse(videoUrl));
-            player.setAutoPlay(true);
+            // agar net vojood dasht neshan dahad
+            if(NetworkUtils.getConnectivity(this)){
+                player.setSource(Uri.parse(videoUrl));
+                player.setAutoPlay(true);
+            }
+            else HSH.showtoast(this,getString(R.string.error_internet));
+
         }
     }
 
@@ -128,14 +134,14 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         txtOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNetworkAvailable()){
+                if(NetworkUtils.getConnectivity(ShowVideoActivity.this)){
                     new PermissionHandler().checkPermission(ShowVideoActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
                         @Override
                         public void onPermissionGranted() {
                             d.dismiss();
                             // add to download List
                             tbl_PostModel model = new tbl_PostModel();
-                            model.setId(Long.valueOf(videoId));
+                            model.setPostid(Long.valueOf(videoId));
                             model.setTitle(videoTitle);
                             model.setContent(videoContent);
                             model.setDate(videoDate);
@@ -165,12 +171,6 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         });
         d.show();
     }// end DialogChoose()
-
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }// isNetworkAvailable()
 
     @Override
     public void onStarted(BetterVideoPlayer player) {}

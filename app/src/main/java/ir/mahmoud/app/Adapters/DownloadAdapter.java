@@ -2,6 +2,7 @@ package ir.mahmoud.app.Adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.net.Uri;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -73,14 +74,18 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
             public void onClick(View v) {
                 File file = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
                 if(file.exists()){
-                    File DoutFile = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
-                    Intent share = new Intent(Intent.ACTION_SEND);
-                    share.setType("video/*");
-                    share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(DoutFile));
-                    share.putExtra(Intent.EXTRA_TEXT,
-                            "" + context.getResources().getString(R.string.app_name));
-
-                    context.startActivity(Intent.createChooser(share, "Share Video"));
+                    try {
+                        File DoutFile = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
+                        Intent share = new Intent(Intent.ACTION_SEND);
+                        share.setType("video/*");
+                        share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(DoutFile));
+                        share.putExtra(Intent.EXTRA_TEXT,
+                                "" + context.getResources().getString(R.string.app_name));
+                        context.startActivity(Intent.createChooser(share, "اشتراک ویدئو"));
+                    } catch (Resources.NotFoundException e) {
+                        e.printStackTrace();
+                        HSH.showtoast(context, "مشکلی در ارسال ویدئو به وجود آمد");
+                    }
                 }
                 else {
                     HSH.showtoast(context, "فایل ویدئو یافت نشد");

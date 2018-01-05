@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SearchAdapter;
 import ir.mahmoud.app.Asynktask.SearchVideos;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
 import ir.mahmoud.app.Models.tbl_PostModel;
@@ -50,8 +51,11 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         setTitle("جستجو");
         searchEdt.setText(searchString);
         // call web service
-        SearchVideos getdata = new SearchVideos(this, this, searchString);
-        getdata.getData();
+        if(NetworkUtils.getConnectivity(this)){
+            SearchVideos getdata = new SearchVideos(this, this, searchString);
+            getdata.getData();
+        }
+        else HSH.showtoast(this,getString(R.string.error_internet));
     }
 
     @Override
@@ -98,8 +102,11 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         if (searchEdt.getText().toString().trim().length() > 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
-            SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
-            getdata.getData();
+            if(NetworkUtils.getConnectivity(this)){
+                SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
+                getdata.getData();
+            }
+            else HSH.showtoast(this,getString(R.string.error_internet));
         }
     }
 }
