@@ -229,6 +229,7 @@ public class MainFragment extends Fragment {
 
     private void Binding(final LinearLayout hrsv, final List<tbl_PostModel> feed) {
         try {
+            //fake view
             if (feed.size() == 1) {
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
