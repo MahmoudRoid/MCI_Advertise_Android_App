@@ -9,7 +9,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.widget.Toast;
+
 
 import java.util.List;
 
@@ -18,9 +18,11 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SearchAdapter;
 import ir.mahmoud.app.Asynktask.SearchVideos;
+import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -49,8 +51,11 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         setTitle("جستجو");
         searchEdt.setText(searchString);
         // call web service
-        SearchVideos getdata = new SearchVideos(this, this, searchString);
-        getdata.getData();
+        if(NetworkUtils.getConnectivity(this)){
+            SearchVideos getdata = new SearchVideos(this, this, searchString);
+            getdata.getData();
+        }
+        else HSH.showtoast(this,getString(R.string.error_internet));
     }
 
     @Override
@@ -58,20 +63,20 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         pb.setVisibility(View.INVISIBLE);
         if (result instanceof String) {
             if (result.equals("empty list"))
-                Toast.makeText(this, "نتیجه ای نداریم", Toast.LENGTH_SHORT).show();
+                HSH.showtoast(this, "نتیجه ای نداریم");
         } else {
             recyclerView.setVisibility(View.VISIBLE);
-            showList((List<PostModel>) result);
+            showList((List<tbl_PostModel>) result);
         }
     }
 
     @Override
     public void getError(String ErrorCodeTitle) throws Exception {
         pb.setVisibility(View.INVISIBLE);
-        Toast.makeText(this, "مشکلی پیش آمده است", Toast.LENGTH_SHORT).show();
+        HSH.showtoast(this, "مشکلی پیش آمده است");
     }
 
-    private void showList(final List<PostModel> searchList) {
+    private void showList(final List<tbl_PostModel> searchList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
         adapter = new SearchAdapter(this, searchList);
@@ -97,8 +102,11 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         if (searchEdt.getText().toString().trim().length() > 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
-            SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
-            getdata.getData();
+            if(NetworkUtils.getConnectivity(this)){
+                SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
+                getdata.getData();
+            }
+            else HSH.showtoast(this,getString(R.string.error_internet));
         }
     }
 }

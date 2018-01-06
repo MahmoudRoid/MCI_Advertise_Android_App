@@ -26,6 +26,7 @@ import com.yalantis.contextmenu.lib.MenuObject;
 import com.yalantis.contextmenu.lib.MenuParams;
 import com.yalantis.contextmenu.lib.interfaces.OnMenuItemClickListener;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -137,30 +138,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         List<MenuObject> menuObjects = new ArrayList<>();
 
         MenuObject close = new MenuObject();
-        close.setResource(R.mipmap.ic_launcher);
+        close.setResource(R.mipmap.ic_close);
 
-        MenuObject account = new MenuObject("ساخت حساب کاربری");
-        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        account.setBitmap(b);
+//        MenuObject account = new MenuObject("ساخت حساب کاربری");
+//        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+//        account.setBitmap(b);
 
         MenuObject download = new MenuObject("دانلود ها");
         BitmapDrawable b1 = new BitmapDrawable(getResources(),
-                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
+                BitmapFactory.decodeResource(getResources(), R.mipmap.ic_download));
         download.setDrawable(b1);
 
         MenuObject mintroduce = new MenuObject("معرفی به دوستان");
-        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap b2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_introduce);
         mintroduce.setBitmap(b2);
 
-        MenuObject aboutUs = new MenuObject("درباره ما");
-        Bitmap b3 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        aboutUs.setBitmap(b3);
+//        MenuObject aboutUs = new MenuObject("درباره ما");
+//        Bitmap b3 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+//        aboutUs.setBitmap(b3);
 
         menuObjects.add(close);
-        menuObjects.add(account);
+//        menuObjects.add(account);
         menuObjects.add(download);
         menuObjects.add(mintroduce);
-        menuObjects.add(aboutUs);
+//        menuObjects.add(aboutUs);
 
         return menuObjects;
     }// end getMenuObjects()
@@ -242,25 +243,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 0:
                 // بستن
                 break;
-            case 1:
-                Toast.makeText(this, "ساخت حساب کاربری", Toast.LENGTH_SHORT).show();
-                break;
+//            case 1:
+//                Toast.makeText(this, "ساخت حساب کاربری", Toast.LENGTH_SHORT).show();
+//                break;
 
+            case 1:
+                // دانلودها
+                startActivity(new Intent(MainActivity.this,DownloadsActivity.class));
+                break;
             case 2:
-                Toast.makeText(this, "دانلودها", Toast.LENGTH_SHORT).show();
+//                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;
+//                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
+//                sharingIntent.setType("text/plain");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "شدنی\n\n");
+//                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
+//                startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری"));
+                sendApp();
                 break;
-            case 3:
-                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;
-                Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
-                sharingIntent.setType("text/plain");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, "شدنی\n\n");
-                sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);
-                startActivity(Intent.createChooser(sharingIntent, "اشتراک گذاری"));
-                break;
-            case 4:
-                Toast.makeText(this, "درباره ما", Toast.LENGTH_SHORT).show();
-                break;
+//
         }
+    }
+
+    private void sendApp() {
+        try{
+            ArrayList<Uri> uris = new ArrayList<>();
+            Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
+            sendIntent.setType("application/*");
+            uris.add(Uri.fromFile(new File(getApplicationInfo().publicSourceDir)));
+            sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+            startActivity(Intent.createChooser(sendIntent, null));
+        }catch(Exception e){e.printStackTrace();}
     }
 
     public void exit() {

@@ -1,29 +1,40 @@
 package ir.mahmoud.app.Activities;
 
+import android.Manifest;
 import android.app.Dialog;
-import android.app.DownloadManager;
-import android.content.Context;
+import android.content.BroadcastReceiver;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.TextView;
-import android.widget.Toast;
+
 import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
+
 import java.io.File;
+
 import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.BaseActivity;
+import ir.mahmoud.app.Classes.DownloadSevice;
+import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
+import ir.mahmoud.app.Classes.PermissionHandler;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
-public class ShowVideoActivity extends AppCompatActivity implements BetterVideoCallback {
+public class ShowVideoActivity extends BaseActivity implements BetterVideoCallback {
 
     private BetterVideoPlayer player;
-    String videoTitle,videoUrl,videoId;
+    String videoTitle,videoUrl,videoId,videoContent,videoDate,videoCategoryTitle,
+            videoImageUrl,videoTaglug;
+    long refrenceId;
+    BroadcastReceiver receiver ;
+    String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +49,20 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
             player.setAutoPlay(true);
         }
         else {
-            player.setSource(Uri.parse(videoUrl));
-            player.setAutoPlay(true);
-        }
+            // agar net vojood dasht neshan dahad
+            if(NetworkUtils.getConnectivity(this)){
+                player.setSource(Uri.parse(videoUrl));
+                player.setAutoPlay(true);
+            }
+            else HSH.showtoast(this,getString(R.string.error_internet));
 
+        }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        //registerReceiver(receiver,new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
     }
 
     private boolean isVideoExists() {
@@ -53,9 +74,14 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
     }
 
     private void getData() {
-        videoTitle = getIntent().getStringExtra("title");
-        videoUrl = getIntent().getStringExtra("url");
         videoId = getIntent().getStringExtra("id");
+        videoTitle = getIntent().getStringExtra("title");
+        videoContent = getIntent().getStringExtra("content");
+        videoDate = getIntent().getStringExtra("date");
+        videoCategoryTitle = getIntent().getStringExtra("categoryTitle");
+        videoUrl = getIntent().getStringExtra("url");
+        videoImageUrl = getIntent().getStringExtra("imageUrl");
+        videoTaglug = getIntent().getStringExtra("tagSlug");
     }
     
     public void saveVideo(View view){
@@ -66,7 +92,7 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
         String nameOfFile = videoId+".mp4";
         File file = new File(direct, nameOfFile);
         if (file.exists()) {
-            Toast.makeText(ShowVideoActivity.this, "قبلا این ویدئو را دانلود کردید!", Toast.LENGTH_SHORT).show();
+            HSH.showtoast(ShowVideoActivity.this, "قبلا این ویدئو را دانلود کردید!");
         }
         else {
             DialogChoose(nameOfFile,videoUrl);
@@ -108,29 +134,43 @@ public class ShowVideoActivity extends AppCompatActivity implements BetterVideoC
         txtOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(isNetworkAvailable()){
-                    d.dismiss();
-                    DownloadManager mgr = (DownloadManager) getApplicationContext().getSystemService(Context.DOWNLOAD_SERVICE);
-                    Uri downloadUri = Uri.parse(fileUrl);
-                    DownloadManager.Request request = new DownloadManager.Request(downloadUri);
-                    request.setAllowedNetworkTypes(
-                            DownloadManager.Request.NETWORK_WIFI
-                                    | DownloadManager.Request.NETWORK_MOBILE)
-                            .setAllowedOverRoaming(false).setTitle("دانلود ویدئو")
-                            .setDestinationInExternalPublicDir("/shodani/videos", fileName);
-                    mgr.enqueue(request);
+                if(NetworkUtils.getConnectivity(ShowVideoActivity.this)){
+                    new PermissionHandler().checkPermission(ShowVideoActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
+                        @Override
+                        public void onPermissionGranted() {
+                            d.dismiss();
+                            // add to download List
+                            tbl_PostModel model = new tbl_PostModel();
+                            model.setPostid(Long.valueOf(videoId));
+                            model.setTitle(videoTitle);
+                            model.setContent(videoContent);
+                            model.setDate(videoDate);
+                            model.setCategorytitle(videoCategoryTitle);
+                            model.setVideourl(videoUrl);
+                            model.setImageurl(videoImageUrl);
+                            model.setTagslug(videoTaglug);
+                            Application.getInstance().downloadList.add(model);
+
+                            Intent intent = new Intent(ShowVideoActivity.this, DownloadSevice.class);
+                            intent.putExtra("URL",fileUrl);
+                            intent.putExtra("Name",fileName);
+                            intent.putExtra("Id",videoId);
+                            startService(intent);
+                        }
+
+                        @Override
+                        public void onPermissionDenied() {
+                            HSH.showtoast(ShowVideoActivity.this, "برای دانلود ویدئو دسترسی را صادر نمایید.");
+                        }
+                    });
+
                 }else{
-                    Toast.makeText(getApplicationContext(), getResources().getString(R.string.error_internet), Toast.LENGTH_SHORT).show();
+                    HSH.showtoast(getApplicationContext(), getResources().getString(R.string.error_internet));
                 }
             }
         });
         d.show();
     }// end DialogChoose()
-    private boolean isNetworkAvailable() {
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
-        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
-    }// isNetworkAvailable()
 
     @Override
     public void onStarted(BetterVideoPlayer player) {}

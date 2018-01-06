@@ -18,8 +18,10 @@ import butterknife.ButterKnife;
 import ir.mahmoud.app.Adapters.ListAdapter;
 import ir.mahmoud.app.Asynktask.getListPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Interfaces.IWebService2;
-import ir.mahmoud.app.Models.PostModel;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 public class VideosFragment extends Fragment {
@@ -31,7 +33,7 @@ public class VideosFragment extends Fragment {
     ListAdapter adapter;
     IWebService2 m;
     View rootView = null;
-    private List<PostModel> feed = new ArrayList<>();
+    private List<tbl_PostModel> feed = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,7 +46,7 @@ public class VideosFragment extends Fragment {
         m = new IWebService2() {
             @Override
             public void getResult(Object items) throws Exception {
-                feed.addAll((List<PostModel>) items);
+                feed.addAll((List<tbl_PostModel>) items);
                 adapter.notifyDataSetChanged();
                 pb.setVisibility(View.GONE);
             }
@@ -61,8 +63,11 @@ public class VideosFragment extends Fragment {
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
         } else if (Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
-            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().vip_feed_list, m, Application.getInstance().videoType);
-            a.getListPosts();
+            if (NetworkUtils.getConnectivity(getActivity())) {
+                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().vip_feed_list, m, Application.getInstance().videoType);
+                a.getListPosts();
+            }
+            else HSH.showtoast(getActivity(),getString(R.string.error_internet));
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین_ها")) {
@@ -70,8 +75,10 @@ public class VideosFragment extends Fragment {
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
         } else if (Application.getInstance().videoType.equals("جذابترین_ها")) {
-            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed_list, m, Application.getInstance().videoType);
-            a.getListPosts();
+            if (NetworkUtils.getConnectivity(getActivity())) {
+                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed_list, m, Application.getInstance().videoType);
+                a.getListPosts();
+            } else HSH.showtoast(getActivity(),getString(R.string.error_internet));
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().newest_feed_list.size() > 1 && Application.getInstance().videoType.equals("جدیدترین-ها")) {
@@ -79,8 +86,10 @@ public class VideosFragment extends Fragment {
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
         } else if (Application.getInstance().videoType.equals("جدیدترین-ها")) {
-            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().newest_feed_list, m, Application.getInstance().videoType);
-            a.getListPosts();
+            if (NetworkUtils.getConnectivity(getActivity())) {
+                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().newest_feed_list, m, Application.getInstance().videoType);
+                a.getListPosts();
+            }else HSH.showtoast(getActivity(),getString(R.string.error_internet));
         }
         return rootView;
     }

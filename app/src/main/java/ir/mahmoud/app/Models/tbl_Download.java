@@ -2,21 +2,15 @@ package ir.mahmoud.app.Models;
 
 import com.orm.SugarRecord;
 
-import java.io.Serializable;
 
-/**
- * Created by soheilsystem on 12/24/2017.
- */
+public class tbl_Download extends SugarRecord<tbl_Download> {
 
-public class tbl_PostModel extends SugarRecord<tbl_PostModel> implements Serializable {
-
-    public static final long serialVersionUID = 1L;
     public long postid;
     public String title,content,date,categorytitle,videourl,imageurl,tagslug;
 
-    public tbl_PostModel(){}
+    public tbl_Download(){}
 
-    public tbl_PostModel(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
+    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
         this.postid = postid;
         this.title = title;
         this.content = content;
@@ -32,7 +26,7 @@ public class tbl_PostModel extends SugarRecord<tbl_PostModel> implements Seriali
         return postid;
     }
 
-    public void setPostid(long postid) {
+    public void setPostid(int postid) {
         this.postid = postid;
     }
 

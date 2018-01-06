@@ -1,7 +1,10 @@
 package ir.mahmoud.app.Activities;
 
+import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,18 +14,44 @@ import android.widget.TextView;
 
 import java.util.Map;
 
+import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.BaseActivity;
+import ir.mahmoud.app.Classes.DownloadSevice;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.NetworkUtils;
+import ir.mahmoud.app.Classes.PermissionHandler;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 
-public class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends BaseActivity {
 
+    String[] permissions = {Manifest.permission.ACCESS_NETWORK_STATE};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        TextView txt_guest = (TextView) findViewById(R.id.txt_guest);
+        txt_guest.setPaintFlags(txt_guest.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+        txt_guest.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                new PermissionHandler().checkPermission(LoginActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
+                    @Override
+                    public void onPermissionGranted() {
+                        HSH.onOpenPage(LoginActivity.this, MainActivity.class);
+                        finish();
+                    }
+
+                    @Override
+                    public void onPermissionDenied() {
+                        HSH.showtoast(LoginActivity.this, "برای ورود به برنامه دسترسی را صادر نمایید.");
+                    }
+                });
+
+            }
+        });
     }
 
     @Override
@@ -56,15 +85,15 @@ public class LoginActivity extends AppCompatActivity {
             txt_yes.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (NetworkUtils.getConnectivity(LoginActivity.this) == true) {
+                    if (NetworkUtils.getConnectivity(LoginActivity.this)) {
                         dialog.dismiss();
                         //editTextMobile.setEnabled(false);
                         //progressBar.setVisibility(View.VISIBLE);
                         //view.setEnabled(false);
                         // params.put(getString(R.string.mobile), ((EditText) findViewById(R.id.et_mobile)).getText().toString().trim());
                         SendPhoneNumber(view);
-                    } else
-                        HSH.showtoast(LoginActivity.this, "خطا در اتصال به اینترنت");
+                    }
+                    else HSH.showtoast(LoginActivity.this,getString(R.string.error_internet));
                 }
             });
             txt_no.setOnClickListener(new View.OnClickListener() {

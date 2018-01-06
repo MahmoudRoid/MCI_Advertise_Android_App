@@ -23,7 +23,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:scaleType="centerCrop"
-        app:srcCompat="@mipmap/shodani" />
+        android:background="@color/V_Gray"
+        android:src="@mipmap/shodani" />
 
         <TextView
             android:id="@+id/txt_date"
