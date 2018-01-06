@@ -284,10 +284,9 @@ public class MainFragment extends Fragment {
         } else if (tmpList.size() == 1)
             endList.add(tmpList.get(0));
 
-        if (hrsv_tagged.getChildCount() == 0) {
             hrsv_tagged.removeAllViews();
             Binding(hrsv_tagged, endList);
-        }
+
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
@@ -310,4 +309,12 @@ public class MainFragment extends Fragment {
             return feed.size();
         }
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(Application.getInstance().sl.size() > 0 )
+            getMarkedPost();
+    }
+
 }
