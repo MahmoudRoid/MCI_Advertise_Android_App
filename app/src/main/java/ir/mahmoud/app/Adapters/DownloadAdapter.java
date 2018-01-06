@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
@@ -37,22 +36,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
         this.context = context;
     }
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder {
-        ImageView image,shareIcon;
-        TextView tv_title, tv_date;
-        CardView cardView;
-
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            tv_title = (TextView) itemView.findViewById(R.id.title_tv);
-            tv_date = (TextView) itemView.findViewById(R.id.date_tv);
-            shareIcon = (ImageView) itemView.findViewById(R.id.share_icon);
-            image = (ImageView) itemView.findViewById(R.id.imageView);
-            cardView = (CardView) itemView.findViewById(R.id.cardview);
-        }
-
-    }
-
     @Override
     public DownloadAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -73,7 +56,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
             @Override
             public void onClick(View v) {
                 File file = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
-                if(file.exists()){
+                if (file.exists()) {
                     try {
                         File DoutFile = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
                         Intent share = new Intent(Intent.ACTION_SEND);
@@ -86,8 +69,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
                         e.printStackTrace();
                         HSH.showtoast(context, "مشکلی در ارسال ویدئو به وجود آمد");
                     }
-                }
-                else {
+                } else {
                     HSH.showtoast(context, "فایل ویدئو یافت نشد");
                 }
             }
@@ -99,19 +81,18 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
 
                 // if video exists
                 File file = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
-                if(file.exists()){
+                if (file.exists()) {
                     Intent intent = new Intent(context, ShowVideoActivity.class);
                     intent.putExtra("id", String.valueOf(myObjectArrayList.get(position).getPostid()));
                     intent.putExtra("title", myObjectArrayList.get(position).getTitle());
                     intent.putExtra("content", myObjectArrayList.get(position).getContent());
                     intent.putExtra("date", myObjectArrayList.get(position).getDate());
-                    intent.putExtra("categoryTitle",myObjectArrayList.get(position).getCategorytitle());
+                    intent.putExtra("categoryTitle", myObjectArrayList.get(position).getCategorytitle());
                     intent.putExtra("url", myObjectArrayList.get(position).getVideourl());
                     intent.putExtra("imageUrl", myObjectArrayList.get(position).getImageurl());
                     intent.putExtra("tagSlug", myObjectArrayList.get(position).getTagslug());
                     context.startActivity(intent);
-                }
-                else {
+                } else {
                     // nist
                     HSH.showtoast(context, "فایل ویدئو یافت نشد");
                 }
@@ -128,6 +109,22 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+        ImageView image, shareIcon;
+        TextView tv_title, tv_date;
+        CardView cardView;
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            tv_title = (TextView) itemView.findViewById(R.id.title_tv);
+            tv_date = (TextView) itemView.findViewById(R.id.date_tv);
+            shareIcon = (ImageView) itemView.findViewById(R.id.share_icon);
+            image = (ImageView) itemView.findViewById(R.id.imageView);
+            cardView = (CardView) itemView.findViewById(R.id.cardview);
+        }
+
     }
 
 

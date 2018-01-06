@@ -19,7 +19,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.yalantis.contextmenu.lib.ContextMenuDialogFragment;
 import com.yalantis.contextmenu.lib.MenuObject;
@@ -205,7 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.txt_marked:
-                if(marked_fragment == null)
+                if (marked_fragment == null)
                     marked_fragment = new MarkedFragment();
                 openFragment(MainActivity.this, marked_fragment);
                 break;
@@ -249,7 +248,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             case 1:
                 // دانلودها
-                startActivity(new Intent(MainActivity.this,DownloadsActivity.class));
+                startActivity(new Intent(MainActivity.this, DownloadsActivity.class));
                 break;
             case 2:
 //                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;
@@ -265,14 +264,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void sendApp() {
-        try{
+        try {
             ArrayList<Uri> uris = new ArrayList<>();
             Intent sendIntent = new Intent(Intent.ACTION_SEND_MULTIPLE);
             sendIntent.setType("application/*");
             uris.add(Uri.fromFile(new File(getApplicationInfo().publicSourceDir)));
             sendIntent.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
             startActivity(Intent.createChooser(sendIntent, null));
-        }catch(Exception e){e.printStackTrace();}
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void exit() {

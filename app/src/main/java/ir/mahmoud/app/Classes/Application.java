@@ -18,7 +18,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyConfig;
 
 public class Application extends SugarApp {
 
-    public static final String ROOT = Environment.getExternalStorageDirectory()+"/shodani";
+    public static final String ROOT = Environment.getExternalStorageDirectory() + "/shodani";
     public static final String VIDEO = ROOT + "/videos";
 
 
@@ -34,15 +34,14 @@ public class Application extends SugarApp {
     public List<tbl_PostModel> tagged_feed_list = new ArrayList<>();
     public List<tbl_PostModel> downloadList = new ArrayList<>();
     public String videoType = "";
-
-    public HashMap getHashMap() {
-        return hashMap;
-    }
-
     public HashMap hashMap = new HashMap();
 
     public static Application getInstance() {
         return ourInstance;
+    }
+
+    public HashMap getHashMap() {
+        return hashMap;
     }
 
     @Override
@@ -63,6 +62,8 @@ public class Application extends SugarApp {
         this.vip_feed = vip_feed;
     }
 
-    public List<tbl_PostModel> getDownloadList(){return downloadList;}
+    public List<tbl_PostModel> getDownloadList() {
+        return downloadList;
+    }
 
 }

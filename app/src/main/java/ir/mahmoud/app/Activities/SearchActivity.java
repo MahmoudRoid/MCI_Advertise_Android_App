@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
-
 import java.util.List;
 
 import butterknife.BindView;
@@ -51,11 +50,10 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         setTitle("جستجو");
         searchEdt.setText(searchString);
         // call web service
-        if(NetworkUtils.getConnectivity(this)){
+        if (NetworkUtils.getConnectivity(this)) {
             SearchVideos getdata = new SearchVideos(this, this, searchString);
             getdata.getData();
-        }
-        else HSH.showtoast(this,getString(R.string.error_internet));
+        } else HSH.showtoast(this, getString(R.string.error_internet));
     }
 
     @Override
@@ -102,11 +100,10 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         if (searchEdt.getText().toString().trim().length() > 0) {
             recyclerView.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
-            if(NetworkUtils.getConnectivity(this)){
+            if (NetworkUtils.getConnectivity(this)) {
                 SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
                 getdata.getData();
-            }
-            else HSH.showtoast(this,getString(R.string.error_internet));
+            } else HSH.showtoast(this, getString(R.string.error_internet));
         }
     }
 }

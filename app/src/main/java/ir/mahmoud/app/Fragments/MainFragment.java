@@ -50,7 +50,6 @@ import retrofit2.Callback;
 
 public class MainFragment extends Fragment {
 
-    public List<tbl_PostModel> sl = new ArrayList<>();
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
@@ -106,22 +105,12 @@ public class MainFragment extends Fragment {
         m = new IWerbService() {
             @Override
             public void getResult(List<tbl_PostModel> items, LinearLayout ll) throws Exception {
-                List<tbl_PostModel> endList = new ArrayList<>() ;
-                List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
-                if(tmpList.size() <= 2){
-                    endList = tmpList;
-                }
-                else {
-                    endList.add(tmpList.get(tmpList.size()-2));
-                    endList.add(tmpList.get(tmpList.size()-1));
-                }
-
-                if(hrsv_tagged.getChildCount() == 0)
-                    Binding(hrsv_tagged, endList);
-                if(items.size() > 0)
+                if(ll.getId() == id.hrsv_attractive)
+                    getMarkedPost();
+                if (items.size() > 0)
                     Binding(ll, items);
                 else
-                    ((RelativeLayout)ll.getParent()).setVisibility(View.GONE);
+                    ((RelativeLayout) ll.getParent()).setVisibility(View.GONE);
             }
 
             @Override
@@ -130,28 +119,26 @@ public class MainFragment extends Fragment {
         };
 
         try {
-        if (Application.getInstance().vip_feed.size() == 0 ||
-                Application.getInstance().newest_feed.size() == 0 ||
-                Application.getInstance().attractive_feed.size() == 0) {
+            if (Application.getInstance().vip_feed.size() == 0 ||
+                    Application.getInstance().newest_feed.size() == 0 ||
+                    Application.getInstance().attractive_feed.size() == 0) {
+                if (NetworkUtils.getConnectivity(getActivity())) {
+                    getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
+                    getPosts.getData();
+                } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
 
-            if (NetworkUtils.getConnectivity(getActivity())) {
-                getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
-                getPosts.getData();
+            } else {
+                m.getResult(Application.getInstance().vip_feed, hrsv_vip);
+                m.getResult(Application.getInstance().newest_feed, hrsv_newest);
+                m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
+                getMarkedPost();
             }
-            else HSH.showtoast(getActivity(),getString(R.string.error_internet));
-
-        } else {
-             m.getResult(Application.getInstance().vip_feed, hrsv_vip);
-             m.getResult(Application.getInstance().newest_feed, hrsv_newest);
-             m.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
-             Binding(hrsv_tagged, Select.from(tbl_PostModel.class).list());
-        }
         } catch (Exception e) {
         }
 
-        if(Application.getInstance().sl.size() > 0)
+        if (Application.getInstance().sl.size() > 0)
             BindSlideShow();
-        else{
+        else {
 
             if (NetworkUtils.getConnectivity(getActivity())) {
                 GetSlideShowItems();
@@ -168,31 +155,32 @@ public class MainFragment extends Fragment {
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
 
                 try {
+                    Application.getInstance().sl.clear();
                     JSONObject obj = new JSONObject(response.body().string());
                     JSONArray jary = new JSONArray(obj.getString(getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
-                            tbl_PostModel item = new tbl_PostModel();
-                            item.setPostid(jary.getJSONObject(i).getLong(getString(R.string.id)));
-                            item.setTitle(jary.getJSONObject(i).getString(getString(R.string.title)));
-                            item.setContent(jary.getJSONObject(i).getString(getString(R.string.excerpt)));
-                            item.setDate(jary.getJSONObject(i).getString(getString(R.string.date)));
+                        tbl_PostModel item = new tbl_PostModel();
+                        item.setPostid(jary.getJSONObject(i).getLong(getString(R.string.id)));
+                        item.setTitle(jary.getJSONObject(i).getString(getString(R.string.title)));
+                        item.setContent(jary.getJSONObject(i).getString(getString(R.string.excerpt)));
+                        item.setDate(jary.getJSONObject(i).getString(getString(R.string.date)));
 
-                            JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.categories)));
-                            item.setCategorytitle(jary2.getJSONObject(0).getString(getString(R.string.title)));
+                        JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.categories)));
+                        item.setCategorytitle(jary2.getJSONObject(0).getString(getString(R.string.title)));
 
-                            try {
-                                JSONArray jary3 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.tags)));
-                                item.setTagslug(jary3.getJSONObject(0).getString(getString(R.string.slug)));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            try {
-                                jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.attachments)));
-                                item.setVideourl(jary2.getJSONObject(0).getString(getString(R.string.url)));
+                        try {
+                            JSONArray jary3 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.tags)));
+                            item.setTagslug(jary3.getJSONObject(0).getString(getString(R.string.slug)));
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                        try {
+                            jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.attachments)));
+                            item.setVideourl(jary2.getJSONObject(0).getString(getString(R.string.url)));
 
-                                item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
-                            } catch (Exception e) {
-                            }
+                            item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
+                        } catch (Exception e) {
+                        }
                         Application.getInstance().sl.add(item);
                     }
                 } catch (Exception e) {
@@ -212,23 +200,23 @@ public class MainFragment extends Fragment {
             pager.removeAllViews();
             RgIndicator.removeAllViews();
             if (Application.getInstance().sl.size() > 0) {
-                if(RgIndicator.getChildCount() == 0)
-                for ( int i = 0; i < Application.getInstance().sl.size() ; i++) {
-                    try {
-                        final RadioButton rd = new RadioButton(getActivity());
-                        rd.setButtonDrawable(R.drawable.rdbtnselector);
-                        rd.setPadding(0, 0, 5, 5);
-                        rd.setId(i);
-                        rprms = new RadioGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
-                        RgIndicator.addView(rd, rprms);
-                    } catch (Exception e) {
+                if (RgIndicator.getChildCount() == 0)
+                    for (int i = 0; i < Application.getInstance().sl.size(); i++) {
+                        try {
+                            final RadioButton rd = new RadioButton(getActivity());
+                            rd.setButtonDrawable(R.drawable.rdbtnselector);
+                            rd.setPadding(0, 0, 5, 5);
+                            rd.setId(i);
+                            rprms = new RadioGroup.LayoutParams(ActionBar.LayoutParams.WRAP_CONTENT, ActionBar.LayoutParams.WRAP_CONTENT);
+                            RgIndicator.addView(rd, rprms);
+                        } catch (Exception e) {
+                        }
                     }
-                }
                 RgIndicator.check(0);
                 List<tbl_PostModel> feed = new ArrayList<>();
-                feed.addAll( Application.getInstance().sl);
+                feed.addAll(Application.getInstance().sl);
                 pagerAdapter = null;
-                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(),feed);
+                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), feed);
                 pager.setAdapter(pagerAdapter);
             } else {
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
@@ -236,32 +224,7 @@ public class MainFragment extends Fragment {
                 lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 appBar.setLayoutParams(lp);
             }
-        } catch (Exception e) {
-            HSH.showtoast(getActivity(),e.getMessage());
-            HSH.showtoast(getActivity(),e.getMessage());
-            HSH.showtoast(getActivity(),e.getMessage());
-        }
-    }
-
-    private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
-        List<tbl_PostModel> feed;
-
-        public SlideShowPagerAdapter(FragmentManager fm, List<tbl_PostModel> feed) {
-            super(fm);
-            this.feed = feed;
-        }
-
-        @Override
-        public Fragment getItem(int position) {
-            SlideShowFragment fragment = new SlideShowFragment();
-            fragment.setAsset(feed.get(position));
-            return fragment;
-        }
-
-        @Override
-        public int getCount() {
-            return feed.size();
-        }
+        } catch (Exception e) { }
     }
 
     private void Binding(final LinearLayout hrsv, final List<tbl_PostModel> feed) {
@@ -273,7 +236,7 @@ public class MainFragment extends Fragment {
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
                 hrsv.addView(view1);
             }
-            for (scrollviewposition = feed.size()-1; scrollviewposition >= 0; scrollviewposition--) {
+            for (scrollviewposition = feed.size() - 1; scrollviewposition >= 0; scrollviewposition--) {
                 LayoutInflater inflater = (LayoutInflater)
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
@@ -303,10 +266,47 @@ public class MainFragment extends Fragment {
                 );
                 hrsv.addView(view1);
             }
-            nest_scrollview.setVisibility(View.VISIBLE);
+            ((RelativeLayout)hrsv.getParent()).setVisibility(View.VISIBLE);
+            ((NestedScrollView)((hrsv.getParent()).getParent()).getParent()).setVisibility(View.VISIBLE);
             pb.setVisibility(View.GONE);
         } catch (Exception e) {
         }
 
+    }
+
+    private void getMarkedPost() {
+        List<tbl_PostModel> endList = new ArrayList<>();
+        List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
+        if (tmpList.size() > 1) {
+            endList.add(tmpList.get(tmpList.size() - 1));
+            endList.add(tmpList.get(tmpList.size() - 2));
+        } else if (tmpList.size() == 1)
+            endList.add(tmpList.get(0));
+
+        if (hrsv_tagged.getChildCount() == 0) {
+            hrsv_tagged.removeAllViews();
+            Binding(hrsv_tagged, endList);
+        }
+    }
+
+    private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
+        List<tbl_PostModel> feed;
+
+        public SlideShowPagerAdapter(FragmentManager fm, List<tbl_PostModel> feed) {
+            super(fm);
+            this.feed = feed;
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            SlideShowFragment fragment = new SlideShowFragment();
+            fragment.setAsset(feed.get(position));
+            return fragment;
+        }
+
+        @Override
+        public int getCount() {
+            return feed.size();
+        }
     }
 }

@@ -27,14 +27,14 @@ import ir.mahmoud.app.R;
 
 public class ShowVideoActivity extends BaseActivity implements BetterVideoCallback {
 
-    private BetterVideoPlayer player;
-    String videoTitle,videoUrl,videoId,videoContent,videoDate,videoCategoryTitle,
-            videoImageUrl,videoTaglug;
+    String videoTitle, videoUrl, videoId, videoContent, videoDate, videoCategoryTitle,
+            videoImageUrl, videoTaglug;
     long refrenceId;
-    BroadcastReceiver receiver ;
+    BroadcastReceiver receiver;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
+    private BetterVideoPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,18 +43,16 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         getData();
         player = (BetterVideoPlayer) findViewById(R.id.player);
         player.setCallback(this);
-        if(isVideoExists()){
+        if (isVideoExists()) {
             File file = new File(Application.VIDEO + "/" + videoId + ".mp4");
             player.setSource(Uri.fromFile(file));
             player.setAutoPlay(true);
-        }
-        else {
+        } else {
             // agar net vojood dasht neshan dahad
-            if(NetworkUtils.getConnectivity(this)){
+            if (NetworkUtils.getConnectivity(this)) {
                 player.setSource(Uri.parse(videoUrl));
                 player.setAutoPlay(true);
-            }
-            else HSH.showtoast(this,getString(R.string.error_internet));
+            } else HSH.showtoast(this, getString(R.string.error_internet));
 
         }
     }
@@ -67,10 +65,9 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
 
     private boolean isVideoExists() {
         File file = new File(Application.VIDEO + "/" + videoId + ".mp4");
-        if(file.exists()){
+        if (file.exists()) {
             return true;
-        }
-        else return false;
+        } else return false;
     }
 
     private void getData() {
@@ -83,23 +80,22 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         videoImageUrl = getIntent().getStringExtra("imageUrl");
         videoTaglug = getIntent().getStringExtra("tagSlug");
     }
-    
-    public void saveVideo(View view){
+
+    public void saveVideo(View view) {
         File direct = new File(Application.VIDEO);
         if (!direct.exists()) {
             direct.mkdirs();
         }
-        String nameOfFile = videoId+".mp4";
+        String nameOfFile = videoId + ".mp4";
         File file = new File(direct, nameOfFile);
         if (file.exists()) {
             HSH.showtoast(ShowVideoActivity.this, "قبلا این ویدئو را دانلود کردید!");
-        }
-        else {
-            DialogChoose(nameOfFile,videoUrl);
+        } else {
+            DialogChoose(nameOfFile, videoUrl);
         }
     }
 
-    private void DialogChoose(final String fileName,final String fileUrl) {
+    private void DialogChoose(final String fileName, final String fileUrl) {
         final Dialog d = new Dialog(this);
         d.setCancelable(true);
         d.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -134,7 +130,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         txtOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(NetworkUtils.getConnectivity(ShowVideoActivity.this)){
+                if (NetworkUtils.getConnectivity(ShowVideoActivity.this)) {
                     new PermissionHandler().checkPermission(ShowVideoActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
                         @Override
                         public void onPermissionGranted() {
@@ -152,9 +148,9 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
                             Application.getInstance().downloadList.add(model);
 
                             Intent intent = new Intent(ShowVideoActivity.this, DownloadSevice.class);
-                            intent.putExtra("URL",fileUrl);
-                            intent.putExtra("Name",fileName);
-                            intent.putExtra("Id",videoId);
+                            intent.putExtra("URL", fileUrl);
+                            intent.putExtra("Name", fileName);
+                            intent.putExtra("Id", videoId);
                             startService(intent);
                         }
 
@@ -164,7 +160,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
                         }
                     });
 
-                }else{
+                } else {
                     HSH.showtoast(getApplicationContext(), getResources().getString(R.string.error_internet));
                 }
             }
@@ -173,7 +169,8 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
     }// end DialogChoose()
 
     @Override
-    public void onStarted(BetterVideoPlayer player) {}
+    public void onStarted(BetterVideoPlayer player) {
+    }
 
     @Override
     public void onPaused(BetterVideoPlayer player) {

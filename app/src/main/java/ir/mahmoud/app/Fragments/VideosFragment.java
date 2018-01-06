@@ -66,8 +66,7 @@ public class VideosFragment extends Fragment {
             if (NetworkUtils.getConnectivity(getActivity())) {
                 getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().vip_feed_list, m, Application.getInstance().videoType);
                 a.getListPosts();
-            }
-            else HSH.showtoast(getActivity(),getString(R.string.error_internet));
+            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین_ها")) {
@@ -78,7 +77,7 @@ public class VideosFragment extends Fragment {
             if (NetworkUtils.getConnectivity(getActivity())) {
                 getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed_list, m, Application.getInstance().videoType);
                 a.getListPosts();
-            } else HSH.showtoast(getActivity(),getString(R.string.error_internet));
+            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().newest_feed_list.size() > 1 && Application.getInstance().videoType.equals("جدیدترین-ها")) {
@@ -89,7 +88,7 @@ public class VideosFragment extends Fragment {
             if (NetworkUtils.getConnectivity(getActivity())) {
                 getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().newest_feed_list, m, Application.getInstance().videoType);
                 a.getListPosts();
-            }else HSH.showtoast(getActivity(),getString(R.string.error_internet));
+            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
         }
         return rootView;
     }

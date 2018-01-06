@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 
 import ir.mahmoud.app.Classes.HSH;
-import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -24,7 +23,6 @@ public class SplashActivity extends AppCompatActivity {
             }
         }, 3000);
     }
-
 
 
     @Override

@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.orm.query.Condition;
@@ -75,13 +74,12 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
             long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).count();
             if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);
             // get same videos
-            if(NetworkUtils.getConnectivity(this)){
+            if (NetworkUtils.getConnectivity(this)) {
                 GetSameVideos getdata = new GetSameVideos(this, this, myModel.tagslug, pb);
                 getdata.getData();
-            }
-            else HSH.showtoast(this,getString(R.string.error_internet));
+            } else HSH.showtoast(this, getString(R.string.error_internet));
         } catch (Exception e) {
-            HSH.showtoast(VideoDetailActivity.this,e.getMessage());
+            HSH.showtoast(VideoDetailActivity.this, e.getMessage());
         }
     }
 
@@ -104,7 +102,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
                 intent.putExtra("title", myModel.getTitle());
                 intent.putExtra("content", myModel.getContent());
                 intent.putExtra("date", myModel.getDate());
-                intent.putExtra("categoryTitle",myModel.getCategorytitle());
+                intent.putExtra("categoryTitle", myModel.getCategorytitle());
                 intent.putExtra("url", myModel.getVideourl());
                 intent.putExtra("imageUrl", myModel.getImageurl());
                 intent.putExtra("tagSlug", myModel.getTagslug());
@@ -125,13 +123,13 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         if (count > 0) {
             // unmark and delete from database
             markIcon.setImageResource(R.drawable.ic_unmark);
-           tbl_PostModel tbl = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).first();
-           tbl.delete();
+            tbl_PostModel tbl = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).first();
+            tbl.delete();
         } else {
             // mark and save into db
             markIcon.setImageResource(R.drawable.ic_mark);
-           tbl_PostModel tbl = new tbl_PostModel(myModel.getPostid(),myModel.getTitle(),myModel.getContent()
-           ,myModel.getDate(),myModel.getCategorytitle(),myModel.getVideourl(),myModel.getImageurl(),myModel.getTagslug());
+            tbl_PostModel tbl = new tbl_PostModel(myModel.getPostid(), myModel.getTitle(), myModel.getContent()
+                    , myModel.getDate(), myModel.getCategorytitle(), myModel.getVideourl(), myModel.getImageurl(), myModel.getTagslug());
             tbl.save();
             HSH.showtoast(this, "نشان شد");
         }

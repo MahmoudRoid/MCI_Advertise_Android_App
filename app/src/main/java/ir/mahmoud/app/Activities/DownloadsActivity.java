@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.widget.Toast;
 
 import com.orm.query.Select;
 
@@ -21,7 +20,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DownloadsActivity extends AppCompatActivity {
 
-    List<tbl_Download> tblDownloadList ;
+    List<tbl_Download> tblDownloadList;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     DownloadAdapter adapter;
@@ -35,13 +34,12 @@ public class DownloadsActivity extends AppCompatActivity {
     }
 
     private void init() {
-    if(Select.from(tbl_Download.class).count() > 0) {
-        tblDownloadList = Select.from(tbl_Download.class).list();
-        showList(tblDownloadList);
+        if (Select.from(tbl_Download.class).count() > 0) {
+            tblDownloadList = Select.from(tbl_Download.class).list();
+            showList(tblDownloadList);
+        } else
+            HSH.showtoast(this, "ویدئویی وجود ندارد");
     }
-    else
-        HSH.showtoast(this, "ویدئویی وجود ندارد");
-}
 
     private void showList(List<tbl_Download> tblDownloadList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);

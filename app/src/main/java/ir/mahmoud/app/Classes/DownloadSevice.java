@@ -14,7 +14,9 @@ import android.support.annotation.Nullable;
 
 public class DownloadSevice extends IntentService {
 
-    public DownloadSevice(){super("shodani");}
+    public DownloadSevice() {
+        super("shodani");
+    }
 
     @Override
     protected void onHandleIntent(@Nullable Intent intent) {
@@ -31,7 +33,7 @@ public class DownloadSevice extends IntentService {
                 .setAllowedOverRoaming(false).setTitle("دانلود ویدئو")
                 .setDestinationInExternalPublicDir("/shodani/videos", videoName);
         long refrenceId = mgr.enqueue(request);
-        Application.getInstance().hashMap.put(refrenceId,Integer.valueOf(videoId));
+        Application.getInstance().hashMap.put(refrenceId, Integer.valueOf(videoId));
 
 //        Intent i = new Intent(DownloadManager.ACTION_DOWNLOAD_COMPLETE);
 //        sendBroadcast(i);

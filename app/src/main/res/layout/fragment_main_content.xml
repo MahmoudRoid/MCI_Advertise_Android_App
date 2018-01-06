@@ -106,7 +106,7 @@
                 android:background="@drawable/txt_background_intro"
                 android:drawablePadding="@dimen/dp6"
                 fontPath="fonts/IRANSansMedium.ttf"
-                android:drawableRight="@mipmap/newest"
+                android:drawableRight="@mipmap/attractive"
                 android:padding="5dp"
                 android:text="جذاب ترین ها"
                 android:textColor="#d80027" />
@@ -138,7 +138,7 @@
                 android:layout_gravity="right"
                 android:background="@drawable/txt_background_intro"
                 android:drawablePadding="@dimen/dp6"
-                android:drawableRight="@mipmap/newest"
+                android:drawableRight="@mipmap/marked"
                 android:padding="5dp"
                 fontPath="fonts/IRANSansMedium.ttf"
                 android:text="نشان شده ها"

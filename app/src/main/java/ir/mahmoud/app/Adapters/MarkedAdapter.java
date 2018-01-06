@@ -26,20 +26,6 @@ public class MarkedAdapter extends RecyclerView.Adapter<MarkedAdapter.DataObject
         this.context = context;
     }
 
-    public static class DataObjectHolder extends RecyclerView.ViewHolder {
-        ImageView image;
-        TextView txt_title, txt_date;
-
-
-        public DataObjectHolder(View itemView) {
-            super(itemView);
-            txt_title = (TextView) itemView.findViewById(R.id.txt_title);
-            txt_date = (TextView) itemView.findViewById(R.id.txt_date);
-            image = (ImageView) itemView.findViewById(R.id.img_post);
-        }
-    }
-
-
     @Override
     public MarkedAdapter.DataObjectHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view;
@@ -62,10 +48,22 @@ public class MarkedAdapter extends RecyclerView.Adapter<MarkedAdapter.DataObject
         return myObjectArrayList.size();
     }
 
-
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    public static class DataObjectHolder extends RecyclerView.ViewHolder {
+        ImageView image;
+        TextView txt_title, txt_date;
+
+
+        public DataObjectHolder(View itemView) {
+            super(itemView);
+            txt_title = (TextView) itemView.findViewById(R.id.txt_title);
+            txt_date = (TextView) itemView.findViewById(R.id.txt_date);
+            image = (ImageView) itemView.findViewById(R.id.img_post);
+        }
     }
 }
 

@@ -12,9 +12,10 @@ public class tbl_PostModel extends SugarRecord<tbl_PostModel> implements Seriali
 
     public static final long serialVersionUID = 1L;
     public long postid;
-    public String title,content,date,categorytitle,videourl,imageurl,tagslug;
+    public String title, content, date, categorytitle, videourl, imageurl, tagslug;
 
-    public tbl_PostModel(){}
+    public tbl_PostModel() {
+    }
 
     public tbl_PostModel(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
         this.postid = postid;
