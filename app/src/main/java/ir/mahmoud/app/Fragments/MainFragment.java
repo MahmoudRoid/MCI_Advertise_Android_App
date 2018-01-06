@@ -275,20 +275,6 @@ public class MainFragment extends Fragment {
 
     }
 
-    private void getMarkedPost() {
-        List<tbl_PostModel> endList = new ArrayList<>();
-        List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
-        if (tmpList.size() > 1) {
-            endList.add(tmpList.get(tmpList.size() - 1));
-            endList.add(tmpList.get(tmpList.size() - 2));
-        } else if (tmpList.size() == 1)
-            endList.add(tmpList.get(0));
-
-            hrsv_tagged.removeAllViews();
-            Binding(hrsv_tagged, endList);
-
-    }
-
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
         List<tbl_PostModel> feed;
 
@@ -308,6 +294,20 @@ public class MainFragment extends Fragment {
         public int getCount() {
             return feed.size();
         }
+    }
+
+    private void getMarkedPost() {
+        List<tbl_PostModel> endList = new ArrayList<>();
+        List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
+        if (tmpList.size() > 1) {
+            endList.add(tmpList.get(tmpList.size() - 1));
+            endList.add(tmpList.get(tmpList.size() - 2));
+        } else if (tmpList.size() == 1)
+            endList.add(tmpList.get(0));
+
+        hrsv_tagged.removeAllViews();
+        Binding(hrsv_tagged, endList);
+
     }
 
     @Override
