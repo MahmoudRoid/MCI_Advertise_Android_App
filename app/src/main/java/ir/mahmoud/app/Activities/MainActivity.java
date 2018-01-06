@@ -277,6 +277,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     public void exit() {
+
         final AlertDialog.Builder alertComment = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         alertComment.setMessage(HSH.setTypeFace(MainActivity.this, "آیا مایل به خروج از برنامه هستید؟"));
         alertComment.setPositiveButton(HSH.setTypeFace(MainActivity.this, "بله"), new DialogInterface.OnClickListener() {
@@ -294,17 +295,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-        alertComment.setNeutralButton(HSH.setTypeFace(MainActivity.this, "نظر دهید"), new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int whichButton) {
-                try {
-                    Intent intent = new Intent(Intent.ACTION_EDIT);
-                    intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
-                    intent.setPackage("com.farsitel.bazaar");
-                    startActivity(intent);
-                } catch (Exception e) {
-                }
-            }
-        });
+//        alertComment.setNeutralButton(HSH.setTypeFace(MainActivity.this, "نظر دهید"), new DialogInterface.OnClickListener() {
+//            public void onClick(DialogInterface dialog, int whichButton) {
+//                try {
+//                    Intent intent = new Intent(Intent.ACTION_EDIT);
+//                    intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
+//                    intent.setPackage("com.farsitel.bazaar");
+//                    startActivity(intent);
+//                } catch (Exception e) {
+//                }
+//            }
+//        });
         alertComment.setNegativeButton(HSH.setTypeFace(MainActivity.this, "خیر"), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 

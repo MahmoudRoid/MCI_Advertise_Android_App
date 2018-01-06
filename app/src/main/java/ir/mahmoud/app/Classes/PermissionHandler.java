@@ -43,9 +43,6 @@ public class PermissionHandler {
         }
     }
 
-    /**
-     * One Permission
-     */
     public void checkPermission(Activity _activity, String permission, OnPermissionResponse _listener) {
         listener = _listener;
         activity = _activity;
@@ -93,7 +90,6 @@ public class PermissionHandler {
 
     public interface OnPermissionResponse {
         void onPermissionGranted();
-
         void onPermissionDenied();
     }
 }

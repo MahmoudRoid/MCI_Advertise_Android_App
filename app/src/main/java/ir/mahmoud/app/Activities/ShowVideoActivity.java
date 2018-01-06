@@ -1,21 +1,16 @@
 package ir.mahmoud.app.Activities;
 
 import android.Manifest;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
-import android.widget.TextView;
-
 import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
-
 import java.io.File;
-
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.BaseActivity;
 import ir.mahmoud.app.Classes.DownloadSevice;
@@ -91,50 +86,19 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         if (file.exists()) {
             HSH.showtoast(ShowVideoActivity.this, "قبلا این ویدئو را دانلود کردید!");
         } else {
-            DialogChoose(nameOfFile, videoUrl);
+            Dialogcoose(nameOfFile, videoUrl);
         }
     }
 
-    private void DialogChoose(final String fileName, final String fileUrl) {
-        final Dialog d = new Dialog(this);
-        d.setCancelable(true);
-        d.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        d.setContentView(R.layout.dialog_choose);
-
-        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
-        Window window = d.getWindow();
-        lp.copyFrom(window.getAttributes());
-        lp.width = WindowManager.LayoutParams.MATCH_PARENT;
-        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
-        window.setAttributes(lp);
-
-        final TextView txtHeader = (TextView) d.findViewById(R.id.txtHeader_dialog);
-        final TextView txtContext = (TextView) d.findViewById(R.id.txtContext_dialog);
-        final TextView txtOne = (TextView) d.findViewById(R.id.txtOne_dialog);
-        final TextView txtTwo = (TextView) d.findViewById(R.id.txtTwo_dialog);
-        final TextView txtThree = (TextView) d.findViewById(R.id.txtThree_dialog);
-
-        txtHeader.setText("فایل ناموجود");
-        txtContext.setText("آیا میخواهید فایل را دانلود کنید؟");
-        txtOne.setText("بله");
-        txtTwo.setVisibility(View.INVISIBLE);
-        txtThree.setText("خیر");
-
-        txtThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                d.dismiss();
-            }
-        });
-
-        txtOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    public void Dialogcoose(final String fileName, final String fileUrl){
+        final AlertDialog.Builder alertComment = new AlertDialog.Builder(ShowVideoActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        alertComment.setMessage(HSH.setTypeFace(ShowVideoActivity.this, "آیا میخواهید فایل را دانلود کنید؟"));
+        alertComment.setPositiveButton(HSH.setTypeFace(ShowVideoActivity.this, "بله"), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
                 if (NetworkUtils.getConnectivity(ShowVideoActivity.this)) {
                     new PermissionHandler().checkPermission(ShowVideoActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
                         @Override
                         public void onPermissionGranted() {
-                            d.dismiss();
                             // add to download List
                             tbl_PostModel model = new tbl_PostModel();
                             model.setPostid(Long.valueOf(videoId));
@@ -165,8 +129,14 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
                 }
             }
         });
-        d.show();
-    }// end DialogChoose()
+
+        alertComment.setNegativeButton(HSH.setTypeFace(ShowVideoActivity.this, "خیر"), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        alertComment.show();
+    }
 
     @Override
     public void onStarted(BetterVideoPlayer player) {
