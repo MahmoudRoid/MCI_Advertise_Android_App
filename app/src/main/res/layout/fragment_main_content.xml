@@ -156,20 +156,7 @@
 
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/txt_aboutus"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            fontPath="fonts/IRANSansMedium.ttf"
-            android:layout_gravity="center"
-            android:background="@drawable/txt_background_intro"
-            android:clickable="true"
-            android:gravity="center"
-            android:padding="15dp"
-            android:text="درباره شدنی"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp" />
+ a-->
 
     </LinearLayout>
 

@@ -31,9 +31,11 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
-            android:textSize="8sp"
+            app:contentTextSize="8sp"
+            android:textColor="#333333"
+            app:contentTextColor="#5b5656"
             android:layout_gravity="right"
-            app:contentLineSpacingMultiplier="1.25"
+            app:contentLineSpacingMultiplier="1"
             android:textDirection="rtl"
             fontPath="fonts/IRANSansMedium.ttf"
             app:maxCollapsedLines="1"/>
