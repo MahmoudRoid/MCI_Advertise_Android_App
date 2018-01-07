@@ -31,9 +31,9 @@
             android:layout_width="match_parent"
             android:layout_margin="10dp"
             android:layout_height="wrap_content"
+            android:textSize="8sp"
             android:layout_gravity="right"
-            app:contentTextSize="9sp"
-            app:contentLineSpacingMultiplier="1.5"
+            app:contentLineSpacingMultiplier="1.25"
             android:textDirection="rtl"
             fontPath="fonts/IRANSansMedium.ttf"
             app:maxCollapsedLines="1"/>

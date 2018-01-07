@@ -176,6 +176,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("searchString", edt_search.getText().toString());
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+
                 break;
             case R.id.txt_home:
                 //if (home_fragment == null)
@@ -249,6 +251,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 // دانلودها
                 startActivity(new Intent(MainActivity.this, DownloadsActivity.class));
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
             case 2:
 //                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;

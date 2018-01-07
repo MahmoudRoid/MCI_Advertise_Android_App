@@ -108,6 +108,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
                 intent.putExtra("tagSlug", myModel.getTagslug());
 
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
                 break;
             case R.id.share_icon:
                 share();

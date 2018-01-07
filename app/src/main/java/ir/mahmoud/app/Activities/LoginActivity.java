@@ -3,6 +3,7 @@ package ir.mahmoud.app.Activities;
 import android.Manifest;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +37,7 @@ public class LoginActivity extends BaseActivity {
                 new PermissionHandler().checkPermission(LoginActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
                     @Override
                     public void onPermissionGranted() {
-                        HSH.onOpenPage(LoginActivity.this, MainActivity.class);
+                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
                         finish();
                     }
 
