@@ -37,6 +37,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         setContentView(R.layout.activity_show_video);
         getData();
         player = (BetterVideoPlayer) findViewById(R.id.player);
+        player.setLoadingStyle(2);
         player.setCallback(this);
         if (isVideoExists()) {
             File file = new File(Application.VIDEO + "/" + videoId + ".mp4");
@@ -50,6 +51,8 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
             } else HSH.showtoast(this, getString(R.string.error_internet));
 
         }
+        player.enableSwipeGestures();
+
     }
 
     @Override
