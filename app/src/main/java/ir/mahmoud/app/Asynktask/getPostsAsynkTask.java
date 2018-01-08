@@ -2,6 +2,7 @@ package ir.mahmoud.app.Asynktask;
 
 
 import android.content.Context;
+import android.text.Html;
 import android.widget.LinearLayout;
 
 import org.json.JSONArray;
@@ -50,9 +51,11 @@ public class getPostsAsynkTask {
                     for (int i = 0; i < jary.length(); i++) {
                         tbl_PostModel item = new tbl_PostModel();
                         item.setPostid(jary.getJSONObject(i).getLong(cn.getString(R.string.id)));
-                        item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
-                        item.setContent(jary.getJSONObject(i).getString(cn.getString(R.string.excerpt)));
-                        item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)));
+//                        item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
+//                        item.setContent(jary.getJSONObject(i).getString(cn.getString(R.string.excerpt)));
+                        item.setTitle(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("title"))));
+                        item.setContent(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("excerpt"))));
+                        item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)).replace("ago","قبل"));
 
                         JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.categories)));
                         item.setCategorytitle(jary2.getJSONObject(0).getString(cn.getString(R.string.title)));

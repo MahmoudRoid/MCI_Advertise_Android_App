@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.text.Html;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -67,10 +66,10 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
     private void init() {
         getModel();
         setTitle("");
-        toolbarCustomTv.setText(Html.fromHtml(myModel.getTitle()));
+        toolbarCustomTv.setText(myModel.getTitle());
         Glide.with(this).load(myModel.imageurl).apply(new RequestOptions().placeholder(R.mipmap.ic_launcher)).into(imageView);
         postTitleTv.setText(myModel.getTitle());
-        postContentTv.setText(Html.fromHtml(myModel.getContent()));
+        postContentTv.setText(myModel.getContent());
         try {
             long count = Select.from(tbl_PostModel.class).where(Condition.prop("postid").eq(myModel.getPostid())).count();
             if (count > 0) markIcon.setImageResource(R.drawable.ic_mark);

@@ -1,6 +1,7 @@
 package ir.mahmoud.app.Asynktask;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.View;
 import android.widget.ProgressBar;
 
@@ -52,9 +53,9 @@ public class GetSameVideos {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                             tbl_PostModel postModel = new tbl_PostModel();
                             postModel.setPostid(jsonObject2.getLong("id"));
-                            postModel.setTitle(jsonObject2.optString("title"));
-                            postModel.setContent(jsonObject2.optString("excerpt"));
-                            postModel.setDate(jsonObject2.optString("date"));
+                            postModel.setTitle(String.valueOf(Html.fromHtml(jsonObject2.optString("title"))));
+                            postModel.setContent(String.valueOf(Html.fromHtml(jsonObject2.optString("excerpt"))));
+                            postModel.setDate(jsonObject2.optString("date").replace("ago","قبل"));
                             postModel.setCategorytitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
                             postModel.setTagslug(jsonObject2.getJSONArray("tags").getJSONObject(0).optString("slug"));
                             postModel.setVideourl(jsonObject2.getJSONArray("attachments").getJSONObject(0).optString("url"));
