@@ -52,7 +52,7 @@ public class ExpandableTextView extends LinearLayout implements View.OnClickList
     private static final int DEFAULT_ANIM_DURATION = 300;
 
     /* The default content text size*/
-    private static final float DEFAULT_CONTENT_TEXT_SIZE = 16;
+    private static final float DEFAULT_CONTENT_TEXT_SIZE = 12;
     private static final float DEFAULT_CONTENT_TEXT_LINE_SPACING_MULTIPLIER = 1.0f;
 
     private static final int STATE_TV_GRAVITY_LEFT = 0;
