@@ -15,12 +15,13 @@ import butterknife.ButterKnife;
 import ir.mahmoud.app.Adapters.DownloadAdapter;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Models.tbl_Download;
+import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 public class DownloadsActivity extends AppCompatActivity {
 
-    List<tbl_Download> tblDownloadList;
+    List<tbl_PostModel> tblDownloadList;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
     DownloadAdapter adapter;
@@ -35,16 +36,16 @@ public class DownloadsActivity extends AppCompatActivity {
 
     private void init() {
         if (Select.from(tbl_Download.class).count() > 0) {
-            tblDownloadList = Select.from(tbl_Download.class).list();
+            tblDownloadList = Select.from(tbl_PostModel.class).list();
             showList(tblDownloadList);
         } else
             HSH.showtoast(this, "ویدئویی وجود ندارد");
     }
 
-    private void showList(List<tbl_Download> tblDownloadList) {
+    private void showList(List<tbl_PostModel> tblDownloadList) {
         LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         recyclerView.setLayoutManager(lm);
-        adapter = new DownloadAdapter(this, tblDownloadList);
+        adapter = new DownloadAdapter(this, tblDownloadList, "Download");
         recyclerView.setAdapter(adapter);
     }
 

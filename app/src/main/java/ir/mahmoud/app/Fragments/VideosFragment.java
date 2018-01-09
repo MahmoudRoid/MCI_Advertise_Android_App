@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import ir.mahmoud.app.Adapters.DownloadAdapter;
 import ir.mahmoud.app.Adapters.ListAdapter;
 import ir.mahmoud.app.Asynktask.getListPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
@@ -31,6 +32,7 @@ public class VideosFragment extends Fragment {
     @BindView(R.id.rv)
     RecyclerView rv;
     ListAdapter adapter;
+    DownloadAdapter newest_adapter;
     IWebService2 m;
     View rootView = null;
     private List<tbl_PostModel> feed = new ArrayList<>();
@@ -47,7 +49,14 @@ public class VideosFragment extends Fragment {
             @Override
             public void getResult(Object items) throws Exception {
                 feed.addAll((List<tbl_PostModel>) items);
-                adapter.notifyDataSetChanged();
+                if(Application.getInstance().videoType.equals("جدیدترین-ها")) {
+                    rv.setAdapter(newest_adapter);
+                    newest_adapter.notifyDataSetChanged();
+                }
+                else {
+                    rv.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
                 pb.setVisibility(View.GONE);
             }
 
@@ -59,6 +68,7 @@ public class VideosFragment extends Fragment {
         setAdapter();
 
         if (Application.getInstance().vip_feed_list.size() > 1 && Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
+            feed.clear();
             feed.addAll(Application.getInstance().vip_feed_list);
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
@@ -70,6 +80,7 @@ public class VideosFragment extends Fragment {
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین_ها")) {
+            feed.clear();
             feed.addAll(Application.getInstance().attractive_feed_list);
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
@@ -81,8 +92,11 @@ public class VideosFragment extends Fragment {
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
         if (Application.getInstance().newest_feed_list.size() > 1 && Application.getInstance().videoType.equals("جدیدترین-ها")) {
+            feed.clear();
             feed.addAll(Application.getInstance().newest_feed_list);
-            adapter.notifyDataSetChanged();
+            //newest_adapter.notifyDataSetChanged();
+            rv.setAdapter(newest_adapter);
+            newest_adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
         } else if (Application.getInstance().videoType.equals("جدیدترین-ها")) {
             if (NetworkUtils.getConnectivity(getActivity())) {
@@ -98,5 +112,7 @@ public class VideosFragment extends Fragment {
         rv.setLayoutManager(lm);
         adapter = new ListAdapter(getActivity(), feed, pb);
         rv.setAdapter(adapter);
+
+        newest_adapter = new DownloadAdapter(getActivity(), feed, "Newest");
     }
 }
