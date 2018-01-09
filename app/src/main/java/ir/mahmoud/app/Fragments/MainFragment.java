@@ -178,7 +178,7 @@ public class MainFragment extends Fragment {
                             jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.attachments)));
                             item.setVideourl(jary2.getJSONObject(0).getString(getString(R.string.url)));
 
-                            item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.thumbnail)).getString(getString(R.string.url)));
+                            item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.medium)).getString(getString(R.string.url)));
                         } catch (Exception e) {
                         }
                         Application.getInstance().sl.add(item);
@@ -249,6 +249,10 @@ public class MainFragment extends Fragment {
 
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
                 txt_date.setText(feed.get(scrollviewposition).getDate());
+
+                txt_title.setTextSize(14);
+                txt_date.setTextSize(11);
+
                 try {
                     Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageurl())
                             .into(img_post);
