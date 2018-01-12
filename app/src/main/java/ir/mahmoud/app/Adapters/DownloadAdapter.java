@@ -23,17 +23,18 @@ import ir.mahmoud.app.Activities.ShowVideoActivity;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Models.tbl_Download;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 
 public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataObjectHolder> {
     public Context context;
-    public List<tbl_PostModel> myObjectArrayList;
+    public List<tbl_Download> myObjectArrayList;
     public String FragType;
 
 
-    public DownloadAdapter(Context context, List<tbl_PostModel> arrayList, String FragType) {
+    public DownloadAdapter(Context context, List<tbl_Download> arrayList, String FragType) {
         this.myObjectArrayList = arrayList;
         this.context = context;
         this.FragType = FragType;
@@ -96,6 +97,7 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
                         intent.putExtra("url", myObjectArrayList.get(position).getVideourl());
                         intent.putExtra("imageUrl", myObjectArrayList.get(position).getImageurl());
                         intent.putExtra("tagSlug", myObjectArrayList.get(position).getTagslug());
+                        intent.putExtra("postUrl", myObjectArrayList.get(position).getPosturl());
                         context.startActivity(intent);
                     } else {
                         // nist

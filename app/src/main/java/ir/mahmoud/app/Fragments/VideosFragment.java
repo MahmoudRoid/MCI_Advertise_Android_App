@@ -22,6 +22,7 @@ import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Interfaces.IWebService2;
+import ir.mahmoud.app.Models.tbl_Download;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
@@ -112,7 +113,26 @@ public class VideosFragment extends Fragment {
         rv.setLayoutManager(lm);
         adapter = new ListAdapter(getActivity(), feed, pb);
         rv.setAdapter(adapter);
+        newest_adapter = new DownloadAdapter(getActivity(), tblPostModelToTblDownload(feed), "Newest");
+    }
 
-        newest_adapter = new DownloadAdapter(getActivity(), feed, "Newest");
+    private List<tbl_Download> tblPostModelToTblDownload(List<tbl_PostModel> feed) {
+        List<tbl_Download> list = new ArrayList<>();
+        for (tbl_PostModel item : feed){
+            tbl_Download tbl = new tbl_Download();
+
+            tbl.postid = item.getPostid();
+            tbl.title = item.getTitle();
+            tbl.content = item.getContent();
+            tbl.date = item.getDate();
+            tbl.categorytitle = item.getCategorytitle();
+            tbl.videourl = item.getVideourl();
+            tbl.imageurl = item.getImageurl();
+            tbl.tagslug = item.getTagslug();
+            tbl.posturl= item.getPosturl();
+
+            list.add(tbl);
+        }
+        return list;
     }
 }

@@ -8,9 +8,15 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageView;
+
 import com.halilibo.bettervideoplayer.BetterVideoCallback;
 import com.halilibo.bettervideoplayer.BetterVideoPlayer;
+
 import java.io.File;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.BaseActivity;
 import ir.mahmoud.app.Classes.DownloadSevice;
@@ -23,18 +29,21 @@ import ir.mahmoud.app.R;
 public class ShowVideoActivity extends BaseActivity implements BetterVideoCallback {
 
     String videoTitle, videoUrl, videoId, videoContent, videoDate, videoCategoryTitle,
-            videoImageUrl, videoTaglug;
+            videoImageUrl, videoTaglug,videoPostUrl;
     long refrenceId;
     BroadcastReceiver receiver;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
             Manifest.permission.READ_EXTERNAL_STORAGE,
     };
+    @BindView(R.id.default_Image)
+    ImageView defaultImage;
     private BetterVideoPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_video);
+        ButterKnife.bind(this);
         getData();
         player = (BetterVideoPlayer) findViewById(R.id.player);
         player.setLoadingStyle(2);
@@ -77,6 +86,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         videoUrl = getIntent().getStringExtra("url");
         videoImageUrl = getIntent().getStringExtra("imageUrl");
         videoTaglug = getIntent().getStringExtra("tagSlug");
+        videoPostUrl = getIntent().getStringExtra("postUrl");
     }
 
     public void saveVideo(View view) {
@@ -93,7 +103,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
         }
     }
 
-    public void Dialogcoose(final String fileName, final String fileUrl){
+    public void Dialogcoose(final String fileName, final String fileUrl) {
         final AlertDialog.Builder alertComment = new AlertDialog.Builder(ShowVideoActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
         alertComment.setMessage(HSH.setTypeFace(ShowVideoActivity.this, "آیا میخواهید فایل را دانلود کنید؟"));
         alertComment.setPositiveButton(HSH.setTypeFace(ShowVideoActivity.this, "بله"), new DialogInterface.OnClickListener() {
@@ -112,6 +122,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
                             model.setVideourl(videoUrl);
                             model.setImageurl(videoImageUrl);
                             model.setTagslug(videoTaglug);
+                            model.setPosturl(videoPostUrl);
                             Application.getInstance().downloadList.add(model);
 
                             Intent intent = new Intent(ShowVideoActivity.this, DownloadSevice.class);
@@ -143,6 +154,7 @@ public class ShowVideoActivity extends BaseActivity implements BetterVideoCallba
 
     @Override
     public void onStarted(BetterVideoPlayer player) {
+        defaultImage.setVisibility(View.GONE);
     }
 
     @Override

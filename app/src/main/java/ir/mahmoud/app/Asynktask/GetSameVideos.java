@@ -53,6 +53,7 @@ public class GetSameVideos {
                             JSONObject jsonObject2 = jsonArray.getJSONObject(i);
                             tbl_PostModel postModel = new tbl_PostModel();
                             postModel.setPostid(jsonObject2.getLong("id"));
+                            postModel.setPosturl(jsonObject2.getString("url"));
                             postModel.setTitle(String.valueOf(Html.fromHtml(jsonObject2.optString("title"))));
                             postModel.setContent(String.valueOf(Html.fromHtml(jsonObject2.optString("excerpt"))));
                             postModel.setDate(jsonObject2.optString("date").replace("ago","قبل"));

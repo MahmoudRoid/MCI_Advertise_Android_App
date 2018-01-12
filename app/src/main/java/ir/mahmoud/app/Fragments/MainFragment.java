@@ -160,6 +160,7 @@ public class MainFragment extends Fragment {
                     JSONArray jary = new JSONArray(obj.getString(getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
                         tbl_PostModel item = new tbl_PostModel();
+                        item.setPosturl(jary.getJSONObject(i).getString("url"));
                         item.setPostid(jary.getJSONObject(i).getLong(getString(R.string.id)));
                         item.setTitle(jary.getJSONObject(i).getString(getString(R.string.title)));
                         item.setContent(jary.getJSONObject(i).getString(getString(R.string.excerpt)));
@@ -313,7 +314,6 @@ public class MainFragment extends Fragment {
         Binding(hrsv_tagged, endList);
 
     }
-
     @Override
     public void onResume() {
         super.onResume();

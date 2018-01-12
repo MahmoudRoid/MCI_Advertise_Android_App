@@ -25,9 +25,7 @@ import ir.mahmoud.app.R;
 public class MarkedFragment extends Fragment {
 
     List<tbl_PostModel> list;
-
     ProgressBar pb;
-
     RecyclerView rv;
     MarkedAdapter adapter;
     View rootView = null;
@@ -80,6 +78,7 @@ public class MarkedFragment extends Fragment {
         model.videourl = tbl.getVideourl();
         model.imageurl = tbl.getImageurl();
         model.tagslug = tbl.getTagslug();
+        model.posturl = tbl.getPosturl();
         return model;
     }
 

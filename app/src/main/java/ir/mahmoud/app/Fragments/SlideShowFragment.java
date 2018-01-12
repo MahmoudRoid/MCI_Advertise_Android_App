@@ -1,6 +1,7 @@
 package ir.mahmoud.app.Fragments;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
 import ir.mahmoud.app.Activities.VideoDetailActivity;
+import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
@@ -45,10 +48,15 @@ public class SlideShowFragment extends Fragment {
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent;
-                    intent = new Intent(getActivity(), VideoDetailActivity.class);
-                    intent.putExtra("feedItem", asset);
-                    startActivity(intent);
+                    if(NetworkUtils.getConnectivity(getActivity())){
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(asset.getPosturl()));
+                        startActivity(browserIntent);
+                    }
+                    else HSH.showtoast(getActivity(),getString(R.string.error_internet));
+//                    Intent intent;
+//                    intent = new Intent(getActivity(), VideoDetailActivity.class);
+//                    intent.putExtra("feedItem", asset);
+//                    startActivity(intent);
                 }
             });
         }

@@ -60,7 +60,6 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         setSupportActionBar(toolbar);
         ButterKnife.bind(this);
         init();
-
     }
 
     private void init() {
@@ -106,6 +105,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
                 intent.putExtra("url", myModel.getVideourl());
                 intent.putExtra("imageUrl", myModel.getImageurl());
                 intent.putExtra("tagSlug", myModel.getTagslug());
+                intent.putExtra("postUrl", myModel.getPosturl());
 
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
@@ -130,7 +130,8 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
             // mark and save into db
             markIcon.setImageResource(R.drawable.ic_mark);
             tbl_PostModel tbl = new tbl_PostModel(myModel.getPostid(), myModel.getTitle(), myModel.getContent()
-                    , myModel.getDate(), myModel.getCategorytitle(), myModel.getVideourl(), myModel.getImageurl(), myModel.getTagslug());
+                    , myModel.getDate(), myModel.getCategorytitle(), myModel.getVideourl(), myModel.getImageurl()
+                    , myModel.getTagslug(),myModel.getPosturl());
             tbl.save();
             HSH.showtoast(this, "نشان شد");
         }

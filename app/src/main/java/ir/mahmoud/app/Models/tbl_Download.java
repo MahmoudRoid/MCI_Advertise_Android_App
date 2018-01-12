@@ -2,16 +2,18 @@ package ir.mahmoud.app.Models;
 
 import com.orm.SugarRecord;
 
+import java.io.Serializable;
 
-public class tbl_Download extends SugarRecord<tbl_Download> {
+
+public class tbl_Download extends SugarRecord<tbl_Download> implements Serializable {
 
     public long postid;
-    public String title, content, date, categorytitle, videourl, imageurl, tagslug;
+    public String title, content, date, categorytitle, videourl, imageurl, tagslug,posturl;
 
     public tbl_Download() {
     }
 
-    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug) {
+    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug,String posturl) {
         this.postid = postid;
         this.title = title;
         this.content = content;
@@ -20,8 +22,16 @@ public class tbl_Download extends SugarRecord<tbl_Download> {
         this.videourl = videourl;
         this.imageurl = imageurl;
         this.tagslug = tagslug;
+        this.posturl=posturl;
     }
 
+    public String getPosturl() {
+        return posturl;
+    }
+
+    public void setPosturl(String posturl) {
+        this.posturl = posturl;
+    }
 
     public long getPostid() {
         return postid;
