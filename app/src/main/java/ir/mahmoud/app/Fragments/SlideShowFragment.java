@@ -13,6 +13,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
+import ir.mahmoud.app.Activities.ShowSliderActivity;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.NetworkUtils;
@@ -49,8 +50,10 @@ public class SlideShowFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     if(NetworkUtils.getConnectivity(getActivity())){
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(asset.getPosturl()));
-                        startActivity(browserIntent);
+                    Intent intent = new Intent(getActivity(), ShowSliderActivity.class);
+                    intent.putExtra("postUrl", asset.getPosturl());
+                    intent.putExtra("postTitle", asset.getTitle());
+                    startActivity(intent);
                     }
                     else HSH.showtoast(getActivity(),getString(R.string.error_internet));
 //                    Intent intent;

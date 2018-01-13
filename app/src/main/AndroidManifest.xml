@@ -60,15 +60,20 @@
             android:name=".Activities.ShowVideoActivity"
             android:configChanges="orientation|keyboardHidden|screenLayout|screenSize"
             android:theme="@style/MyMaterialTheme" />
-        <activity android:name=".Activities.SearchActivity"
+        <activity
+            android:name=".Activities.SearchActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MyMaterialTheme"/>
+            android:theme="@style/MyMaterialTheme" />
         <activity
             android:name=".Activities.VideoDetailActivity"
             android:label="@string/title_activity_video_details"
             android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Activities.DownloadsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
 
-        <activity android:name=".Activities.DownloadsActivity"
+        <activity android:name=".Activities.ShowSliderActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme"/>
 
@@ -78,7 +83,7 @@
             android:name=".BroadCastReceiver.MyBroadCastReceiver"
             android:enabled="true">
             <intent-filter>
-                <action android:name="android.intent.action.DOWNLOAD_COMPLETE"></action>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
             </intent-filter>
         </receiver>
 
