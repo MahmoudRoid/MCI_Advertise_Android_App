@@ -37,6 +37,7 @@ public class VideosFragment extends Fragment {
     IWebService2 m;
     View rootView = null;
     private List<tbl_PostModel> feed = new ArrayList<>();
+    List<tbl_Download> list = new ArrayList<>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,6 +52,7 @@ public class VideosFragment extends Fragment {
             public void getResult(Object items) throws Exception {
                 feed.addAll((List<tbl_PostModel>) items);
                 if(Application.getInstance().videoType.equals("جدیدترین-ها")) {
+                    list = tblPostModelToTblDownload(feed);
                     rv.setAdapter(newest_adapter);
                     newest_adapter.notifyDataSetChanged();
                 }
@@ -95,6 +97,7 @@ public class VideosFragment extends Fragment {
         if (Application.getInstance().newest_feed_list.size() > 1 && Application.getInstance().videoType.equals("جدیدترین-ها")) {
             feed.clear();
             feed.addAll(Application.getInstance().newest_feed_list);
+            list = tblPostModelToTblDownload(feed);
             //newest_adapter.notifyDataSetChanged();
             rv.setAdapter(newest_adapter);
             newest_adapter.notifyDataSetChanged();
@@ -113,11 +116,10 @@ public class VideosFragment extends Fragment {
         rv.setLayoutManager(lm);
         adapter = new ListAdapter(getActivity(), feed, pb);
         rv.setAdapter(adapter);
-        newest_adapter = new DownloadAdapter(getActivity(), tblPostModelToTblDownload(feed), "Newest");
+        newest_adapter = new DownloadAdapter(getActivity(), list, "Newest");
     }
 
     private List<tbl_Download> tblPostModelToTblDownload(List<tbl_PostModel> feed) {
-        List<tbl_Download> list = new ArrayList<>();
         for (tbl_PostModel item : feed){
             tbl_Download tbl = new tbl_Download();
 
