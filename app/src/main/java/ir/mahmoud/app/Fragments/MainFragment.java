@@ -73,9 +73,9 @@ public class MainFragment extends Fragment {
         appBar = rootView.findViewById(id.app_bar);
         pb = rootView.findViewById(id.pb);
 
-        float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
+        /*float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
         CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-        lp.height = (int) heightDp;
+        lp.height = (int) heightDp;*/
 
         RgIndicator.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
