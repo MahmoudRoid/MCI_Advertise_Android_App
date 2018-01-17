@@ -3,7 +3,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_gravity="center"
-    android:layout_margin="5dp"
+
     android:gravity="center"
     android:orientation="vertical"
     tools:ignore="MissingPrefix"
@@ -36,6 +36,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:maxLines="1"
+            android:layout_marginTop="8dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
 
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:gravity="right"
             android:maxLines="1"
+            android:layout_marginTop="2dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true" />
     </LinearLayout>

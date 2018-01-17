@@ -38,9 +38,9 @@
                 android:layout_alignParentTop="true"
                 android:maxLines="1"
                 android:text="عنوان ویدیو"
-                android:textSize="14sp"
+                android:textSize="13sp"
                 fontPath="fonts/IRANSansMedium.ttf"
-                android:textColor="#000000"/>
+                android:textColor="#6e6e6e"/>
 
             <TextView
                 android:id="@+id/date_tv"
@@ -48,17 +48,10 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/title_tv"
+                android:textSize="9sp"
                 fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="#aaaaaa"
                 android:text="5 ماه پیش"/>
-
-            <!--<TextView-->
-                <!--android:id="@+id/bazdid_tv"-->
-                <!--android:layout_width="wrap_content"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:layout_alignParentRight="true"-->
-                <!--android:layout_alignParentBottom="true"-->
-                <!--fontPath="fonts/IRANSansMedium.ttf"-->
-                <!--android:text="6930 بازدید"/>-->
 
         </RelativeLayout>
 
@@ -66,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_alignParentBottom="true"
-            android:background="#405682A3"
+            android:background="#f2f2f2"
             />
     </RelativeLayout>
 

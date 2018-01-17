@@ -62,7 +62,7 @@
         android:layout_margin="@dimen/dp16"
         android:text="برای ورود شماره موبایل خود را وارد کنید"
         android:textColor="@android:color/white"
-        android:textSize="@dimen/sp15" />
+        android:textSize="@dimen/sp13" />
 
     <TextView
         android:id="@+id/txt_guest"

@@ -183,7 +183,7 @@ public class MainFragment extends Fragment {
                             jary2 = new JSONArray(jary.getJSONObject(i).getString(getString(R.string.attachments)));
                             item.setVideourl(jary2.getJSONObject(0).getString(getString(R.string.url)));
 
-                            item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.medium)).getString(getString(R.string.url)));
+                            item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.gridlove_cover)).getString(getString(R.string.url)));
                         } catch (Exception e) {
                         }
                         if(item.getCategorytitle().equals("اسلایدر"))
@@ -248,7 +248,12 @@ public class MainFragment extends Fragment {
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
-                view1.setPadding(6, 0, 6, 0);
+                if(scrollviewposition  == 0)
+                    view1.setPadding(0, 6, 6, 6);
+                else
+                    view1.setPadding(6, 6, 6, 6);
+
+                //view1.setPadding(0, 6, 6, 6);
                 TextView txt_title = view1.findViewById(R.id.txt_title);
                 TextView txt_date = view1.findViewById(id.txt_date);
                 ImageView img_post = view1.findViewById(id.img_post);
@@ -256,8 +261,8 @@ public class MainFragment extends Fragment {
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
                 txt_date.setText(feed.get(scrollviewposition).getDate());
 
-                txt_title.setTextSize(14);
-                txt_date.setTextSize(11);
+                txt_title.setTextSize(12);
+                txt_date.setTextSize(9);
 
                 try {
                     Glide.with(getActivity()).load(feed.get(scrollviewposition).getImageurl())
