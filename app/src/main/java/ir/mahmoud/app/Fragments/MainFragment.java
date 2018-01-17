@@ -257,6 +257,7 @@ public class MainFragment extends Fragment {
                 TextView txt_title = view1.findViewById(R.id.txt_title);
                 TextView txt_date = view1.findViewById(id.txt_date);
                 ImageView img_post = view1.findViewById(id.img_post);
+                img_post.setScaleType(ImageView.ScaleType.CENTER_CROP);
 
                 txt_title.setText(feed.get(scrollviewposition).getTitle());
                 txt_date.setText(feed.get(scrollviewposition).getDate());

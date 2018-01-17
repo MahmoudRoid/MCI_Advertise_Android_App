@@ -68,7 +68,7 @@ public class getListPostsAsynkTask {
                             jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.attachments)));
                             item.setVideourl(jary2.getJSONObject(0).getString(cn.getString(R.string.url)));
 
-                            item.setImageurl(jary.getJSONObject(i).getJSONObject(cn.getString(R.string.thumbnail_images)).getJSONObject(cn.getString(R.string.medium)).getString(cn.getString(R.string.url)));
+                            item.setImageurl(jary.getJSONObject(i).getJSONObject(cn.getString(R.string.thumbnail_images)).getJSONObject(cn.getString(R.string.medium_large)).getString(cn.getString(R.string.url)));
                         } catch (Exception e) {
                         }
                         feed.add(item);

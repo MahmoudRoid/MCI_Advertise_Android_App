@@ -60,7 +60,7 @@ public class GetSameVideos {
                             postModel.setCategorytitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
                             postModel.setTagslug(jsonObject2.getJSONArray("tags").getJSONObject(0).optString("slug"));
                             postModel.setVideourl(jsonObject2.getJSONArray("attachments").getJSONObject(0).optString("url"));
-                            postModel.setImageurl(jsonObject2.getJSONObject("thumbnail_images").getJSONObject("medium").optString("url"));
+                            postModel.setImageurl(jsonObject2.getJSONObject("thumbnail_images").getJSONObject("medium_large").optString("url"));
 
                             postModelList.add(postModel);
                         }
