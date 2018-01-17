@@ -36,7 +36,7 @@ public interface ApiInterface {
     @GET("api/get_tag_posts/")
     Call<ResponseBody> getSameVideos(@Query("slug") String tagSlug);
 
-    @GET("api/get_posts/")
+    @GET("api/get_category_posts/")
     Call<ResponseBody> getPosts(@Query("slug") String tagSlug);
 
     @GET("api/get_search_results/")
