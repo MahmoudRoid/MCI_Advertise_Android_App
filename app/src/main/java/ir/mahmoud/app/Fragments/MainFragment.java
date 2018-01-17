@@ -73,6 +73,10 @@ public class MainFragment extends Fragment {
         appBar = rootView.findViewById(id.app_bar);
         pb = rootView.findViewById(id.pb);
 
+        float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 2.5);
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+        lp.height = (int) heightDp;
+
         RgIndicator.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -182,7 +186,8 @@ public class MainFragment extends Fragment {
                             item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.medium)).getString(getString(R.string.url)));
                         } catch (Exception e) {
                         }
-                        Application.getInstance().sl.add(item);
+                        if(item.getCategorytitle().equals("اسلایدر"))
+                            Application.getInstance().sl.add(item);
                     }
                 } catch (Exception e) {
                 }
