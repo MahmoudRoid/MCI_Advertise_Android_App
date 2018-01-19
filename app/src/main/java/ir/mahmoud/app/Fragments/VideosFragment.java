@@ -82,12 +82,12 @@ public class VideosFragment extends Fragment {
             } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
-        if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین_ها")) {
+        if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین-ها")) {
             feed.clear();
             feed.addAll(Application.getInstance().attractive_feed_list);
             adapter.notifyDataSetChanged();
             pb.setVisibility(View.GONE);
-        } else if (Application.getInstance().videoType.equals("جذابترین_ها")) {
+        } else if (Application.getInstance().videoType.equals("جذابترین-ها")) {
             if (NetworkUtils.getConnectivity(getActivity())) {
                 getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed_list, m, Application.getInstance().videoType);
                 a.getListPosts();
