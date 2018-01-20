@@ -199,7 +199,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.txt_attractive:
-                Application.getInstance().videoType = "جذابترین_ها";
+                Application.getInstance().videoType = "جذابترین-ها";
                 //if (dayTutorial_fragment == null)
                 dayTutorial_fragment = new VideosFragment();
                 openFragment(MainActivity.this, dayTutorial_fragment);

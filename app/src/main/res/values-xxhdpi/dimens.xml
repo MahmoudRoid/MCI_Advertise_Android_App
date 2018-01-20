@@ -34,4 +34,7 @@
     <dimen name="dp320">320dp</dimen>
     <dimen name="dp400">400dp</dimen>
     <dimen name="dp470">470dp</dimen>
+
+    <!--<dimen name="dp_180">160dp</dimen>-->
+
 </resources>
