@@ -13,7 +13,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp200"
+        android:layout_height="170dp"
         android:visibility="invisible"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 

@@ -191,6 +191,7 @@ public class MainFragment extends Fragment {
                     }
                 } catch (Exception e) {
                 }
+
                 BindSlideShow();
             }
 

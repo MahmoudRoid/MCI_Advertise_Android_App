@@ -147,7 +147,16 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
     }
     @Override
     public void getResult(Object result) throws Exception {
-        showList((List<tbl_PostModel>) result);
+
+        List<tbl_PostModel> list = (List<tbl_PostModel>) result;
+
+        for(tbl_PostModel item :  list){
+            if(item.getPostid() == myModel.getPostid()){
+                // remove this item
+                list.remove(item);
+            }
+        }
+        showList(list);
     }
 
     @Override
