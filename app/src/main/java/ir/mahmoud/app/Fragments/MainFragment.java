@@ -21,6 +21,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.orm.query.Select;
@@ -32,6 +33,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+import ir.mahmoud.app.Activities.MainActivity;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
@@ -46,13 +51,21 @@ import ir.mahmoud.app.R.id;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
+
+import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 
-public class MainFragment extends Fragment {
+public class MainFragment extends Fragment implements View.OnClickListener {
 
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
+    TextView txtVip;
+    TextView txtNew1;
+    TextView txtAttract;
+    TextView txtTagged;
+
     private View rootView = null;
     private PagerAdapter pagerAdapter;
     private ViewPager pager;
@@ -63,15 +76,25 @@ public class MainFragment extends Fragment {
     private AppBarLayout appBar;
 
     private void AssignViews() {
-        RgIndicator = rootView.findViewById(R.id.rg_indicator);
-        pager = rootView.findViewById(R.id.pager);
+        RgIndicator = rootView.findViewById(id.rg_indicator);
+        pager = rootView.findViewById(id.pager);
         hrsv_vip = rootView.findViewById(id.hrsv_vip);
         hrsv_newest = rootView.findViewById(id.hrsv_newest);
         hrsv_attractive = rootView.findViewById(id.hrsv_attractive);
         hrsv_tagged = rootView.findViewById(id.hrsv_tagged);
-        nest_scrollview = rootView.findViewById(R.id.nest_scrollview);
+        nest_scrollview = rootView.findViewById(id.nest_scrollview);
         appBar = rootView.findViewById(id.app_bar);
         pb = rootView.findViewById(id.pb);
+
+        txtVip = rootView.findViewById(id.txt_vip);
+        txtNew1 = rootView.findViewById(id.txt_new1);
+        txtAttract = rootView.findViewById(id.txt_attract);
+        txtTagged = rootView.findViewById(id.txt_tagged);
+
+        txtVip.setOnClickListener(this);
+        txtNew1.setOnClickListener(this);
+        txtAttract.setOnClickListener(this);
+        txtTagged.setOnClickListener(this);
 
 //        float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 3.5);
 //        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
@@ -109,7 +132,7 @@ public class MainFragment extends Fragment {
         m = new IWerbService() {
             @Override
             public void getResult(List<tbl_PostModel> items, LinearLayout ll) throws Exception {
-                if(ll.getId() == id.hrsv_attractive)
+                if (ll.getId() == id.hrsv_attractive)
                     getMarkedPost();
                 if (items.size() > 0)
                     Binding(ll, items);
@@ -156,7 +179,7 @@ public class MainFragment extends Fragment {
                 ApiClient.getClient().create(ApiInterface.class).GetSlideShowItems("اسلایدر");
         call.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
 
                 try {
                     Application.getInstance().sl.clear();
@@ -186,7 +209,7 @@ public class MainFragment extends Fragment {
                             item.setImageurl(jary.getJSONObject(i).getJSONObject(getString(R.string.thumbnail_images)).getJSONObject(getString(R.string.gridlove_cover)).getString(getString(R.string.url)));
                         } catch (Exception e) {
                         }
-                        if(item.getCategorytitle().equals("اسلایدر"))
+                        if (item.getCategorytitle().equals("اسلایدر"))
                             Application.getInstance().sl.add(item);
                     }
                 } catch (Exception e) {
@@ -231,7 +254,8 @@ public class MainFragment extends Fragment {
                 lp.height = ViewGroup.LayoutParams.WRAP_CONTENT;
                 appBar.setLayoutParams(lp);
             }
-        } catch (Exception e) { }
+        } catch (Exception e) {
+        }
     }
 
     private void Binding(final LinearLayout hrsv, final List<tbl_PostModel> feed) {
@@ -249,13 +273,13 @@ public class MainFragment extends Fragment {
                         getActivity().getSystemService(getActivity().LAYOUT_INFLATER_SERVICE);
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
-                if(scrollviewposition  == 0)
+                if (scrollviewposition == 0)
                     view1.setPadding(0, 6, 6, 6);
                 else
                     view1.setPadding(6, 6, 6, 6);
 
                 //view1.setPadding(0, 6, 6, 6);
-                TextView txt_title = view1.findViewById(R.id.txt_title);
+                TextView txt_title = view1.findViewById(id.txt_title);
                 TextView txt_date = view1.findViewById(id.txt_date);
                 ImageView img_post = view1.findViewById(id.img_post);
                 //img_post.setScaleType(ImageView.ScaleType.FIT_XY);
@@ -284,12 +308,38 @@ public class MainFragment extends Fragment {
                 );
                 hrsv.addView(view1);
             }
-            ((RelativeLayout)hrsv.getParent()).setVisibility(View.VISIBLE);
-            ((NestedScrollView)((hrsv.getParent()).getParent()).getParent()).setVisibility(View.VISIBLE);
+            ((RelativeLayout) hrsv.getParent()).setVisibility(View.VISIBLE);
+            ((NestedScrollView) ((hrsv.getParent()).getParent()).getParent()).setVisibility(View.VISIBLE);
             pb.setVisibility(View.GONE);
         } catch (Exception e) {
         }
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case id.txt_vip:
+                Toast.makeText(getActivity(), "pishnehad vije", Toast.LENGTH_SHORT).show();
+                Application.getInstance().videoType = "پیشنهاد-ویژه";
+                VideosFragment dayTutorial_fragment = new VideosFragment();
+                openFragment(getActivity(), dayTutorial_fragment);
+                break;
+            case id.txt_new1:
+                Toast.makeText(getActivity(), "jadid tarin ha", Toast.LENGTH_SHORT).show();
+                break;
+            case id.txt_attract:
+                Toast.makeText(getActivity(), "jazzab tarin ha", Toast.LENGTH_SHORT).show();
+                break;
+            case id.txt_tagged:
+                Toast.makeText(getActivity(), "neshan shode ha", Toast.LENGTH_SHORT).show();
+                break;
+        }
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
@@ -326,10 +376,11 @@ public class MainFragment extends Fragment {
         Binding(hrsv_tagged, endList);
 
     }
+
     @Override
     public void onResume() {
         super.onResume();
-        if(Application.getInstance().sl.size() > 0 )
+        if (Application.getInstance().sl.size() > 0)
             getMarkedPost();
     }
 

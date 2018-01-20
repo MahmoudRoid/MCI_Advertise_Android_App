@@ -42,7 +42,6 @@ public class SlideShowFragment extends Fragment {
         if (asset != null) {
             //temp = asset.split("///");
             imageView = rootView.findViewById(R.id.imgView);
-            //imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             Glide.with(getActivity()).load(asset.getImageurl())
                     .apply(new RequestOptions().placeholder(R.mipmap.homeb)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE))

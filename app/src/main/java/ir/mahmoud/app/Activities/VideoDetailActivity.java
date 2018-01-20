@@ -149,11 +149,12 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
     public void getResult(Object result) throws Exception {
 
         List<tbl_PostModel> list = (List<tbl_PostModel>) result;
+        list = list.subList(0,6); // baraye joda kardane 5 iteme akhare list
 
-        for(tbl_PostModel item :  list){
-            if(item.getPostid() == myModel.getPostid()){
+        for (int i = 0; i < list.size() ; i++) {
+            if(list.get(i).getPostid() == myModel.getPostid()){
                 // remove this item
-                list.remove(item);
+                list.remove(i);
             }
         }
         showList(list);
@@ -178,6 +179,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
                 startActivity(intent);
             }
         }));
+
     }
 
 }

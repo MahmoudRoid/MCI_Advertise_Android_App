@@ -103,7 +103,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             //HSH.hide(MainActivity.this, tabHost);
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
