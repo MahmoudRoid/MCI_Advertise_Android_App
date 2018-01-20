@@ -27,21 +27,15 @@ public class Application extends SugarApp {
     public List<tbl_PostModel> vip_feed = new ArrayList<>();
     public List<tbl_PostModel> newest_feed = new ArrayList<>();
     public List<tbl_PostModel> attractive_feed = new ArrayList<>();
-    public List<tbl_PostModel> tagged_feed = new ArrayList<>();
     public List<tbl_PostModel> vip_feed_list = new ArrayList<>();
     public List<tbl_PostModel> newest_feed_list = new ArrayList<>();
     public List<tbl_PostModel> attractive_feed_list = new ArrayList<>();
-    public List<tbl_PostModel> tagged_feed_list = new ArrayList<>();
     public List<tbl_PostModel> downloadList = new ArrayList<>();
-    public String videoType = "";
+    public String videoType = "خانه";
     public HashMap hashMap = new HashMap();
 
     public static Application getInstance() {
         return ourInstance;
-    }
-
-    public HashMap getHashMap() {
-        return hashMap;
     }
 
     @Override
@@ -52,14 +46,6 @@ public class Application extends SugarApp {
                 .setFontAttrId(R.attr.fontPath)
                 .build()
         );
-    }
-
-    public List<tbl_PostModel> getVip_feed() {
-        return vip_feed;
-    }
-
-    public void setVip_feed(List<tbl_PostModel> vip_feed) {
-        this.vip_feed = vip_feed;
     }
 
     public List<tbl_PostModel> getDownloadList() {

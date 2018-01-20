@@ -180,32 +180,38 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 break;
             case R.id.txt_home:
-                //if (home_fragment == null)
-                home_fragment = new MainFragment();
-                openFragment(MainActivity.this, home_fragment);
+                if(!Application.getInstance().videoType.equals("خانه")) {
+                    Application.getInstance().videoType = "خانه";
+                    home_fragment = new MainFragment();
+                    openFragment(MainActivity.this, home_fragment);
+                }
                 break;
 
             case R.id.txt_vip:
-                Application.getInstance().videoType = "پیشنهاد-ویژه";
-                //if (dayTutorial_fragment == null)
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(MainActivity.this, dayTutorial_fragment);
+                if(!Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
+                    Application.getInstance().videoType = "پیشنهاد-ویژه";
+                    dayTutorial_fragment = new VideosFragment();
+                    openFragment(MainActivity.this, dayTutorial_fragment);
+                }
                 break;
             case R.id.txt_newest:
-                Application.getInstance().videoType = "جدیدترین-ها";
-                //if (dayTutorial_fragment == null)
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(MainActivity.this, dayTutorial_fragment);
+                if(!Application.getInstance().videoType.equals("جدیدترین-ها")) {
+                    Application.getInstance().videoType = "جدیدترین-ها";
+                    dayTutorial_fragment = new VideosFragment();
+                    openFragment(MainActivity.this, dayTutorial_fragment);
+                }
                 break;
 
             case R.id.txt_attractive:
-                Application.getInstance().videoType = "جذابترین-ها";
-                //if (dayTutorial_fragment == null)
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(MainActivity.this, dayTutorial_fragment);
+                if(!Application.getInstance().videoType.equals("جذابترین-ها")) {
+                    Application.getInstance().videoType = "جذابترین-ها";
+                    dayTutorial_fragment = new VideosFragment();
+                    openFragment(MainActivity.this, dayTutorial_fragment);
+                }
                 break;
 
             case R.id.txt_marked:
+                Application.getInstance().videoType = "نشان شده-ها";
                 if (marked_fragment == null)
                     marked_fragment = new MarkedFragment();
                 openFragment(MainActivity.this, marked_fragment);
