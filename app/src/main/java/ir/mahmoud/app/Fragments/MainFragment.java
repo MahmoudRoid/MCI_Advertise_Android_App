@@ -58,6 +58,8 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
 
+    private VideosFragment dayTutorial_fragment = null;
+    private MarkedFragment marked_fragment = null;
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
@@ -320,19 +322,25 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case id.txt_vip:
-                Toast.makeText(getActivity(), "pishnehad vije", Toast.LENGTH_SHORT).show();
                 Application.getInstance().videoType = "پیشنهاد-ویژه";
-                VideosFragment dayTutorial_fragment = new VideosFragment();
+                dayTutorial_fragment = new VideosFragment();
                 openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_new1:
-                Toast.makeText(getActivity(), "jadid tarin ha", Toast.LENGTH_SHORT).show();
+                Application.getInstance().videoType = "جدیدترین-ها";
+                dayTutorial_fragment = new VideosFragment();
+                openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_attract:
-                Toast.makeText(getActivity(), "jazzab tarin ha", Toast.LENGTH_SHORT).show();
+                Application.getInstance().videoType = "جذابترین-ها";
+                dayTutorial_fragment = new VideosFragment();
+                openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_tagged:
-                Toast.makeText(getActivity(), "neshan shode ha", Toast.LENGTH_SHORT).show();
+                Application.getInstance().videoType = "نشان شده-ها";
+                if (marked_fragment == null)
+                    marked_fragment = new MarkedFragment();
+                openFragment(getActivity(), marked_fragment);
                 break;
         }
     }
