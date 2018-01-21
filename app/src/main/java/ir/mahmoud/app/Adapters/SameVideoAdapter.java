@@ -39,7 +39,7 @@ public class SameVideoAdapter extends RecyclerView.Adapter<SameVideoAdapter.Data
         holder.tv_date.setText(myObjectArrayList.get(position).getDate());
         //holder.tv_bazdid.setText(myObjectArrayList.get(position).getTitle());
         Glide.with(context).load(myObjectArrayList.get(position).getImageurl())
-                .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                 .into(holder.image);
 

@@ -41,7 +41,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.DataObject
         holder.tv_date.setText(myObjectArrayList.get(position).getDate());
         holder.tv_kind.setText(myObjectArrayList.get(position).getCategorytitle());
         Glide.with(context).load(myObjectArrayList.get(position).getImageurl())
-                .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                 .into(holder.image);
     }

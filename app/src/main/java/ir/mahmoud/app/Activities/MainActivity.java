@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     Toolbar toolbar;
     ImageButton btn_clear, btn_srch;
-    private LinearLayout ll_bottomNavigation;
-    private TextView txt_home, txt_vip, txt_newest, txt_attractive, txt_marked;
+    public static LinearLayout ll_bottomNavigation;
+    public static TextView txt_home, txt_vip, txt_newest, txt_attractive, txt_marked;
     private EditText edt_search;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
@@ -228,7 +228,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onBackPressed() {
-        if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
+        exit();
+        /*if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
             exit();
         } else {
             try {
@@ -241,7 +242,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     exit();
                 }
             }
-        }
+        }*/
     }
 
     @Override

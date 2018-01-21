@@ -33,7 +33,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@mipmap/homeb"
                 android:transitionName="splash_icon"
                 app:layout_collapseMode="parallax" />
 

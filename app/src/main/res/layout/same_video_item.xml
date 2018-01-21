@@ -17,7 +17,6 @@
             android:id="@+id/imageView"
             android:layout_width="120dp"
             android:layout_height="70dp"
-            android:src="@mipmap/homeb"
             android:scaleType="centerCrop"
             android:layout_centerVertical="true"
             android:layout_alignParentRight="true"/>

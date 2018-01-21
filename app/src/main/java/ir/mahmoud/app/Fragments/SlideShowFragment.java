@@ -43,7 +43,7 @@ public class SlideShowFragment extends Fragment {
             //temp = asset.split("///");
             imageView = rootView.findViewById(R.id.imgView);
             Glide.with(getActivity()).load(asset.getImageurl())
-                    .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                    .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                     .into(imageView);
             imageView.setOnClickListener(new View.OnClickListener() {

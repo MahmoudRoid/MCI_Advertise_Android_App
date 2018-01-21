@@ -66,7 +66,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         getModel();
         setTitle("");
         toolbarCustomTv.setText(myModel.getTitle());
-        Glide.with(this).load(myModel.imageurl).apply(new RequestOptions().placeholder(R.mipmap.homeb)).into(imageView);
+        Glide.with(this).load(myModel.imageurl).apply(new RequestOptions().placeholder(R.mipmap.shodani)).into(imageView);
         postTitleTv.setText(myModel.getTitle());
         postContentTv.setText(myModel.getContent());
         try {

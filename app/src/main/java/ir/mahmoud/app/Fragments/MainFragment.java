@@ -11,6 +11,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.ActionBar;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static ir.mahmoud.app.Activities.MainActivity.ll_bottomNavigation;
+import static ir.mahmoud.app.Activities.MainActivity.txt_attractive;
+import static ir.mahmoud.app.Activities.MainActivity.txt_marked;
+import static ir.mahmoud.app.Activities.MainActivity.txt_newest;
+import static ir.mahmoud.app.Activities.MainActivity.txt_vip;
 import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 
@@ -98,9 +104,13 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         txtAttract.setOnClickListener(this);
         txtTagged.setOnClickListener(this);
 
-//        float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 3.5);
-//        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
-//        lp.height = (int) heightDp;
+        DisplayMetrics displaymetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
+        int width = displaymetrics.widthPixels;
+        int appbar_height = (int)(width/2.85);
+        //float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 4);
+        CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
+        lp.height = (int) appbar_height;
 
         RgIndicator.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -322,21 +332,25 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case id.txt_vip:
+                HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
                 Application.getInstance().videoType = "پیشنهاد-ویژه";
                 dayTutorial_fragment = new VideosFragment();
                 openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_new1:
+                HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
                 Application.getInstance().videoType = "جدیدترین-ها";
                 dayTutorial_fragment = new VideosFragment();
                 openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_attract:
+                HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
                 Application.getInstance().videoType = "جذابترین-ها";
                 dayTutorial_fragment = new VideosFragment();
                 openFragment(getActivity(), dayTutorial_fragment);
                 break;
             case id.txt_tagged:
+                HSH.setMainDrawableColor(ll_bottomNavigation, txt_marked);
                 Application.getInstance().videoType = "نشان شده-ها";
                 if (marked_fragment == null)
                     marked_fragment = new MarkedFragment();
@@ -379,6 +393,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             endList.add(tmpList.get(tmpList.size() - 2));
         } else if (tmpList.size() == 1)
             endList.add(tmpList.get(0));
+        else
+            ((RelativeLayout) hrsv_tagged.getParent()).setVisibility(View.GONE);
 
         hrsv_tagged.removeAllViews();
         Binding(hrsv_tagged, endList);

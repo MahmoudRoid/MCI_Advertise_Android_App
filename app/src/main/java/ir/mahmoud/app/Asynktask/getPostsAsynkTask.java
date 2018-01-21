@@ -93,6 +93,7 @@ public class getPostsAsynkTask {
                     delegate.getResult(Application.getInstance().vip_feed, hrsv_vip);
                     delegate.getResult(Application.getInstance().newest_feed, hrsv_newest);
                     delegate.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
+                    delegate.getResult(Application.getInstance().attractive_feed, hrsv_attractive);
                 } catch (Exception e) {
 
                 }

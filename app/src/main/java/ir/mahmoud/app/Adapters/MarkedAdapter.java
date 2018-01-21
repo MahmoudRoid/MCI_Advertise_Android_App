@@ -38,7 +38,7 @@ public class MarkedAdapter extends RecyclerView.Adapter<MarkedAdapter.DataObject
         holder.txt_title.setText(myObjectArrayList.get(position).getTitle());
         holder.txt_date.setText(myObjectArrayList.get(position).getDate());
         Glide.with(context).load(myObjectArrayList.get(position).getImageurl())
-                .apply(new RequestOptions().placeholder(R.mipmap.homeb)
+                .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                         .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                 .into(holder.image);
     }
