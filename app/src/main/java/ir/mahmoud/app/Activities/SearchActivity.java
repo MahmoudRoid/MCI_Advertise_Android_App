@@ -3,12 +3,17 @@ package ir.mahmoud.app.Activities;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatEditText;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ProgressBar;
+import android.widget.Toast;
+
+import com.github.ybq.endless.Endless;
 
 import java.util.List;
 
@@ -17,10 +22,12 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import ir.mahmoud.app.Adapters.SearchAdapter;
 import ir.mahmoud.app.Asynktask.SearchVideos;
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
 import ir.mahmoud.app.Classes.NetworkUtils;
 import ir.mahmoud.app.Classes.RecyclerItemClickListener;
 import ir.mahmoud.app.Interfaces.IWebService2;
+import ir.mahmoud.app.Interfaces.OnLoadMoreListener;
 import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
@@ -28,6 +35,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 public class SearchActivity extends AppCompatActivity implements IWebService2 {
 
     String searchString;
+    private int searchInitPage = 1 ;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
@@ -36,6 +44,10 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
     ProgressBar pb;
     @BindView(R.id.search_edt)
     AppCompatEditText searchEdt;
+
+    Endless endless;
+    View loadingView;
+    List<tbl_PostModel> searchList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +61,20 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
         searchString = getIntent().getStringExtra("searchString");
         setTitle("جستجو");
         searchEdt.setText(searchString);
+
+        loadingView = View.inflate(this,R.layout.layout_loading,null);
+        loadingView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+
+        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
+        recyclerView.setLayoutManager(lm);
+
         // call web service
         if (NetworkUtils.getConnectivity(this)) {
-            SearchVideos getdata = new SearchVideos(this, this, searchString);
+            SearchVideos getdata = new SearchVideos(this, this, searchString,searchInitPage);
             getdata.getData();
         } else HSH.showtoast(this, getString(R.string.error_internet));
+
+
     }
 
     @Override
@@ -63,8 +84,18 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
             if (result.equals("empty list"))
                 HSH.showtoast(this, "نتیجه ای نداریم");
         } else {
-            recyclerView.setVisibility(View.VISIBLE);
-            showList((List<tbl_PostModel>) result);
+            if (searchInitPage==1) {
+                recyclerView.setVisibility(View.VISIBLE);
+                showList((List<tbl_PostModel>) result);
+            }
+            else if(searchInitPage>1){
+                // add to adapter
+                searchList.remove(searchList.size() - 1);
+                adapter.notifyItemRemoved(searchList.size());
+                searchList.addAll((List<tbl_PostModel>) result);
+                adapter.notifyDataSetChanged();
+                adapter.setLoaded();
+            }
         }
     }
 
@@ -75,9 +106,8 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
     }
 
     private void showList(final List<tbl_PostModel> searchList) {
-        LinearLayoutManager lm = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        recyclerView.setLayoutManager(lm);
-        adapter = new SearchAdapter(this, searchList);
+        this.searchList = searchList;
+        adapter = new SearchAdapter(this, searchList,recyclerView);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnItemTouchListener(new RecyclerItemClickListener(this, new RecyclerItemClickListener.OnItemClickListener() {
@@ -88,6 +118,24 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
                 startActivity(intent);
             }
         }));
+
+        adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                searchInitPage++;
+                if(searchInitPage <= Application.getInstance().getSearchFinalPage()){
+                    searchList.add(null);
+                    adapter.notifyItemInserted(searchList.size() - 1);
+                    // get data
+                    if (NetworkUtils.getConnectivity(SearchActivity.this)) {
+                        SearchVideos getdata = new SearchVideos(SearchActivity.this, SearchActivity.this, searchString ,searchInitPage);
+                        getdata.getData();
+                    } else HSH.showtoast(SearchActivity.this, getString(R.string.error_internet));
+                }
+                else {}
+            }
+        });
+
     }
 
     @Override
@@ -101,7 +149,8 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
             recyclerView.setVisibility(View.INVISIBLE);
             pb.setVisibility(View.VISIBLE);
             if (NetworkUtils.getConnectivity(this)) {
-                SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim());
+                searchInitPage = 1;
+                SearchVideos getdata = new SearchVideos(this, this, searchEdt.getText().toString().trim(),searchInitPage);
                 getdata.getData();
             } else HSH.showtoast(this, getString(R.string.error_internet));
         }

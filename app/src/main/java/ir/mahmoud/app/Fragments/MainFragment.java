@@ -407,5 +407,4 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         if (Application.getInstance().sl.size() > 0)
             getMarkedPost();
     }
-
 }

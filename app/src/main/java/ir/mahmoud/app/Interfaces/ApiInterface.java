@@ -40,7 +40,7 @@ public interface ApiInterface {
     Call<ResponseBody> getPosts(@Query("slug") String tagSlug);
 
     @GET("api/get_search_results/")
-    Call<ResponseBody> searchVideos(@Query("search") String searchString);
+    Call<ResponseBody> searchVideos(@Query("search") String searchString,@Query("page") int page);
 
 
 }

@@ -33,6 +33,16 @@ public class Application extends SugarApp {
     public List<tbl_PostModel> downloadList = new ArrayList<>();
     public String videoType = "خانه";
     public HashMap hashMap = new HashMap();
+    public  int searchFinalPage;
+
+
+    public int getSearchFinalPage() {
+        return searchFinalPage;
+    }
+
+    public void setSearchFinalPage(int searchFinalPage) {
+        this.searchFinalPage = searchFinalPage;
+    }
 
     public static Application getInstance() {
         return ourInstance;
