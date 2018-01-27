@@ -23,7 +23,7 @@
         <RelativeLayout
             android:id="@+id/rl_vip"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200">
+            android:layout_height="@dimen/dp225">
 
             <TextView
                 android:id="@+id/txt_vip"
@@ -49,16 +49,28 @@
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
                 android:layout_below="@+id/txt_vip"
+                android:layout_above="@+id/txt_vip_more"
                 android:orientation="horizontal">
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_vip_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بیشتر..."
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_newest"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200">
+            android:layout_height="@dimen/dp225">
 
             <TextView
                 android:id="@+id/txt_new1"
@@ -81,17 +93,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_new1"
+                android:layout_above="@+id/txt_new1_more"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_new1_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بیشتر..."
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_attractive"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200">
+            android:layout_height="@dimen/dp225">
 
             <TextView
                 android:id="@+id/txt_attract"
@@ -113,17 +137,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_attract"
+                android:layout_above="@+id/txt_attract_more"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_attract_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بیشتر..."
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/rl_tagged"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp200">
+            android:layout_height="@dimen/dp225">
 
             <TextView
                 android:id="@+id/txt_tagged"
@@ -145,10 +181,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txt_tagged"
+                android:layout_above="@+id/txt_tagged_more"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_tagged_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="بیشتر..."
+                fontPath="fonts/IRANSansMedium.ttf"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
 
         </RelativeLayout>
 

@@ -4,6 +4,7 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
     <dimen name="dp200">200dp</dimen>
+    <dimen name="dp225">225dp</dimen>
 
     <!--<dimen name="dp_180">100dp</dimen>-->
 

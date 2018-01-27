@@ -185,7 +185,7 @@ public class HSH {
         for (int j = 0; j < layout.getChildCount(); j++) {
             View v = layout.getChildAt(j);
             if (v.getId() == view.getId()) {
-                setTextViewDrawableColor((TextView) v, 25, 120, 130);
+                setTextViewDrawableColor((TextView) v, 238, 48, 120);
             } else {
                 setTextViewDrawableColor((TextView) v, 150, 150, 150);
             }

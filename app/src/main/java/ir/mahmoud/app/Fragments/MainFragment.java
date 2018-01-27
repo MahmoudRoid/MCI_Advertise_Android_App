@@ -69,10 +69,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
-    TextView txtVip;
-    TextView txtNew1;
-    TextView txtAttract;
-    TextView txtTagged;
+    TextView txtVip,txtVipMore;
+    TextView txtNew1,txtNew1More;
+    TextView txtAttract,txtAttractMore;
+    TextView txtTagged,txtTaggedMore;
 
     private View rootView = null;
     private PagerAdapter pagerAdapter;
@@ -95,14 +95,23 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         pb = rootView.findViewById(id.pb);
 
         txtVip = rootView.findViewById(id.txt_vip);
+        txtVipMore = rootView.findViewById(id.txt_vip_more);
         txtNew1 = rootView.findViewById(id.txt_new1);
+        txtNew1More = rootView.findViewById(id.txt_new1_more);
         txtAttract = rootView.findViewById(id.txt_attract);
+        txtAttractMore = rootView.findViewById(id.txt_attract_more);
         txtTagged = rootView.findViewById(id.txt_tagged);
+        txtTaggedMore = rootView.findViewById(id.txt_tagged_more);
 
         txtVip.setOnClickListener(this);
         txtNew1.setOnClickListener(this);
         txtAttract.setOnClickListener(this);
         txtTagged.setOnClickListener(this);
+
+        txtVipMore.setOnClickListener(this);
+        txtNew1More.setOnClickListener(this);
+        txtAttractMore.setOnClickListener(this);
+        txtTaggedMore.setOnClickListener(this);
 
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
@@ -286,9 +295,9 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 final View view1 = inflater.inflate(R.layout.item_fragment_main_content, null);
                 view1.setLayoutParams(new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 0.5f));
                 if (scrollviewposition == 0)
-                    view1.setPadding(0, 6, 6, 6);
+                    view1.setPadding(0, 6, 15, 6);
                 else
-                    view1.setPadding(6, 6, 6, 6);
+                    view1.setPadding(15, 6, 15, 6);
 
                 //view1.setPadding(0, 6, 6, 6);
                 TextView txt_title = view1.findViewById(id.txt_title);
@@ -332,32 +341,61 @@ public class MainFragment extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case id.txt_vip:
-                HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
-                Application.getInstance().videoType = "پیشنهاد-ویژه";
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(getActivity(), dayTutorial_fragment);
+                goVipFragment();
                 break;
             case id.txt_new1:
-                HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
-                Application.getInstance().videoType = "جدیدترین-ها";
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(getActivity(), dayTutorial_fragment);
+                goNewsetFragment();
                 break;
             case id.txt_attract:
-                HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
-                Application.getInstance().videoType = "جذابترین-ها";
-                dayTutorial_fragment = new VideosFragment();
-                openFragment(getActivity(), dayTutorial_fragment);
+                goAttractiveFragment();
                 break;
             case id.txt_tagged:
-                HSH.setMainDrawableColor(ll_bottomNavigation, txt_marked);
-                Application.getInstance().videoType = "نشان شده-ها";
-                if (marked_fragment == null)
-                    marked_fragment = new MarkedFragment();
-                openFragment(getActivity(), marked_fragment);
+                goTaggedfragmnt();
+                break;
+            case id.txt_vip_more:
+                goVipFragment();
+                break;
+            case id.txt_new1_more:
+                goNewsetFragment();
+                break;
+            case id.txt_attract_more:
+                goAttractiveFragment();
+                break;
+            case id.txt_tagged_more:
+                goTaggedfragmnt();
                 break;
         }
     }
+
+    public void goVipFragment(){
+        HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
+        Application.getInstance().videoType = "پیشنهاد-ویژه";
+        dayTutorial_fragment = new VideosFragment();
+        openFragment(getActivity(), dayTutorial_fragment);
+    }
+
+    public void goNewsetFragment(){
+        HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
+        Application.getInstance().videoType = "جدیدترین-ها";
+        dayTutorial_fragment = new VideosFragment();
+        openFragment(getActivity(), dayTutorial_fragment);
+    }
+
+    public void goAttractiveFragment(){
+        HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
+        Application.getInstance().videoType = "جذابترین-ها";
+        dayTutorial_fragment = new VideosFragment();
+        openFragment(getActivity(), dayTutorial_fragment);
+    }
+
+    public void goTaggedfragmnt(){
+        HSH.setMainDrawableColor(ll_bottomNavigation, txt_marked);
+        Application.getInstance().videoType = "نشان شده-ها";
+        if (marked_fragment == null)
+            marked_fragment = new MarkedFragment();
+        openFragment(getActivity(), marked_fragment);
+    }
+
 
     @Override
     public void onDestroyView() {

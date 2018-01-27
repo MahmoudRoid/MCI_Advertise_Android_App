@@ -30,6 +30,7 @@
     <dimen name="dp95">115dp</dimen>
     <dimen name="dp140">180dp</dimen>
     <dimen name="dp200">240dp</dimen>
+    <dimen name="dp225">265dp</dimen>
     <dimen name="dp300">350dp</dimen>
     <dimen name="dp320">400dp</dimen>
     <dimen name="dp400">500dp</dimen>
