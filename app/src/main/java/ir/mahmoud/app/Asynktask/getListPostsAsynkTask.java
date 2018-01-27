@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Interfaces.ApiClient;
 import ir.mahmoud.app.Interfaces.ApiInterface;
 import ir.mahmoud.app.Interfaces.IWebService2;
@@ -26,23 +27,35 @@ public class getListPostsAsynkTask {
     private IWebService2 delegate = null;
     private String slug;
     private List<tbl_PostModel> feed = new ArrayList<>();
+    public int page;
 
-    public getListPostsAsynkTask(final Context cn, final List<tbl_PostModel> feed, final IWebService2 m, final String slug) {
+    public getListPostsAsynkTask(final Context cn, final List<tbl_PostModel> feed, final IWebService2 m,
+                                 final String slug,int page) {
         this.cn = cn;
         this.feed = feed;
         this.delegate = m;
         this.slug = slug;
+        this.page=page;
+
     }
 
     public void getListPosts() {
         Call<ResponseBody> call =
-                ApiClient.getClient().create(ApiInterface.class).getPosts(slug);
+                ApiClient.getClient().create(ApiInterface.class).getPosts(slug,page);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
 
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
+                    // get pages
+                    if(slug.equals("پیشنهاد-ویژه"))
+                    Application.getInstance().setVipFinalPage(obj.getInt("pages"));
+                    else if(slug.equals("جدیدترین-ها"))
+                        Application.getInstance().setNewestFinalPage(obj.getInt("pages"));
+                    else if(slug.equals("جذابترین-ها"))
+                        Application.getInstance().setAttractiveFinalPage(obj.getInt("pages"));
+
                     JSONArray jary = new JSONArray(obj.getString(cn.getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {
                         tbl_PostModel item = new tbl_PostModel();
@@ -50,7 +63,11 @@ public class getListPostsAsynkTask {
                         item.setPosturl(jary.getJSONObject(i).getString("url"));
 //                        item.setTitle(jary.getJSONObject(i).getString(cn.getString(R.string.title)));
 //                        item.setContent(jary.getJSONObject(i).getString(cn.getString(R.string.excerpt)));
-                        item.setTitle(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("title"))));
+                        try {
+                            item.setTitle(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("title"))));
+                        } catch (JSONException e) {
+                            item.setTitle("kharab");
+                        }
                         item.setContent(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("excerpt"))));
                         item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)).replace("ago","قبل"));
                         JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.categories)));

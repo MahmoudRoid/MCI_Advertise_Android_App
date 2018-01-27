@@ -75,14 +75,11 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             return new LoadingViewHolder(view);
         }
         return null;
-
-
     }
 
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
 
         if (holder instanceof DataObjectHolder) {
             ((DataObjectHolder) holder).tv_title.setText(myObjectArrayList.get(position).getTitle());

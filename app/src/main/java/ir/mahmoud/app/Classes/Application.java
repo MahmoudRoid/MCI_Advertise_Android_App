@@ -34,7 +34,33 @@ public class Application extends SugarApp {
     public String videoType = "خانه";
     public HashMap hashMap = new HashMap();
     public  int searchFinalPage;
+    public  int vipFinalPage;
+    public  int newestFinalPage;
+    public  int attractiveFinalPage;
 
+    public int getVipFinalPage() {
+        return vipFinalPage;
+    }
+
+    public void setVipFinalPage(int vipFinalPage) {
+        this.vipFinalPage = vipFinalPage;
+    }
+
+    public int getNewestFinalPage() {
+        return newestFinalPage;
+    }
+
+    public void setNewestFinalPage(int newestFinalPage) {
+        this.newestFinalPage = newestFinalPage;
+    }
+
+    public int getAttractiveFinalPage() {
+        return attractiveFinalPage;
+    }
+
+    public void setAttractiveFinalPage(int attractiveFinalPage) {
+        this.attractiveFinalPage = attractiveFinalPage;
+    }
 
     public int getSearchFinalPage() {
         return searchFinalPage;
