@@ -60,11 +60,12 @@ public class VideosFragment extends Fragment {
 //                feed.addAll((List<tbl_PostModel>) items);
                 if(Application.getInstance().videoType.equals("جدیدترین-ها")) {
                     if(newestInitPage==1){
-                        list.clear();
+                        feed.clear();
+                        feed.addAll((List<tbl_PostModel>) items);
                         list = tblPostModelToTblDownload((List<tbl_PostModel>) items);
+                        Application.getInstance().newest_feed_list.addAll(feed);
                         rv.setAdapter(newest_adapter);
                         newest_adapter.notifyDataSetChanged();
-                        ((List<tbl_Download>) items).clear();
 
                         newest_adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
                             @Override
@@ -82,7 +83,6 @@ public class VideosFragment extends Fragment {
                                 else {}
                             }
                         });
-
                     }
                     else if(newestInitPage>1){
                         list.remove(list.size() - 1);
@@ -93,10 +93,8 @@ public class VideosFragment extends Fragment {
                         ((List<tbl_Download>) items).clear();
                         newest_adapter.notifyDataSetChanged();
                         newest_adapter.setLoaded();
-                        //Application.getInstance().vip_feed_list.clear();
+                        Application.getInstance().newest_feed_list.clear();
                     }
-
-
                 }
 
 
@@ -104,7 +102,7 @@ public class VideosFragment extends Fragment {
                     if(vipInitPage==1){
                         feed.addAll((List<tbl_PostModel>) items);
                         ((List<tbl_PostModel>) items).clear();
-//                        Application.getInstance().vip_feed_list.addAll(feed);
+                        Application.getInstance().vip_feed_list.addAll(feed);
                         rv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
@@ -133,17 +131,15 @@ public class VideosFragment extends Fragment {
                         ((List<tbl_PostModel>) items).clear();
                         adapter.notifyDataSetChanged();
                         adapter.setLoaded();
-                        //Application.getInstance().vip_feed_list.clear();
+                        Application.getInstance().vip_feed_list.clear();
                     }
                 }
-
-
 
                 if(Application.getInstance().videoType.equals("جذابترین-ها")){
                     if(attractiveInitPage==1){
                         feed.addAll((List<tbl_PostModel>) items);
                         ((List<tbl_PostModel>) items).clear();
-//                        Application.getInstance().vip_feed_list.addAll(feed);
+                        Application.getInstance().attractive_feed_list.addAll(feed);
                         rv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
 
@@ -172,7 +168,7 @@ public class VideosFragment extends Fragment {
                         ((List<tbl_PostModel>) items).clear();
                         adapter.notifyDataSetChanged();
                         adapter.setLoaded();
-                        //Application.getInstance().vip_feed_list.clear();
+                        Application.getInstance().attractive_feed_list.clear();
                     }
                 }
                 pb.setVisibility(View.GONE);
@@ -185,7 +181,7 @@ public class VideosFragment extends Fragment {
 
         setAdapter();
 
-        if (Application.getInstance().vip_feed_list.size() > 1 && Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
+        if ( Application.getInstance().vip_feed_list.size() > 1 && Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
             feed.clear();
             feed.addAll(Application.getInstance().vip_feed_list);
             adapter.notifyDataSetChanged();
@@ -247,7 +243,6 @@ public class VideosFragment extends Fragment {
             tbl.imageurl = item.getImageurl();
             tbl.tagslug = item.getTagslug();
             tbl.posturl= item.getPosturl();
-
             list.add(tbl);
         }
         return list;
