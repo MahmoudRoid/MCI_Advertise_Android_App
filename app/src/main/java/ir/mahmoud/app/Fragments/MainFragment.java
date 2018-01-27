@@ -158,8 +158,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         };
 
         try {
-            if (Application.getInstance().vip_feed.size() == 0 ||
-                    Application.getInstance().newest_feed.size() == 0 ||
+            if (Application.getInstance().vip_feed.size() == 0 &&
+                    Application.getInstance().newest_feed.size() == 0 &&
                     Application.getInstance().attractive_feed.size() == 0) {
                 if (NetworkUtils.getConnectivity(getActivity())) {
                     getPostsAsynkTask getPosts = new getPostsAsynkTask(getActivity(), m, hrsv_vip, hrsv_newest, hrsv_attractive, hrsv_tagged);
@@ -395,9 +395,10 @@ public class MainFragment extends Fragment implements View.OnClickListener {
             endList.add(tmpList.get(0));
         else
             ((RelativeLayout) hrsv_tagged.getParent()).setVisibility(View.GONE);
-
-        hrsv_tagged.removeAllViews();
-        Binding(hrsv_tagged, endList);
+        if(endList.size() > 0) {
+            hrsv_tagged.removeAllViews();
+            Binding(hrsv_tagged, endList);
+        }
 
     }
 

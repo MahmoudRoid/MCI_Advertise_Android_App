@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
-import com.github.ybq.endless.Endless;
+//import com.github.ybq.endless.Endless;
 
 import java.util.List;
 
@@ -45,7 +45,7 @@ public class SearchActivity extends AppCompatActivity implements IWebService2 {
     @BindView(R.id.search_edt)
     AppCompatEditText searchEdt;
 
-    Endless endless;
+    //Endless endless;
     View loadingView;
     List<tbl_PostModel> searchList;
 
