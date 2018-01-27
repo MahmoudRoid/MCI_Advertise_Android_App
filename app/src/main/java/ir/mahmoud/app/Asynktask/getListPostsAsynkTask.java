@@ -29,10 +29,10 @@ public class getListPostsAsynkTask {
     private List<tbl_PostModel> feed = new ArrayList<>();
     public int page;
 
-    public getListPostsAsynkTask(final Context cn, final List<tbl_PostModel> feed, final IWebService2 m,
+    public getListPostsAsynkTask(final Context cn, /*final List<tbl_PostModel> feed,*/ final IWebService2 m,
                                  final String slug,int page) {
         this.cn = cn;
-        this.feed = feed;
+       // this.feed = feed;
         this.delegate = m;
         this.slug = slug;
         this.page=page;
@@ -49,12 +49,18 @@ public class getListPostsAsynkTask {
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
                     // get pages
-                    if(slug.equals("پیشنهاد-ویژه"))
-                    Application.getInstance().setVipFinalPage(obj.getInt("pages"));
-                    else if(slug.equals("جدیدترین-ها"))
+                    if(slug.equals("پیشنهاد-ویژه")) {
+                        Application.getInstance().vip_feed_list.clear();
+                        Application.getInstance().setVipFinalPage(obj.getInt("pages"));
+                    }
+                    else if(slug.equals("جدیدترین-ها")) {
+                        Application.getInstance().newest_feed_list.clear();
                         Application.getInstance().setNewestFinalPage(obj.getInt("pages"));
-                    else if(slug.equals("جذابترین-ها"))
+                    }
+                    else if(slug.equals("جذابترین-ها")) {
+                        Application.getInstance().attractive_feed_list.clear();
                         Application.getInstance().setAttractiveFinalPage(obj.getInt("pages"));
+                    }
 
                     JSONArray jary = new JSONArray(obj.getString(cn.getString(R.string.posts)));
                     for (int i = 0; i < jary.length(); i++) {

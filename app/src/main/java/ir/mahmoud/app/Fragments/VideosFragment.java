@@ -40,8 +40,10 @@ public class VideosFragment extends Fragment {
     NewestAdapter newest_adapter;
     IWebService2 m;
     View rootView = null;
-    private List<tbl_PostModel> feed = new ArrayList<>();
-    List<tbl_Download> list = new ArrayList<>();
+    public static List<tbl_PostModel> feed = new ArrayList<>();
+    public static List<tbl_PostModel> vip_feed = new ArrayList<>();
+    public static List<tbl_PostModel> attractive_feed = new ArrayList<>();
+    public static List<tbl_Download> list = new ArrayList<>();
     private int vipInitPage = 1 ;
     private int newestInitPage = 1 ;
     private int attractiveInitPage = 1 ;
@@ -60,115 +62,64 @@ public class VideosFragment extends Fragment {
 //                feed.addAll((List<tbl_PostModel>) items);
                 if(Application.getInstance().videoType.equals("جدیدترین-ها")) {
                     if(newestInitPage==1){
-                        feed.clear();
-                        feed.addAll((List<tbl_PostModel>) items);
                         list = tblPostModelToTblDownload((List<tbl_PostModel>) items);
                         Application.getInstance().newest_feed_list.addAll(feed);
                         rv.setAdapter(newest_adapter);
                         newest_adapter.notifyDataSetChanged();
-
-                        newest_adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                            @Override
-                            public void onLoadMore() {
-                                newestInitPage++;
-                                if(newestInitPage <= Application.getInstance().getNewestFinalPage()){
-                                    list.add(null);
-                                    newest_adapter.notifyItemInserted(list.size() - 1);
-                                    // get data
-                                    if (NetworkUtils.getConnectivity(getActivity())) {
-                                        getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().newest_feed_list, m, Application.getInstance().videoType,newestInitPage);
-                                        a.getListPosts();
-                                    } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
-                                }
-                                else {}
-                            }
-                        });
                     }
                     else if(newestInitPage>1){
                         list.remove(list.size() - 1);
                         newest_adapter.notifyItemRemoved(list.size());
                         tblPostModelToTblDownload((List<tbl_PostModel>) items);
-//                        list.addAll( tblPostModelToTblDownload((List<tbl_PostModel>) items));
-                        //list.addAll((List<tbl_Download>) items);
-                        ((List<tbl_Download>) items).clear();
                         newest_adapter.notifyDataSetChanged();
                         newest_adapter.setLoaded();
-                        Application.getInstance().newest_feed_list.clear();
+                        //Application.getInstance().newest_feed_list.clear();
                     }
                 }
 
-
                 if(Application.getInstance().videoType.equals("پیشنهاد-ویژه")){
-                    if(vipInitPage==1){
-                        feed.addAll((List<tbl_PostModel>) items);
+                    if(vipInitPage==1) {
+                        vip_feed.addAll((List<tbl_PostModel>) items);
                         ((List<tbl_PostModel>) items).clear();
-                        Application.getInstance().vip_feed_list.addAll(feed);
+                        Application.getInstance().vip_feed_list.addAll(vip_feed);
+                        feed.clear();
+                        feed.addAll(vip_feed);
                         rv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-
-                        adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                            @Override
-                            public void onLoadMore() {
-                                vipInitPage++;
-                                if(vipInitPage <= Application.getInstance().getVipFinalPage()){
-                                    feed.add(null);
-                                    adapter.notifyItemInserted(feed.size() - 1);
-                                    // get data
-                                    if (NetworkUtils.getConnectivity(getActivity())) {
-                                        getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().vip_feed_list, m, Application.getInstance().videoType,vipInitPage);
-                                        a.getListPosts();
-                                    } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
-                                }
-                                else {}
-                            }
-                        });
-
                     }
                     else if(vipInitPage>1){
                         feed.remove(feed.size() - 1);
                         adapter.notifyItemRemoved(feed.size());
-                        feed.addAll( (List<tbl_PostModel>) items);
-                        ((List<tbl_PostModel>) items).clear();
+                        vip_feed.addAll( (List<tbl_PostModel>) items);
+                        feed.clear();
+                        feed.addAll(vip_feed);
+                        //((List<tbl_PostModel>) items).clear();
                         adapter.notifyDataSetChanged();
                         adapter.setLoaded();
-                        Application.getInstance().vip_feed_list.clear();
+                        //Application.getInstance().vip_feed_list.clear();
                     }
                 }
 
                 if(Application.getInstance().videoType.equals("جذابترین-ها")){
                     if(attractiveInitPage==1){
-                        feed.addAll((List<tbl_PostModel>) items);
+                        attractive_feed.addAll((List<tbl_PostModel>) items);
                         ((List<tbl_PostModel>) items).clear();
-                        Application.getInstance().attractive_feed_list.addAll(feed);
+                        Application.getInstance().attractive_feed_list.addAll(attractive_feed);
+                        feed.clear();
+                        feed.addAll(vip_feed);
                         rv.setAdapter(adapter);
                         adapter.notifyDataSetChanged();
-
-                        adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
-                            @Override
-                            public void onLoadMore() {
-                                attractiveInitPage++;
-                                if(attractiveInitPage <= Application.getInstance().getAttractiveFinalPage()){
-                                    feed.add(null);
-                                    adapter.notifyItemInserted(feed.size() - 1);
-                                    // get data
-                                    if (NetworkUtils.getConnectivity(getActivity())) {
-                                        getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed, m, Application.getInstance().videoType,attractiveInitPage);
-                                        a.getListPosts();
-                                    } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
-                                }
-                                else {}
-                            }
-                        });
-
                     }
                     else if(attractiveInitPage>1){
                         feed.remove(feed.size() - 1);
                         adapter.notifyItemRemoved(feed.size());
-                        feed.addAll((List<tbl_PostModel>) items);
-                        ((List<tbl_PostModel>) items).clear();
+                        attractive_feed.addAll( (List<tbl_PostModel>) items);
+                        feed.clear();
+                        feed.addAll(attractive_feed);
+                        //((List<tbl_PostModel>) items).clear();
                         adapter.notifyDataSetChanged();
                         adapter.setLoaded();
-                        Application.getInstance().attractive_feed_list.clear();
+                        //Application.getInstance().attractive_feed_list.clear();
                     }
                 }
                 pb.setVisibility(View.GONE);
@@ -181,43 +132,98 @@ public class VideosFragment extends Fragment {
 
         setAdapter();
 
-        if ( Application.getInstance().vip_feed_list.size() > 1 && Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
-            feed.clear();
-            feed.addAll(Application.getInstance().vip_feed_list);
-            adapter.notifyDataSetChanged();
-            pb.setVisibility(View.GONE);
-        } else if (Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
-            if (NetworkUtils.getConnectivity(getActivity())) {
-                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().vip_feed_list, m, Application.getInstance().videoType,vipInitPage);
-                a.getListPosts();
-            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+        if (Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
+            adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore() {
+                    vipInitPage++;
+                    if (vipInitPage <= Application.getInstance().getVipFinalPage()) {
+                        feed.add(null);
+                        adapter.notifyItemInserted(feed.size() - 1);
+                        // get data
+                        if (NetworkUtils.getConnectivity(getActivity())) {
+                            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), /*Application.getInstance().vip_feed_list,*/ m, Application.getInstance().videoType, vipInitPage);
+                            a.getListPosts();
+                        } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+                    } else {
+                    }
+                }
+            });
+            if (vip_feed.size() > 1) {
+                //vip_feed.clear();
+                //vip_feed.addAll(Application.getInstance().vip_feed_list);
+                feed.clear();
+                feed.addAll(vip_feed);
+                adapter.notifyDataSetChanged();
+                pb.setVisibility(View.GONE);
+            } else {
+                if (NetworkUtils.getConnectivity(getActivity())) {
+                    getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity()/*, Application.getInstance().vip_feed_list*/, m, Application.getInstance().videoType, vipInitPage);
+                    a.getListPosts();
+                } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
-        if (Application.getInstance().attractive_feed_list.size() > 1 && Application.getInstance().videoType.equals("جذابترین-ها")) {
-            feed.clear();
-            feed.addAll(Application.getInstance().attractive_feed_list);
-            adapter.notifyDataSetChanged();
-            pb.setVisibility(View.GONE);
-        } else if (Application.getInstance().videoType.equals("جذابترین-ها")) {
-            if (NetworkUtils.getConnectivity(getActivity())) {
-                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().attractive_feed_list, m, Application.getInstance().videoType,attractiveInitPage);
-                a.getListPosts();
-            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+        if (Application.getInstance().videoType.equals("جذابترین-ها")) {
+            adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore() {
+                    attractiveInitPage++;
+                    if (attractiveInitPage <= Application.getInstance().getAttractiveFinalPage()) {
+                        feed.add(null);
+                        adapter.notifyItemInserted(feed.size() - 1);
+                        // get data
+                        if (NetworkUtils.getConnectivity(getActivity())) {
+                            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), /*Application.getInstance().attractive_feed,*/ m, Application.getInstance().videoType, attractiveInitPage);
+                            a.getListPosts();
+                        } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+                    } else {
+                    }
+                }
+            });
+
+            if (attractive_feed.size() > 1 ) {
+                //attractive_feed.clear();
+                //attractive_feed.addAll(Application.getInstance().attractive_feed_list);
+                feed.clear();
+                feed.addAll(attractive_feed);
+                adapter.notifyDataSetChanged();
+                pb.setVisibility(View.GONE);
+            } else {
+                if (NetworkUtils.getConnectivity(getActivity())) {
+                    getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), /*Application.getInstance().attractive_feed_list,*/ m, Application.getInstance().videoType, attractiveInitPage);
+                    a.getListPosts();
+                } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+            }
         }
         /////////////////////////////////////////////////////////////////////////////////////////////
-        if (Application.getInstance().newest_feed_list.size() > 1 && Application.getInstance().videoType.equals("جدیدترین-ها")) {
-            feed.clear();
-            feed.addAll(Application.getInstance().newest_feed_list);
-            list = tblPostModelToTblDownload(feed);
-            //newest_adapter.notifyDataSetChanged();
-            rv.setAdapter(newest_adapter);
-            newest_adapter.notifyDataSetChanged();
-            pb.setVisibility(View.GONE);
-        } else if (Application.getInstance().videoType.equals("جدیدترین-ها")) {
-            if (NetworkUtils.getConnectivity(getActivity())) {
-                getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), Application.getInstance().newest_feed_list, m, Application.getInstance().videoType,newestInitPage);
-                a.getListPosts();
-            } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+        if (Application.getInstance().videoType.equals("جدیدترین-ها")) {
+            newest_adapter.setOnLoadMoreListener(new OnLoadMoreListener() {
+                @Override
+                public void onLoadMore() {
+                    newestInitPage++;
+                    if (newestInitPage <= Application.getInstance().getNewestFinalPage()) {
+                        list.add(null);
+                        newest_adapter.notifyItemInserted(list.size() - 1);
+                        // get data
+                        if (NetworkUtils.getConnectivity(getActivity())) {
+                            getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), /*Application.getInstance().newest_feed_list,*/ m, Application.getInstance().videoType, newestInitPage);
+                            a.getListPosts();
+                        } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+                    } else {
+                    }
+                }
+            });
+            if (list.size() > 1) {
+                rv.setAdapter(newest_adapter);
+                newest_adapter.notifyDataSetChanged();
+                pb.setVisibility(View.GONE);
+            } else {
+                if (NetworkUtils.getConnectivity(getActivity())) {
+                    getListPostsAsynkTask a = new getListPostsAsynkTask(getActivity(), /*Application.getInstance().newest_feed_list,*/ m, Application.getInstance().videoType, newestInitPage);
+                    a.getListPosts();
+                } else HSH.showtoast(getActivity(), getString(R.string.error_internet));
+            }
         }
         return rootView;
     }
