@@ -81,7 +81,7 @@ public class AttractiveFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 InitPage++;
-                if (InitPage <= Application.getInstance().getVipFinalPage()) {
+                if (InitPage <= Application.getInstance().getAttractiveFinalPage()) {
                     feed.add(null);
                     adapter.notifyItemInserted(feed.size() - 1);
                     // get data

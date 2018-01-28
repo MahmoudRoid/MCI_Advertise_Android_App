@@ -75,7 +75,7 @@ public class NewestFragment extends Fragment {
             @Override
             public void onLoadMore() {
                 InitPage++;
-                if (InitPage <= Application.getInstance().getVipFinalPage()) {
+                if (InitPage <= Application.getInstance().getNewestFinalPage()) {
                     list.add(null);
                     adapter.notifyItemInserted(list.size() - 1);
                     // get data
