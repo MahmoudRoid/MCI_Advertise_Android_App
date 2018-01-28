@@ -37,7 +37,7 @@ public class LoginActivity extends BaseActivity {
                 new PermissionHandler().checkPermission(LoginActivity.this, permissions, new PermissionHandler.OnPermissionResponse() {
                     @Override
                     public void onPermissionGranted() {
-                        startActivity(new Intent(LoginActivity.this,MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         finish();
                     }
 

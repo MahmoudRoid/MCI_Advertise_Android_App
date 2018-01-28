@@ -25,23 +25,21 @@ import ir.mahmoud.app.R;
 
 public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-//    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
+    //    private final int VIEW_TYPE_ITEM = 0;
     //private final int VIEW_TYPE_LOADING = 2;
     private List<tbl_PostModel> feedItemList;
     private ProgressBar pb;
     private int s = 0;
     private Context mContext;
-
-    private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private int visibleThreshold = 1; // yeki monde b akhar k resid shoroo mikone load more ro call kardan
     private int lastVisibleItem, totalItemCount;
 
 
-
-    public ListAdapter(Context context, List<tbl_PostModel> feedItemList, ProgressBar pb,RecyclerView recyclerView) {
+    public ListAdapter(Context context, List<tbl_PostModel> feedItemList, ProgressBar pb, RecyclerView recyclerView) {
         this.feedItemList = feedItemList;
         this.mContext = context;
         this.pb = pb;
@@ -142,6 +140,7 @@ public class ListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
             this.img_post = view.findViewById(R.id.img_post);
         }
     }
+
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 

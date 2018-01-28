@@ -31,9 +31,11 @@ import java.util.List;
 
 import ir.mahmoud.app.Classes.Application;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Fragments.AttractiveFragment;
 import ir.mahmoud.app.Fragments.MainFragment;
 import ir.mahmoud.app.Fragments.MarkedFragment;
-import ir.mahmoud.app.Fragments.VideosFragment;
+import ir.mahmoud.app.Fragments.NewestFragment;
+import ir.mahmoud.app.Fragments.VipFragment;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
@@ -41,15 +43,17 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
 
-    Toolbar toolbar;
-    ImageButton btn_clear, btn_srch;
     public static LinearLayout ll_bottomNavigation;
     public static TextView txt_home, txt_vip, txt_newest, txt_attractive, txt_marked;
+    Toolbar toolbar;
+    ImageButton btn_clear, btn_srch;
     private EditText edt_search;
     private FragmentManager fragmentManager;
     private ContextMenuDialogFragment mMenuDialogFragment;
     private MainFragment home_fragment = null;
-    private VideosFragment dayTutorial_fragment = null;
+    private VipFragment vip_fragment = null;
+    private AttractiveFragment attactive_fragment = null;
+    private NewestFragment newest_fragment = null;
     private MarkedFragment marked_fragment = null;
 
     private void AssignViews() {
@@ -118,30 +122,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }// end initMenuFragment()
 
     private List<MenuObject> getMenuObjects() {
-        // You can use any [resource, bitmap, drawable, color] as image:
-        // item.setResource(...)
-        // item.setBitmap(...)
-        // item.setDrawable(...)
-        // item.setColor(...)
-        // You can set image ScaleType:
-        // item.setScaleType(ScaleType.FIT_XY)
-        // You can use any [resource, drawable, color] as background:
-        // item.setBgResource(...)
-        // item.setBgDrawable(...)
-        // item.setBgColor(...)
-        // You can use any [color] as text color:
-        // item.setTextColor(...)
-        // You can set any [color] as divider color:
-        // item.setDividerColor(...)
-
         List<MenuObject> menuObjects = new ArrayList<>();
 
         MenuObject close = new MenuObject();
         close.setResource(R.mipmap.ic_close);
-
-//        MenuObject account = new MenuObject("ساخت حساب کاربری");
-//        Bitmap b = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-//        account.setBitmap(b);
 
         MenuObject download = new MenuObject("دانلود ها");
         BitmapDrawable b1 = new BitmapDrawable(getResources(),
@@ -176,11 +160,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent intent = new Intent(MainActivity.this, SearchActivity.class);
                 intent.putExtra("searchString", edt_search.getText().toString());
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
 
                 break;
             case R.id.txt_home:
-                if(!Application.getInstance().videoType.equals("خانه")) {
+                if (!Application.getInstance().videoType.equals("خانه")) {
                     Application.getInstance().videoType = "خانه";
                     home_fragment = new MainFragment();
                     openFragment(MainActivity.this, home_fragment);
@@ -188,25 +172,28 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.txt_vip:
-                if(!Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
+                if (!Application.getInstance().videoType.equals("پیشنهاد-ویژه")) {
                     Application.getInstance().videoType = "پیشنهاد-ویژه";
-                    dayTutorial_fragment = new VideosFragment();
-                    openFragment(MainActivity.this, dayTutorial_fragment);
+                    if (vip_fragment == null)
+                        vip_fragment = new VipFragment();
+                    openFragment(MainActivity.this, vip_fragment);
                 }
                 break;
             case R.id.txt_newest:
-                if(!Application.getInstance().videoType.equals("جدیدترین-ها")) {
+                if (!Application.getInstance().videoType.equals("جدیدترین-ها")) {
                     Application.getInstance().videoType = "جدیدترین-ها";
-                    dayTutorial_fragment = new VideosFragment();
-                    openFragment(MainActivity.this, dayTutorial_fragment);
+                    if (newest_fragment == null)
+                        newest_fragment = new NewestFragment();
+                    openFragment(MainActivity.this, newest_fragment);
                 }
                 break;
 
             case R.id.txt_attractive:
-                if(!Application.getInstance().videoType.equals("جذابترین-ها")) {
+                if (!Application.getInstance().videoType.equals("جذابترین-ها")) {
                     Application.getInstance().videoType = "جذابترین-ها";
-                    dayTutorial_fragment = new VideosFragment();
-                    openFragment(MainActivity.this, dayTutorial_fragment);
+                    if (attactive_fragment == null)
+                        attactive_fragment = new AttractiveFragment();
+                    openFragment(MainActivity.this, attactive_fragment);
                 }
                 break;
 
@@ -229,20 +216,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         exit();
-        /*if (getSupportFragmentManager().getBackStackEntryCount() == 1) {
-            exit();
-        } else {
-            try {
-                HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
-                super.onBackPressed();
-            } catch (Exception e) {
-                try {
-                    getSupportFragmentManager().popBackStack();
-                } catch (Exception e1) {
-                    exit();
-                }
-            }
-        }*/
     }
 
     @Override
@@ -258,7 +231,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case 1:
                 // دانلودها
                 startActivity(new Intent(MainActivity.this, DownloadsActivity.class));
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case 2:
 //                String shareBody = "سلام.این برنامه خیلی باحاله.با شدنی میتونی کلی فیلم جالب و جذاب ببینی\n " + "http://cafebazaar.ir/app/ir.mahmoud.app/?l=fa" ;
@@ -305,17 +278,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         });
-//        alertComment.setNeutralButton(HSH.setTypeFace(MainActivity.this, "نظر دهید"), new DialogInterface.OnClickListener() {
-//            public void onClick(DialogInterface dialog, int whichButton) {
-//                try {
-//                    Intent intent = new Intent(Intent.ACTION_EDIT);
-//                    intent.setData(Uri.parse("bazaar://details?id=" + getPackageName()));
-//                    intent.setPackage("com.farsitel.bazaar");
-//                    startActivity(intent);
-//                } catch (Exception e) {
-//                }
-//            }
-//        });
         alertComment.setNegativeButton(HSH.setTypeFace(MainActivity.this, "خیر"), new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int whichButton) {
 

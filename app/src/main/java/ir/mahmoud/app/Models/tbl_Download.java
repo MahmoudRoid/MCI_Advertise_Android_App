@@ -8,12 +8,12 @@ import java.io.Serializable;
 public class tbl_Download extends SugarRecord<tbl_Download> implements Serializable {
 
     public long postid;
-    public String title, content, date, categorytitle, videourl, imageurl, tagslug,posturl;
+    public String title, content, date, categorytitle, videourl, imageurl, tagslug, posturl;
 
     public tbl_Download() {
     }
 
-    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug,String posturl) {
+    public tbl_Download(long postid, String title, String content, String date, String categorytitle, String videourl, String imageurl, String tagslug, String posturl) {
         this.postid = postid;
         this.title = title;
         this.content = content;
@@ -22,7 +22,7 @@ public class tbl_Download extends SugarRecord<tbl_Download> implements Serializa
         this.videourl = videourl;
         this.imageurl = imageurl;
         this.tagslug = tagslug;
-        this.posturl=posturl;
+        this.posturl = posturl;
     }
 
     public String getPosturl() {

@@ -27,18 +27,18 @@ public class SearchVideos {
     List<tbl_PostModel> postModelList = new ArrayList<>();
     private IWebService2 delegate = null;
     private String searchString;
-    private int page ;
+    private int page;
 
-    public SearchVideos(Context context, IWebService2 delegate, String searchString,int page) {
+    public SearchVideos(Context context, IWebService2 delegate, String searchString, int page) {
         this.context = context;
         this.delegate = delegate;
         this.searchString = searchString;
-        this.page=page;
+        this.page = page;
     }
 
     public void getData() {
         Call<ResponseBody> call =
-                ApiClient.getClient().create(ApiInterface.class).searchVideos(this.searchString,page);
+                ApiClient.getClient().create(ApiInterface.class).searchVideos(this.searchString, page);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -57,7 +57,7 @@ public class SearchVideos {
                             postModel.setPosturl(jsonObject2.getString("url"));
                             postModel.setTitle(String.valueOf(Html.fromHtml(jsonObject2.optString("title"))));
                             postModel.setContent(String.valueOf(Html.fromHtml(jsonObject2.optString("excerpt"))));
-                            postModel.setDate(jsonObject2.optString("date").replace("ago","قبل"));
+                            postModel.setDate(jsonObject2.optString("date").replace("ago", "قبل"));
                             try {
                                 postModel.setCategorytitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
                             } catch (JSONException e) {

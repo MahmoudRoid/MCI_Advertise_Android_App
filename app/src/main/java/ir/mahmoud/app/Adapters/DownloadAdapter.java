@@ -103,14 +103,12 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
                         // nist
                         HSH.showtoast(context, "فایل ویدئو یافت نشد");
                     }
-                }
-                else if(FragType.equals("Newest")){
+                } else if (FragType.equals("Newest")) {
                     Intent intent;
                     intent = new Intent(context, VideoDetailActivity.class);
                     intent.putExtra("feedItem", tblPostModelToTblDownload(myObjectArrayList.get(position)));
                     context.startActivity(intent);
-                }
-                else {
+                } else {
                     Intent intent;
                     intent = new Intent(context, VideoDetailActivity.class);
                     intent.putExtra("feedItem", myObjectArrayList.get(position));
@@ -131,6 +129,23 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    private tbl_PostModel tblPostModelToTblDownload(tbl_Download item) {
+
+        tbl_PostModel tbl = new tbl_PostModel();
+
+        tbl.postid = item.getPostid();
+        tbl.title = item.getTitle();
+        tbl.content = item.getContent();
+        tbl.date = item.getDate();
+        tbl.categorytitle = item.getCategorytitle();
+        tbl.videourl = item.getVideourl();
+        tbl.imageurl = item.getImageurl();
+        tbl.tagslug = item.getTagslug();
+        tbl.posturl = item.getPosturl();
+
+        return tbl;
+    }
+
     public static class DataObjectHolder extends RecyclerView.ViewHolder {
         ImageView image, shareIcon;
         TextView tv_title, tv_date;
@@ -145,23 +160,6 @@ public class DownloadAdapter extends RecyclerView.Adapter<DownloadAdapter.DataOb
             cardView = (CardView) itemView.findViewById(R.id.cardview);
         }
 
-    }
-
-    private tbl_PostModel tblPostModelToTblDownload(tbl_Download item) {
-
-            tbl_PostModel tbl = new tbl_PostModel();
-
-            tbl.postid = item.getPostid();
-            tbl.title = item.getTitle();
-            tbl.content = item.getContent();
-            tbl.date = item.getDate();
-            tbl.categorytitle = item.getCategorytitle();
-            tbl.videourl = item.getVideourl();
-            tbl.imageurl = item.getImageurl();
-            tbl.tagslug = item.getTagslug();
-            tbl.posturl= item.getPosturl();
-
-        return tbl;
     }
 
 }

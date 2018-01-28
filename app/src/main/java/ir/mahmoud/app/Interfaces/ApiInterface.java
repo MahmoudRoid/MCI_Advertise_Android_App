@@ -37,10 +37,10 @@ public interface ApiInterface {
     Call<ResponseBody> getSameVideos(@Query("slug") String tagSlug);
 
     @GET("api/get_category_posts/")
-    Call<ResponseBody> getPosts(@Query("slug") String tagSlug,@Query("page") int page);
+    Call<ResponseBody> getPosts(@Query("slug") String tagSlug, @Query("page") int page);
 
     @GET("api/get_search_results/")
-    Call<ResponseBody> searchVideos(@Query("search") String searchString,@Query("page") int page);
+    Call<ResponseBody> searchVideos(@Query("search") String searchString, @Query("page") int page);
 
 
 }

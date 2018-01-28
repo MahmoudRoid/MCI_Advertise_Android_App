@@ -24,24 +24,24 @@ import retrofit2.Callback;
 public class getListPostsAsynkTask {
 
     public Context cn;
+    public int page;
     private IWebService2 delegate = null;
     private String slug;
     private List<tbl_PostModel> feed = new ArrayList<>();
-    public int page;
 
     public getListPostsAsynkTask(final Context cn, /*final List<tbl_PostModel> feed,*/ final IWebService2 m,
-                                 final String slug,int page) {
+                                 final String slug, int page) {
         this.cn = cn;
-       // this.feed = feed;
+        // this.feed = feed;
         this.delegate = m;
         this.slug = slug;
-        this.page=page;
+        this.page = page;
 
     }
 
     public void getListPosts() {
         Call<ResponseBody> call =
-                ApiClient.getClient().create(ApiInterface.class).getPosts(slug,page);
+                ApiClient.getClient().create(ApiInterface.class).getPosts(slug, page);
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
@@ -49,15 +49,13 @@ public class getListPostsAsynkTask {
                 try {
                     JSONObject obj = new JSONObject(response.body().string());
                     // get pages
-                    if(slug.equals("پیشنهاد-ویژه")) {
+                    if (slug.equals("پیشنهاد-ویژه")) {
                         Application.getInstance().vip_feed_list.clear();
                         Application.getInstance().setVipFinalPage(obj.getInt("pages"));
-                    }
-                    else if(slug.equals("جدیدترین-ها")) {
+                    } else if (slug.equals("جدیدترین-ها")) {
                         Application.getInstance().newest_feed_list.clear();
                         Application.getInstance().setNewestFinalPage(obj.getInt("pages"));
-                    }
-                    else if(slug.equals("جذابترین-ها")) {
+                    } else if (slug.equals("جذابترین-ها")) {
                         Application.getInstance().attractive_feed_list.clear();
                         Application.getInstance().setAttractiveFinalPage(obj.getInt("pages"));
                     }
@@ -75,7 +73,7 @@ public class getListPostsAsynkTask {
                             item.setTitle("kharab");
                         }
                         item.setContent(String.valueOf(Html.fromHtml(jary.getJSONObject(i).optString("excerpt"))));
-                        item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)).replace("ago","قبل"));
+                        item.setDate(jary.getJSONObject(i).getString(cn.getString(R.string.date)).replace("ago", "قبل"));
                         JSONArray jary2 = new JSONArray(jary.getJSONObject(i).getString(cn.getString(R.string.categories)));
                         item.setCategorytitle(jary2.getJSONObject(0).getString(cn.getString(R.string.title)));
 

@@ -90,6 +90,7 @@ public class PermissionHandler {
 
     public interface OnPermissionResponse {
         void onPermissionGranted();
+
         void onPermissionDenied();
     }
 }

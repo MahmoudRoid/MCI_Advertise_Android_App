@@ -108,7 +108,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
                 intent.putExtra("postUrl", myModel.getPosturl());
 
                 startActivity(intent);
-                overridePendingTransition(R.anim.slide_in_right,R.anim.slide_out_left);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 break;
             case R.id.share_icon:
                 share();
@@ -131,7 +131,7 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
             markIcon.setImageResource(R.drawable.ic_mark);
             tbl_PostModel tbl = new tbl_PostModel(myModel.getPostid(), myModel.getTitle(), myModel.getContent()
                     , myModel.getDate(), myModel.getCategorytitle(), myModel.getVideourl(), myModel.getImageurl()
-                    , myModel.getTagslug(),myModel.getPosturl());
+                    , myModel.getTagslug(), myModel.getPosturl());
             tbl.save();
             HSH.showtoast(this, "نشان شد");
         }
@@ -145,14 +145,15 @@ public class VideoDetailActivity extends AppCompatActivity implements IWebServic
         share.putExtra(Intent.EXTRA_TEXT, myModel.getVideourl());
         startActivity(Intent.createChooser(share, "اشترک گذاری از طریق"));
     }
+
     @Override
     public void getResult(Object result) throws Exception {
 
         List<tbl_PostModel> list = (List<tbl_PostModel>) result;
-        list = list.subList(0,6); // baraye joda kardane 5 iteme akhare list
+        list = list.subList(0, 6); // baraye joda kardane 5 iteme akhare list
 
-        for (int i = 0; i < list.size() ; i++) {
-            if(list.get(i).getPostid() == myModel.getPostid()){
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getPostid() == myModel.getPostid()) {
                 // remove this item
                 list.remove(i);
             }

@@ -32,19 +32,18 @@ import ir.mahmoud.app.R;
 
 
 public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final int VIEW_TYPE_ITEM = 0;
+    private final int VIEW_TYPE_LOADING = 1;
     public Context context;
     public List<tbl_Download> myObjectArrayList;
     public String FragType;
-
-    private final int VIEW_TYPE_ITEM = 0;
-    private final int VIEW_TYPE_LOADING = 1;
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private int visibleThreshold = 1; // yeki monde b akhar k resid shoroo mikone load more ro call kardan
     private int lastVisibleItem, totalItemCount;
 
 
-    public NewestAdapter(Context context, List<tbl_Download> arrayList, String FragType,RecyclerView recyclerView) {
+    public NewestAdapter(Context context, List<tbl_Download> arrayList, String FragType, RecyclerView recyclerView) {
         this.myObjectArrayList = arrayList;
         this.context = context;
         this.FragType = FragType;
@@ -150,14 +149,12 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
                             // nist
                             HSH.showtoast(context, "فایل ویدئو یافت نشد");
                         }
-                    }
-                    else if(FragType.equals("Newest")){
+                    } else if (FragType.equals("Newest")) {
                         Intent intent;
                         intent = new Intent(context, VideoDetailActivity.class);
                         intent.putExtra("feedItem", tblPostModelToTblDownload(myObjectArrayList.get(position)));
                         context.startActivity(intent);
-                    }
-                    else {
+                    } else {
                         Intent intent;
                         intent = new Intent(context, VideoDetailActivity.class);
                         intent.putExtra("feedItem", myObjectArrayList.get(position));
@@ -168,8 +165,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             });
 
 
-        }
-        else if (holder instanceof LoadingViewHolder) {
+        } else if (holder instanceof LoadingViewHolder) {
             LoadingViewHolder loadingViewHolder = (LoadingViewHolder) holder;
             loadingViewHolder.progressBar.setIndeterminate(true);
         }
@@ -190,6 +186,23 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         super.onAttachedToRecyclerView(recyclerView);
     }
 
+    private tbl_PostModel tblPostModelToTblDownload(tbl_Download item) {
+
+        tbl_PostModel tbl = new tbl_PostModel();
+
+        tbl.postid = item.getPostid();
+        tbl.title = item.getTitle();
+        tbl.content = item.getContent();
+        tbl.date = item.getDate();
+        tbl.categorytitle = item.getCategorytitle();
+        tbl.videourl = item.getVideourl();
+        tbl.imageurl = item.getImageurl();
+        tbl.tagslug = item.getTagslug();
+        tbl.posturl = item.getPosturl();
+
+        return tbl;
+    }
+
     public static class MyDataObjectHolder extends RecyclerView.ViewHolder {
         ImageView image, shareIcon;
         TextView tv_title, tv_date;
@@ -205,6 +218,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         }
 
     }
+
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 
@@ -212,23 +226,6 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(view);
             progressBar = (ProgressBar) view.findViewById(R.id.pb);
         }
-    }
-
-    private tbl_PostModel tblPostModelToTblDownload(tbl_Download item) {
-
-        tbl_PostModel tbl = new tbl_PostModel();
-
-        tbl.postid = item.getPostid();
-        tbl.title = item.getTitle();
-        tbl.content = item.getContent();
-        tbl.date = item.getDate();
-        tbl.categorytitle = item.getCategorytitle();
-        tbl.videourl = item.getVideourl();
-        tbl.imageurl = item.getImageurl();
-        tbl.tagslug = item.getTagslug();
-        tbl.posturl= item.getPosturl();
-
-        return tbl;
     }
 
 }

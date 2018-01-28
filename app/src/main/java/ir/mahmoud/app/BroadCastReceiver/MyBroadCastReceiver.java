@@ -22,7 +22,7 @@ public class MyBroadCastReceiver extends BroadcastReceiver {
                     if (model.getPostid() == videoId) {
                         // save into download Table
                         tbl_Download tbl = new tbl_Download(model.getPostid(), model.getTitle(), model.getContent(),
-                                model.getDate(), model.categorytitle, model.videourl, model.getImageurl(), model.getTagslug(),model.getPosturl());
+                                model.getDate(), model.categorytitle, model.videourl, model.getImageurl(), model.getTagslug(), model.getPosturl());
                         tbl.save();
                         HSH.showtoast(context, "ویدئو با موفقیت ذخیره شد");
                         break;

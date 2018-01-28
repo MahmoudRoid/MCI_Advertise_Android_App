@@ -201,6 +201,7 @@ public class HSH {
                 .popBackStackImmediate(fragmentTag, 0);
 
         FragmentTransaction ftx = fragmentManager.beginTransaction();
+
         if (!fragmentPopped && fragmentManager.findFragmentByTag(fragmentTag) == null)
             ftx.addToBackStack(fragment.getClass().getSimpleName());
 

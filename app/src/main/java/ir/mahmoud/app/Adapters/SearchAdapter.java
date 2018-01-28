@@ -22,17 +22,17 @@ import ir.mahmoud.app.Models.tbl_PostModel;
 import ir.mahmoud.app.R;
 
 public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    public Context context;
-    public List<tbl_PostModel> myObjectArrayList;
     private final int VIEW_TYPE_ITEM = 0;
     private final int VIEW_TYPE_LOADING = 1;
+    public Context context;
+    public List<tbl_PostModel> myObjectArrayList;
     private OnLoadMoreListener onLoadMoreListener;
     private boolean isLoading;
     private int visibleThreshold = 1; // yeki monde b akhar k resid shoroo mikone load more ro call kardan
     private int lastVisibleItem, totalItemCount;
 
 
-    public SearchAdapter(Context context, List<tbl_PostModel> arrayList,RecyclerView recyclerView) {
+    public SearchAdapter(Context context, List<tbl_PostModel> arrayList, RecyclerView recyclerView) {
         this.myObjectArrayList = arrayList;
         this.context = context;
 
@@ -105,7 +105,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         isLoading = false;
     }
 
-    public void addItems(List<tbl_PostModel> arrayList){
+    public void addItems(List<tbl_PostModel> arrayList) {
         this.myObjectArrayList.addAll(arrayList);
         notifyDataSetChanged();
     }
@@ -127,6 +127,7 @@ public class SearchAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             image = (ImageView) itemView.findViewById(R.id.imageView);
         }
     }
+
     public static class LoadingViewHolder extends RecyclerView.ViewHolder {
         public ProgressBar progressBar;
 

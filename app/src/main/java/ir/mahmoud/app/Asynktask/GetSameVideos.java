@@ -56,7 +56,7 @@ public class GetSameVideos {
                             postModel.setPosturl(jsonObject2.getString("url"));
                             postModel.setTitle(String.valueOf(Html.fromHtml(jsonObject2.optString("title"))));
                             postModel.setContent(String.valueOf(Html.fromHtml(jsonObject2.optString("excerpt"))));
-                            postModel.setDate(jsonObject2.optString("date").replace("ago","قبل"));
+                            postModel.setDate(jsonObject2.optString("date").replace("ago", "قبل"));
                             postModel.setCategorytitle(jsonObject2.getJSONArray("categories").getJSONObject(0).optString("title"));
                             postModel.setTagslug(jsonObject2.getJSONArray("tags").getJSONObject(0).optString("slug"));
                             postModel.setVideourl(jsonObject2.getJSONArray("attachments").getJSONObject(0).optString("url"));

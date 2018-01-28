@@ -22,7 +22,6 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.orm.query.Select;
@@ -34,10 +33,6 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.Unbinder;
-import ir.mahmoud.app.Activities.MainActivity;
 import ir.mahmoud.app.Activities.VideoDetailActivity;
 import ir.mahmoud.app.Asynktask.getPostsAsynkTask;
 import ir.mahmoud.app.Classes.Application;
@@ -64,16 +59,15 @@ import static ir.mahmoud.app.Classes.HSH.openFragment;
 
 public class MainFragment extends Fragment implements View.OnClickListener {
 
-    private VideosFragment dayTutorial_fragment = null;
-    private MarkedFragment marked_fragment = null;
     NestedScrollView nest_scrollview;
     int scrollviewposition = 0;
     IWerbService m;
-    TextView txtVip,txtVipMore;
-    TextView txtNew1,txtNew1More;
-    TextView txtAttract,txtAttractMore;
-    TextView txtTagged,txtTaggedMore;
-
+    TextView txtVip, txtVipMore;
+    TextView txtNew1, txtNew1More;
+    TextView txtAttract, txtAttractMore;
+    TextView txtTagged, txtTaggedMore;
+    private VipFragment dayTutorial_fragment = null;
+    private MarkedFragment marked_fragment = null;
     private View rootView = null;
     private PagerAdapter pagerAdapter;
     private ViewPager pager;
@@ -116,7 +110,7 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         DisplayMetrics displaymetrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(displaymetrics);
         int width = displaymetrics.widthPixels;
-        int appbar_height = (int)(width/2.85);
+        int appbar_height = (int) (width / 2.85);
         //float heightDp = (float) (getResources().getDisplayMetrics().heightPixels / 4);
         CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
         lp.height = (int) appbar_height;
@@ -187,10 +181,8 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         if (Application.getInstance().sl.size() > 0)
             BindSlideShow();
         else {
-
-            if (NetworkUtils.getConnectivity(getActivity())) {
+            if (NetworkUtils.getConnectivity(getActivity()))
                 GetSlideShowItems();
-            }
         }
         return rootView;
     }
@@ -266,9 +258,12 @@ public class MainFragment extends Fragment implements View.OnClickListener {
                 RgIndicator.check(0);
                 List<tbl_PostModel> feed = new ArrayList<>();
                 feed.addAll(Application.getInstance().sl);
-                pagerAdapter = null;
-                pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), feed);
-                pager.setAdapter(pagerAdapter);
+                try {
+                    pagerAdapter = null;
+                    pagerAdapter = new SlideShowPagerAdapter(getActivity().getSupportFragmentManager(), feed);
+                    pager.setAdapter(pagerAdapter);
+                } catch (Exception e) {
+                }
             } else {
                 CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) appBar.getLayoutParams();
                 lp.width = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -367,28 +362,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         }
     }
 
-    public void goVipFragment(){
+    public void goVipFragment() {
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_vip);
         Application.getInstance().videoType = "پیشنهاد-ویژه";
-        dayTutorial_fragment = new VideosFragment();
+        dayTutorial_fragment = new VipFragment();
         openFragment(getActivity(), dayTutorial_fragment);
     }
 
-    public void goNewsetFragment(){
+    public void goNewsetFragment() {
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_newest);
         Application.getInstance().videoType = "جدیدترین-ها";
-        dayTutorial_fragment = new VideosFragment();
+        dayTutorial_fragment = new VipFragment();
         openFragment(getActivity(), dayTutorial_fragment);
     }
 
-    public void goAttractiveFragment(){
+    public void goAttractiveFragment() {
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_attractive);
         Application.getInstance().videoType = "جذابترین-ها";
-        dayTutorial_fragment = new VideosFragment();
+        dayTutorial_fragment = new VipFragment();
         openFragment(getActivity(), dayTutorial_fragment);
     }
 
-    public void goTaggedfragmnt(){
+    public void goTaggedfragmnt() {
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_marked);
         Application.getInstance().videoType = "نشان شده-ها";
         if (marked_fragment == null)
@@ -396,10 +391,28 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         openFragment(getActivity(), marked_fragment);
     }
 
+    private void getMarkedPost() {
+        List<tbl_PostModel> endList = new ArrayList<>();
+        List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
+        if (tmpList.size() > 1) {
+            endList.add(tmpList.get(tmpList.size() - 1));
+            endList.add(tmpList.get(tmpList.size() - 2));
+        } else if (tmpList.size() == 1)
+            endList.add(tmpList.get(0));
+        else
+            ((RelativeLayout) hrsv_tagged.getParent()).setVisibility(View.GONE);
+        if (endList.size() > 0) {
+            hrsv_tagged.removeAllViews();
+            Binding(hrsv_tagged, endList);
+        }
+
+    }
 
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
+    public void onResume() {
+        super.onResume();
+        if (Application.getInstance().sl.size() > 0)
+            getMarkedPost();
     }
 
     private class SlideShowPagerAdapter extends FragmentStatePagerAdapter {
@@ -421,29 +434,5 @@ public class MainFragment extends Fragment implements View.OnClickListener {
         public int getCount() {
             return feed.size();
         }
-    }
-
-    private void getMarkedPost() {
-        List<tbl_PostModel> endList = new ArrayList<>();
-        List<tbl_PostModel> tmpList = Select.from(tbl_PostModel.class).list();
-        if (tmpList.size() > 1) {
-            endList.add(tmpList.get(tmpList.size() - 1));
-            endList.add(tmpList.get(tmpList.size() - 2));
-        } else if (tmpList.size() == 1)
-            endList.add(tmpList.get(0));
-        else
-            ((RelativeLayout) hrsv_tagged.getParent()).setVisibility(View.GONE);
-        if(endList.size() > 0) {
-            hrsv_tagged.removeAllViews();
-            Binding(hrsv_tagged, endList);
-        }
-
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        if (Application.getInstance().sl.size() > 0)
-            getMarkedPost();
     }
 }

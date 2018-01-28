@@ -29,7 +29,7 @@ import ir.mahmoud.app.R;
 public class ShowVideoActivity extends BaseActivity implements BetterVideoCallback {
 
     String videoTitle, videoUrl, videoId, videoContent, videoDate, videoCategoryTitle,
-            videoImageUrl, videoTaglug,videoPostUrl;
+            videoImageUrl, videoTaglug, videoPostUrl;
     long refrenceId;
     BroadcastReceiver receiver;
     String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE,
