@@ -6,18 +6,50 @@
     android:layout_gravity="center"
     android:background="@mipmap/splash"
     tools:ignore="MissingPrefix"
+    android:id="@+id/parentLayout"
     android:layoutDirection="ltr">
 
-    <ImageView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/customTextViewBold"
-        android:layout_alignEnd="@+id/customTextViewBold"
-        android:layout_alignLeft="@+id/customTextViewBold"
-        android:layout_alignRight="@+id/customTextViewBold"
-        android:layout_alignStart="@+id/customTextViewBold"
-        android:scaleType="fitCenter"
-        android:src="@mipmap/shodani" />
+        android:orientation="vertical"
+        android:layout_alignParentTop="true">
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_gravity="center_horizontal"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center_horizontal"
+            fontPath="fonts/IRANSansMedium.ttf"
+            android:text="با شدنی میتوانید از وسایل بی ارزش خود، کالاهای با ارزش بسازید"
+            android:textColor="@android:color/white"
+            android:maxLines="3"
+            android:textSize="@dimen/sp13"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+
+    <Space
+        android:id="@+id/space"
+        android:layout_centerInParent="true"
+        android:layout_width="match_parent"
+        android:layout_height="30dp" />
 
     <EditText
         android:id="@+id/et_mobile"
@@ -27,7 +59,7 @@
         android:layout_alignLeft="@+id/customTextViewBold"
         android:layout_alignRight="@+id/customTextViewBold"
         android:layout_alignStart="@+id/customTextViewBold"
-        android:layout_centerVertical="true"
+        android:layout_below="@+id/txt_500_toman"
         android:background="@android:color/white"
         android:ems="10"
         android:hint="09xxxxxxxxx"
@@ -35,7 +67,28 @@
         android:maxLength="11"
         fontPath="fonts/IRANSansMedium.ttf"
         android:paddingLeft="@dimen/dp16"
-        android:textSize="@dimen/sp15" />
+        android:textSize="@dimen/sp15"
+        android:visibility="visible"/>
+
+    <EditText
+        android:id="@+id/et_code"
+        android:layout_width="wrap_content"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_alignEnd="@+id/customTextViewBold"
+        android:layout_alignLeft="@+id/customTextViewBold"
+        android:layout_alignRight="@+id/customTextViewBold"
+        android:layout_alignStart="@+id/customTextViewBold"
+        android:layout_centerVertical="true"
+        android:background="@android:color/white"
+        android:layout_below="@+id/txt_500_toman"
+        android:ems="10"
+        android:hint="  کد ارسالی"
+        android:inputType="phone"
+        android:maxLength="10"
+        fontPath="fonts/IRANSansMedium.ttf"
+        android:paddingLeft="@dimen/dp16"
+        android:textSize="@dimen/sp15"
+        android:visibility="invisible"/>
 
      <Button
         android:id="@+id/et_login"
@@ -56,11 +109,25 @@
         android:id="@+id/customTextViewBold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/et_mobile"
+      android:layout_below="@+id/space"
         android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         fontPath="fonts/IRANSansMedium.ttf"
-        android:layout_margin="@dimen/dp16"
+        android:layout_margin="@dimen/dp6"
         android:text="برای ورود شماره موبایل خود را وارد کنید"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/sp13" />
+
+    <TextView
+        android:id="@+id/txt_500_toman"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/customTextViewBold"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        fontPath="fonts/IRANSansMedium.ttf"
+        android:layout_margin="@dimen/dp6"
+        android:text="روزانه 500 تومان، کسر از سیم کارت"
         android:textColor="@android:color/white"
         android:textSize="@dimen/sp13" />
 
@@ -72,5 +139,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
         android:textColor="@color/white"
+        android:visibility="invisible"
         android:text="ورود به صورت مهمان" />
+
 </RelativeLayout>

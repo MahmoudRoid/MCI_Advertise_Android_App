@@ -1,5 +1,6 @@
 package ir.mahmoud.app.Activities;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -29,19 +30,26 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import ir.mahmoud.app.Asynktask.CheckNewVersion;
+import ir.mahmoud.app.BuildConfig;
 import ir.mahmoud.app.Classes.Application;
+import ir.mahmoud.app.Classes.BaseActivity;
+import ir.mahmoud.app.Classes.DownloadAppService;
 import ir.mahmoud.app.Classes.HSH;
+import ir.mahmoud.app.Classes.NetworkUtils;
+import ir.mahmoud.app.Classes.PermissionHandler;
 import ir.mahmoud.app.Fragments.AttractiveFragment;
 import ir.mahmoud.app.Fragments.MainFragment;
 import ir.mahmoud.app.Fragments.MarkedFragment;
 import ir.mahmoud.app.Fragments.NewestFragment;
 import ir.mahmoud.app.Fragments.VipFragment;
+import ir.mahmoud.app.Interfaces.IWebServiceByTag;
 import ir.mahmoud.app.R;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static ir.mahmoud.app.Classes.HSH.openFragment;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnMenuItemClickListener {
+public class MainActivity extends BaseActivity implements View.OnClickListener, OnMenuItemClickListener,IWebServiceByTag {
 
     public static LinearLayout ll_bottomNavigation;
     public static TextView txt_home, txt_vip, txt_newest, txt_attractive, txt_marked;
@@ -55,6 +63,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private AttractiveFragment attactive_fragment = null;
     private NewestFragment newest_fragment = null;
     private MarkedFragment marked_fragment = null;
+
+    String[] writePermission = {Manifest.permission.WRITE_EXTERNAL_STORAGE};
+    public final String CHECK_VERSION_TAG = "check_version";
 
     private void AssignViews() {
         toolbar = (Toolbar) findViewById(R.id.toolbar_top);
@@ -82,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         AssignViews();
         setSupportActionBar(toolbar);
+        // check for new version
+        checkNewVerson();
 
         fragmentManager = getSupportFragmentManager();
         initMenuFragment();
@@ -89,6 +102,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         home_fragment = new MainFragment();
         openFragment(MainActivity.this, home_fragment);
         HSH.setMainDrawableColor(ll_bottomNavigation, txt_home);
+    }
+
+    private void checkNewVerson() {
+        int versionCode = BuildConfig.VERSION_CODE;
+        // send it to server
+        if (NetworkUtils.getConnectivity(this)) {
+            // call check version API
+            CheckNewVersion post = new CheckNewVersion(MainActivity.this, MainActivity.this,
+                    String.valueOf(versionCode), CHECK_VERSION_TAG);
+            post.getData();
+        }
     }
 
     @Override
@@ -289,5 +313,50 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void attachBaseContext(Context newBase) {
         super.attachBaseContext(CalligraphyContextWrapper.wrap(newBase));
+    }
+
+    @Override
+    public void getResult(Object result, String Tag) throws Exception {
+        showUpdateDialog(String.valueOf(result));
+    }
+
+    @Override
+    public void getError(String ErrorCodeTitle, String Tag) throws Exception {
+
+    }
+
+
+    private void showUpdateDialog(final String appUrl) {
+        final AlertDialog.Builder alertComment = new AlertDialog.Builder(MainActivity.this, AlertDialog.THEME_DEVICE_DEFAULT_LIGHT);
+        alertComment.setMessage(HSH.setTypeFace(MainActivity.this, "آیا مایل به دانلود نسخه جدید برنامه هستید؟"));
+        alertComment.setPositiveButton(HSH.setTypeFace(MainActivity.this, "بله"), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+                if (NetworkUtils.getConnectivity(MainActivity.this)) {
+                    new PermissionHandler().checkPermission(MainActivity.this, writePermission, new PermissionHandler.OnPermissionResponse() {
+                        @Override
+                        public void onPermissionGranted() {
+                            Intent intent = new Intent(MainActivity.this, DownloadAppService.class);
+                            intent.putExtra("URL", appUrl);
+                            startService(intent);
+                        }
+
+                        @Override
+                        public void onPermissionDenied() {
+                            HSH.showtoast(MainActivity.this, "برای دانلود اپلیکیشن دسترسی را صادر نمایید.");
+                        }
+                    });
+
+                } else {
+                    HSH.showtoast(getApplicationContext(), getResources().getString(R.string.error_internet));
+                }
+            }
+        });
+
+        alertComment.setNegativeButton(HSH.setTypeFace(MainActivity.this, "خیر"), new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int whichButton) {
+
+            }
+        });
+        alertComment.show();
     }
 }

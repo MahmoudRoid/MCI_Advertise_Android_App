@@ -7,6 +7,10 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
+
 
     <application
         android:name=".Classes.Application"
@@ -22,7 +26,7 @@
             android:value="shodani.db" />
         <meta-data
             android:name="VERSION"
-            android:value="4" />
+            android:value="5" />
         <meta-data
             android:name="QUERY_LOG"
             android:value="true" />
@@ -36,7 +40,6 @@
             android:theme="@style/MyMaterialTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -72,11 +75,17 @@
             android:name=".Activities.DownloadsActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme" />
+        <activity
+            android:name=".Activities.ShowSliderActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/MyMaterialTheme" />
 
-        <activity android:name=".Activities.ShowSliderActivity"
+        <activity android:name=".Activities.IntroActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MyMaterialTheme"/>
 
+
+        <service android:name=".Classes.DownloadAppService" />
         <service android:name=".Classes.DownloadSevice" />
 
         <receiver
@@ -87,6 +96,11 @@
             </intent-filter>
         </receiver>
 
+        <receiver android:name=".BroadCastReceiver.IncomingSms">
+            <intent-filter>
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
+        </receiver>
 
     </application>
 

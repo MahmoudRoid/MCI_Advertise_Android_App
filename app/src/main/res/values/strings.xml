@@ -35,5 +35,10 @@
     <string name="medium">medium</string>
     <string name="gridlove_cover">gridlove-cover</string>
     <string name="medium_large">medium_large</string>
+    <string name="sid">3fa8beb8-21f0-11e8-9c43-00505696ce21</string>
+    <string name="title_activity_dsfsdf">dsfsdf</string>
+    <string name="test_sms">کد فعالسازی:8556
+ برای فعالسازی سرویس  شدني کد بالا را ارسال نمایید.
+تعرفه روزانه 500 تومان</string>
 
 </resources>

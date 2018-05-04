@@ -18,7 +18,10 @@ package ir.mahmoud.app.Interfaces;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -41,6 +44,21 @@ public interface ApiInterface {
 
     @GET("api/get_search_results/")
     Call<ResponseBody> searchVideos(@Query("search") String searchString, @Query("page") int page);
+
+    @GET("/api/shodani/GetStatus")
+    Call<ResponseBody> getMemberStatus(@Query("mobile") String mobile);
+
+    @GET("/api/shodani/sub")
+    Call<ResponseBody> memberSub(@Query("mobile") String mobile);
+
+    @GET("/api/shodani/checksub")
+    Call<ResponseBody> getSubCheck(@Query("tid") String tid,@Query("pin") String pin);
+
+    @GET("/api/shodani/unsub")
+    Call<ResponseBody> memberUnSub(@Query("mobile") String mobile);
+
+    @GET("/api/AppHistories/CheckVersion")
+    Call<ResponseBody> checkVersion(@Query("version") String versionCode);
 
 
 }

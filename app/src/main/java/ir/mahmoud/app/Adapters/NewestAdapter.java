@@ -80,7 +80,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
 
         if (viewType == VIEW_TYPE_ITEM) {
             View view;
-            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.download_item, parent, false);
+            view = LayoutInflater.from(parent.getContext()).inflate(R.layout.newest_item, parent, false);
             return new MyDataObjectHolder(view);
         } else if (viewType == VIEW_TYPE_LOADING) {
             View view = LayoutInflater.from(context).inflate(R.layout.layout_loading, parent, false);
@@ -95,37 +95,10 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
         if (holder instanceof MyDataObjectHolder) {
             ((MyDataObjectHolder) holder).tv_title.setText(myObjectArrayList.get(position).getTitle());
             ((MyDataObjectHolder) holder).tv_date.setText(myObjectArrayList.get(position).getDate());
-//            ((MyDataObjectHolder) holder).tv_kind.setText(myObjectArrayList.get(position).getCategorytitle());
             Glide.with(context).load(myObjectArrayList.get(position).getImageurl())
                     .apply(new RequestOptions().placeholder(R.mipmap.shodani)
                             .diskCacheStrategy(DiskCacheStrategy.RESOURCE))
                     .into(((MyDataObjectHolder) holder).image);
-
-            ((MyDataObjectHolder) holder).shareIcon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-
-                    File file = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
-                    if (file.exists()) {
-                        try {
-                            File DoutFile = new File(Application.VIDEO + "/" + myObjectArrayList.get(position).getPostid() + ".mp4");
-                            Intent share = new Intent(Intent.ACTION_SEND);
-                            share.setType("video/*");
-                            share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(DoutFile));
-                            share.putExtra(Intent.EXTRA_TEXT,
-                                    "" + context.getResources().getString(R.string.app_name));
-                            context.startActivity(Intent.createChooser(share, "اشتراک ویدئو"));
-                        } catch (Resources.NotFoundException e) {
-                            e.printStackTrace();
-                            HSH.showtoast(context, "مشکلی در ارسال ویدئو به وجود آمد");
-                        }
-                    } else {
-                        HSH.showtoast(context, "فایل ویدئو یافت نشد");
-                    }
-
-                }
-            });
-
 
             ((MyDataObjectHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -204,7 +177,7 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     }
 
     public static class MyDataObjectHolder extends RecyclerView.ViewHolder {
-        ImageView image, shareIcon;
+        ImageView image;
         TextView tv_title, tv_date;
         CardView cardView;
 
@@ -212,7 +185,6 @@ public class NewestAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
             super(itemView);
             tv_title = (TextView) itemView.findViewById(R.id.title_tv);
             tv_date = (TextView) itemView.findViewById(R.id.date_tv);
-            shareIcon = (ImageView) itemView.findViewById(R.id.share_icon);
             image = (ImageView) itemView.findViewById(R.id.imageView);
             cardView = (CardView) itemView.findViewById(R.id.cardview);
         }
